@@ -38,12 +38,30 @@
 
 ;; 创建新行操作
 (global-set-key (kbd "RET") 'newline-and-indent)
-(defun walker/newline-at-end-of-line ()
+(defun editing/newline-at-end-of-line ()
   "移动到行尾并添加一个新行"
   (interactive)
   (move-end-of-line 1)
   (newline-and-indent))
-(global-set-key (kbd "M-RET") 'walker/newline-at-end-of-line)
+(global-set-key (kbd "M-RET") 'editing/newline-at-end-of-line)
+
+;; 自定义的粘贴复制剪切
+(defun editing/pbcopy ()
+  (interactive)
+  (call-process-region (point) (mark) "pbcopy")
+  (setq deactivate-mark t))
+(defun editing/pbpaste ()
+  (interactive)
+  (call-process-region (point) (if mark-active (mark) (point)) "pbpaste" t t))
+(defun editing/pbcut ()
+  (interactive)
+  (pbcopy)
+  (delete-region (region-beginning) (region-end)))
+(global-set-key (kbd "C-c c") 'editing/pbcopy)
+(global-set-key (kbd "C-c v") 'editing/pbpaste)
+(global-set-key (kbd "C-c x") 'editing/pbcut)
+(global-set-key (kbd "C-c z") 'undo)
+(global-set-key (kbd "C-c s") 'set-mark-command)
 
 ;; 让原来对一个词的定位由整个词整个词变成一次定位词中有意义的一部分
 (when (eval-when-compile (string< "24.3.1" emacs-version))
@@ -63,12 +81,6 @@
 ;; 浏览所有被剪切/复制(kill)的内容,并且可以选择一个进行粘贴(yank)
 (require-package 'browse-kill-ring)
 (setq browse-kill-ring-separator "\f")
-(global-set-key (kbd "M-Y") 'browse-kill-ring)
-(after-load 'browse-kill-ring
-  (define-key browse-kill-ring-mode-map (kbd "M-n") 'browse-kill-ring-forward)
-  (define-key browse-kill-ring-mode-map (kbd "M-p") 'browse-kill-ring-previous))
-(after-load 'page-break-lines
-  (push 'browse-kill-ring-mode page-break-lines-modes))
 
 ;; 跳到你想要的位置
 (require-package 'avy)

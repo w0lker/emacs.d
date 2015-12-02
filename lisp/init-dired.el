@@ -4,7 +4,7 @@
 (setq-default diredp-hide-details-initially-flag nil
               dired-dwim-target t)
 
-;; Prefer g-prefixed coreutils version of standard utilities when available
+;; 如果gnu的ls可用就使用
 (let ((gls (executable-find "gls")))
   (when gls (setq insert-directory-program gls)))
 
@@ -12,9 +12,8 @@
   (require 'dired+)
   (require 'dired-sort)
   (when (fboundp 'global-dired-hide-details-mode)
-    (global-dired-hide-details-mode -1))
-  (setq dired-recursive-deletes 'top)
-  (define-key dired-mode-map [mouse-2] 'dired-find-file))
+    (global-dired-hide-details-mode 1))
+  (setq dired-recursive-deletes 'top))
 
 (when (maybe-require-package 'diff-hl)
   (after-load 'dired

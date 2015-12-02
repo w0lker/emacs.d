@@ -23,7 +23,6 @@
 (require 'init-uniquify)
 (require 'init-ibuffer)
 (require 'init-flycheck)
-(require 'init-evil)
 (require 'init-recentf)
 (require 'init-ido)
 (require 'init-yasnippet)
@@ -40,6 +39,7 @@
 (require 'init-elm)
 (require 'init-dash)
 (require 'init-projectile)
+(require 'init-evil)
 
 (when (file-exists-p custom-file)
   (load custom-file))

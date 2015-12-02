@@ -5,17 +5,18 @@
       evil-leader/in-all-states t)
 
 (evil-leader/set-key
-  "e" 'find-file
+  "f" 'find-file
+  "d" 'dired
   "r" 'iedit-mode
   "b" 'ibuffer
-  "B" 'switch-to-buffer
   "k" 'kill-buffer
   "w" 'save-buffer
   "W" 'save-some-buffers
   "j" 'avy-goto-char
   "Y" 'browse-kill-ring
   "p" 'md/duplicate-down
-  "P" 'md/duplicate-up)
+  "P" 'md/duplicate-up
+  "n" 'editing/newline-at-end-of-line)
 
 (global-evil-leader-mode)
 
