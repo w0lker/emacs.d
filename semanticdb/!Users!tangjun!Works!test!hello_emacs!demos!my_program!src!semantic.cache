@@ -1,0 +1,37 @@
+;; Object src/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "src/"
+  :tables
+  (list
+    (semanticdb-table "main.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("myadd.h" include (:system-flag t) nil [2 20])
+            ("iostream" include (:system-flag t) nil [21 40])
+            ("helper.h" include nil nil [41 60])
+            ("main" function (:type "int") nil [62 219]))          
+      :file "main.cpp"
+      :pointmax 220
+      :fsize 219
+      :lastmodtime '(22111 4642 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "helper.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("Helper" type
+               (:members 
+                  ( ("public" label nil (reparse-symbol classsubparts) [17 24])
+                    ("help" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [27 39]))                  
+                :type "class")
+                nil [2 42]))          
+      :file "helper.h"
+      :pointmax 43
+      :fsize 42
+      :lastmodtime '(22111 2804 0 0)
+      :unmatched-syntax nil))
+  :file "!Users!tangjun!Works!test!hello_emacs!demos!my_program!src!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

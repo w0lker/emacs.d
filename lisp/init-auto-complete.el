@@ -1,29 +1,21 @@
 (require-package 'auto-complete)
-(require 'auto-complete)
-(require 'auto-complete-config)
 (ac-config-default)
 
+;; yasnippet配置
+(require-package 'yasnippet)
+(require-package 'dropdown-list)
+(add-to-list 'load-path "~/.emacs.d/snippets")
+(yas-global-mode 1)
+(setq yas-prompt-functions '(yas-dropdown-prompt yas-ido-prompt yas-completing-prompt))
+
+;; header配置
 (require-package 'auto-complete-c-headers)
 (defun my:ac-c-header-init ()
-    (require 'auto-complete-c-headers)
-    (add-to-list 'ac-sources 'ac-source-c-header)
-    (add-to-list 'achead:include-directories '"/Applications/Xcode.app/Contents/Developer/usr/llvm-gcc-4.2/lib/gcc/i686-apple-darwin11/4.2.1/include"))
-; now let's call this function from c/c++ hooks
+  (require 'auto-complete-c-headers)
+  (add-to-list 'ac-sources 'ac-source-c-headers)
+  (add-to-list 'achead:include-directories '"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/7.0.0/include"))
+
 (add-hook 'c++-mode-hook 'my:ac-c-header-init)
 (add-hook 'c-mode-hook 'my:ac-c-header-init)
-
-;; clang补全实现
-(require-package 'auto-complete-clang-async)
-(require 'auto-complete-clang-async)
-(defun ac-cc-mode-setup ()
-      ;; you should change the server program's path here
-      (setq ac-clang-complete-executable "/usr/local/opt/emacs-clang-complete-async/bin/clang-complete")
-      (setq ac-sources (append '(ac-source-clang-async) ac-sources))
-      (ac-clang-launch-completion-process))
-(defun my-ac-config ()
-    (add-hook 'c++-mode-hook 'ac-cc-mode-setup)
-    (add-hook 'c-mode-hook 'ac-cc-mode-setup)
-    (global-auto-complete-mode t))
-(my-ac-config)
 
 (provide 'init-auto-complete)

@@ -1,0 +1,28 @@
+;; Object my_inc/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "my_inc/"
+  :tables
+  (list
+    (semanticdb-table "myadd.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("MyAdd" type
+               (:members 
+                  ( ("public" label nil (reparse-symbol classsubparts) [16 23])
+                    ("add" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("a" variable (:type "int") (reparse-symbol arg-sub-list) [34 40])
+                            ("b" variable (:type "int") (reparse-symbol arg-sub-list) [41 47]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [26 48]))                  
+                :type "class")
+                nil [2 51]))          
+      :file "myadd.h"
+      :pointmax 52
+      :fsize 51
+      :lastmodtime '(22111 2932 0 0)
+      :unmatched-syntax nil))
+  :file "!Users!tangjun!Works!test!hello_emacs!demos!my_program!my_inc!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

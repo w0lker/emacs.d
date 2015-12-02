@@ -55,7 +55,7 @@
   (call-process-region (point) (if mark-active (mark) (point)) "pbpaste" t t))
 (defun editing/pbcut ()
   (interactive)
-  (pbcopy)
+  (editing/pbcopy)
   (delete-region (region-beginning) (region-end)))
 (global-set-key (kbd "C-c c") 'editing/pbcopy)
 (global-set-key (kbd "C-c v") 'editing/pbpaste)
@@ -81,10 +81,10 @@
 ;; 浏览所有被剪切/复制(kill)的内容,并且可以选择一个进行粘贴(yank)
 (require-package 'browse-kill-ring)
 (setq browse-kill-ring-separator "\f")
+(global-set-key (kbd "C-c y") 'browse-kill-ring)
 
 ;; 跳到你想要的位置
 (require-package 'avy)
-(require 'avy)
 (global-set-key (kbd "C-c j") 'avy-goto-char)
 
 ;; 向上或者向下复制当前行
