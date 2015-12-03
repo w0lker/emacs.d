@@ -1,1 +1,0 @@
-("~/.emacs.d/" "~/Configure/Emacs_Cpp_Python_IDE/" "~/Works/so-dw-etl/")
