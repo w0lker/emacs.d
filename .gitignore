@@ -41,3 +41,5 @@ site-lisp/package/
 /recentf
 /viper
 /semanticdb
+/ede-projects.el
+/projectile-bookmarks.eld
