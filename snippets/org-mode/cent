@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: 居中内容
+# key: cent
+# --
+#+BEGIN_CENTER
+$0
+#+END_CENTER

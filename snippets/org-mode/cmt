@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: 注释
+# key: cmt
+# --
+#+BEGIN_COMMENT
+$0
+#+END_COMMENT

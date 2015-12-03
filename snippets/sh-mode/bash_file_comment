@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: bash file comment
+# key: bfmt
+# --
+#!/bin/bash
+# ${1:`(file-name-nondirectory (buffer-file-name))`}
+$0

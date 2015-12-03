@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: bash header
+# key: bhd
+# --
+#!/bin/bash
+$0

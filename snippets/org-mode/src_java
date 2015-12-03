@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: java代码区块 
+# key: sjava
+# --
+#+BEGIN_SRC java
+$0
+#+END_SRC

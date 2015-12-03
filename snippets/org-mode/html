@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: html代码
+# key: html
+# --
+#+BEGIN_HTML
+$0
+#+END_HTML
