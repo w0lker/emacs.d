@@ -29,6 +29,10 @@
  truncate-lines nil
  truncate-partial-width-windows nil)
 
+;; 高亮当前行
+(global-hl-line-mode 1)
+(set-face-background hl-line-face "gray10")   ;; 设置比较灰色的
+
 ;; 恢复buffer到最原始的状态，会删除undo数据，注意使用
 (global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t

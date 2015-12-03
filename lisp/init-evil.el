@@ -25,4 +25,3 @@
 
 
 (provide 'init-evil)
-;;; init-evil.el 
