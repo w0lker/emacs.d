@@ -34,7 +34,8 @@
 (setq global-auto-revert-non-file-buffers t
       auto-revert-verbose nil)
 
-(transient-mark-mode t) ;; 没有选中region的时候就不高亮
+;; 没有选中region的时候就不高亮
+(transient-mark-mode t) 
 
 ;; 创建新行操作
 (global-set-key (kbd "RET") 'newline-and-indent)

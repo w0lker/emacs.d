@@ -5,6 +5,8 @@
 (custom-set-variables
   '(flycheck-c/c++-googlelint-executable "/usr/local/bin/cpplint"))
 
+(custom-set-default 'flycheck-cppcheck-include-path '"../my_inc")
+
 ;; 覆盖默认的触发
 (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled)
       flycheck-idle-change-delay 0.8)
