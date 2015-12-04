@@ -29,9 +29,9 @@
  truncate-partial-width-windows nil)
 
 ;; 高亮当前行
-(global-hl-line-mode 1)
-(set-face-foreground hl-line-face "pink")
-(set-face-background hl-line-face "gray20")  
+;;(global-hl-line-mode 1)
+;;(set-face-foreground hl-line-face "pink")
+;;(set-face-background hl-line-face "gray20")  
 
 ;; 恢复buffer到最原始的状态，会删除undo数据，注意使用
 (global-auto-revert-mode)
