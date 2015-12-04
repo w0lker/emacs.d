@@ -11,16 +11,15 @@
 
 ;; 基本配置
 (setq-default
- blink-cursor-interval 0.4
- bookmark-default-file (expand-file-name ".bookmarks.el" user-emacs-directory)
- buffers-menu-max-size 30
- case-fold-search t
+ blink-cursor-interval 0.4 ;; 光标闪动频率
+ case-fold-search t ;; 搜索是大小写不敏感,nil表示敏感
  column-number-mode t
- delete-selection-mode t
- ediff-split-window-function 'split-window-horizontally
+ delete-selection-mode t ;; 可以像普通编辑器一样用delete删除
+ ediff-split-window-function 'split-window-horzontally
  ediff-window-setup-function 'ediff-setup-windows-plain
- indent-tabs-mode nil
- make-backup-files nil
+ indent-tabs-mode nil ;; 使用空格代替tab进行缩进
+ tab-width 4
+ make-backup-files nil ;; 有版本控制系统，无必要
  mouse-yank-at-point t
  save-interprogram-paste-before-kill t
  scroll-preserve-screen-position 'always
@@ -31,14 +30,15 @@
 
 ;; 高亮当前行
 (global-hl-line-mode 1)
-(set-face-background hl-line-face "gray10")   ;; 设置比较灰色的
+(set-face-foreground hl-line-face "pink")
+(set-face-background hl-line-face "gray20")  
 
 ;; 恢复buffer到最原始的状态，会删除undo数据，注意使用
 (global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t
       auto-revert-verbose nil)
 
-;; 没有选中region的时候就不高亮
+;; 选中region高亮
 (transient-mark-mode t) 
 
 ;; 创建新行操作

@@ -3,9 +3,9 @@
 # key: ifndef
 # contributor: w0lker.tg@gmail.com
 # --
-#ifndef ${1:_`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`_H_$(upcase yas-text)}
+#ifndef ${1:`(file-name-base (buffer-file-name))`_h_$(upcase yas-text)}
 #define $1
 
 $0
 
-#endif /* $1 */
+#endif  // $1

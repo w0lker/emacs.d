@@ -10,10 +10,12 @@
 (require 'init-auto-complete)
 (require 'init-cedet)
 (require 'init-flymake)
+(require 'init-cmake)
 (require 'init-markdown)
 (require 'init-dash)
 (require 'init-projectile)
 (require 'init-evil)
+(require 'init-sessions)
 
 (when (file-exists-p custom-file)
   (load custom-file))
