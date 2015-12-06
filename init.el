@@ -3,6 +3,7 @@
 
 (require 'init-startup)
 (require 'init-themes)
+(require 'init-windows)
 (require 'init-ido)
 (require 'init-buffer)
 (require 'init-dired)
