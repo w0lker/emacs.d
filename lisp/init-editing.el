@@ -29,7 +29,7 @@
  truncate-lines nil
  truncate-partial-width-windows nil)
 
-;; 删除空格
+;; 删除空格,自动删除空格
 (require-package 'whitespace-cleanup-mode)
 (global-whitespace-cleanup-mode t)
 (global-set-key [remap just-one-space] 'cycle-spacing)

@@ -12,4 +12,6 @@
 ;; 设置代码分析的时间
 (global-semantic-idle-scheduler-mode 2)
 
+(global-set-key (kbd "C-c j") 'semantic-ia-fast-jump)
+
 (provide 'init-cedet)

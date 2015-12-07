@@ -74,4 +74,7 @@ locate PACKAGE."
   (dolist (pattern patterns)
     (add-to-list 'auto-mode-alist (cons pattern mode))))
 
+;; 指定头文件使用c++－mode
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
 (provide 'init-startup)

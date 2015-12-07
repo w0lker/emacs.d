@@ -11,6 +11,7 @@
 (require 'init-auto-complete)
 (require 'init-cedet)
 (require 'init-flymake)
+(require 'init-cpp)
 (require 'init-cmake)
 (require 'init-markdown)
 (require 'init-dash)
