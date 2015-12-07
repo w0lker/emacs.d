@@ -25,13 +25,18 @@
  scroll-preserve-screen-position 'always
  set-mark-command-repeat-pop t
  tooltip-delay 1.5
+ show-trailing-whitespace t ;; 显示空格信息
  truncate-lines nil
  truncate-partial-width-windows nil)
 
+;; 删除空格
+(require-package 'whitespace-cleanup-mode)
+(global-whitespace-cleanup-mode t)
+(global-set-key [remap just-one-space] 'cycle-spacing)
+
 ;; 高亮当前行
-;;(global-hl-line-mode 1)
-;;(set-face-foreground hl-line-face "pink")
-;;(set-face-background hl-line-face "gray20")  
+(global-hl-line-mode 1)
+(set-face-background hl-line-face "gray20")
 
 ;; 恢复buffer到最原始的状态，会删除undo数据，注意使用
 (global-auto-revert-mode)
@@ -39,7 +44,7 @@
       auto-revert-verbose nil)
 
 ;; 选中region高亮
-(transient-mark-mode t) 
+(transient-mark-mode t)
 
 ;; 创建新行操作
 (global-set-key (kbd "RET") 'newline-and-indent)
