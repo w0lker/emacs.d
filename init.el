@@ -1,5 +1,5 @@
 ;; 配置存放位置
-(add-to-list 'load-path (expand-file-name "custom" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (require 'init-startup)
 (require 'init-themes)
@@ -18,5 +18,3 @@
 (require 'init-evil)
 (require 'init-sessions)
 
-(when (file-exists-p custom-file)
-  (load custom-file))
