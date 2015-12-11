@@ -9,6 +9,11 @@
 ;; 显示匹配的符号
 (show-paren-mode 1)
 
+;; 配置行号显示
+(require 'linum)
+(setq linum-format "%4d ")
+;;(toggle-indicate-empty-lines nil)
+
 ;; 基本配置
 (setq-default
  blink-cursor-interval 0.4 ;; 光标闪动频率
@@ -29,14 +34,15 @@
  truncate-lines nil
  truncate-partial-width-windows nil)
 
+
 ;; 删除空格,自动删除空格
 (require-package 'whitespace-cleanup-mode)
 (global-whitespace-cleanup-mode t)
 (global-set-key [remap just-one-space] 'cycle-spacing)
 
 ;; 高亮当前行
-(global-hl-line-mode 1)
-(set-face-background hl-line-face "gray20")
+;;(global-hl-line-mode 1)
+;;(set-face-background hl-line-face "color-66")
 
 ;; 恢复buffer到最原始的状态，会删除undo数据，注意使用
 (global-auto-revert-mode)
@@ -48,28 +54,28 @@
 
 ;; 创建新行操作
 (global-set-key (kbd "RET") 'newline-and-indent)
-(defun editing/newline-at-end-of-line ()
+(defun my/newline-at-end-of-line ()
   "移动到行尾并添加一个新行"
   (interactive)
   (move-end-of-line 1)
   (newline-and-indent))
-(global-set-key (kbd "M-RET") 'editing/newline-at-end-of-line)
+(global-set-key (kbd "M-RET") 'my/newline-at-end-of-line)
 
 ;; 自定义的粘贴复制剪切
-(defun editing/pbcopy ()
+(defun my/pbcopy ()
   (interactive)
   (call-process-region (point) (mark) "pbcopy")
   (setq deactivate-mark t))
-(defun editing/pbpaste ()
+(defun my/pbpaste ()
   (interactive)
   (call-process-region (point) (if mark-active (mark) (point)) "pbpaste" t t))
-(defun editing/pbcut ()
+(defun my/pbcut ()
   (interactive)
-  (editing/pbcopy)
+  (my/pbcopy)
   (delete-region (region-beginning) (region-end)))
-(global-set-key (kbd "C-c c") 'editing/pbcopy)
-(global-set-key (kbd "C-c v") 'editing/pbpaste)
-(global-set-key (kbd "C-c x") 'editing/pbcut)
+(global-set-key (kbd "C-c c") 'my/pbcopy)
+(global-set-key (kbd "C-c v") 'my/pbpaste)
+(global-set-key (kbd "C-c x") 'my/pbcut)
 (global-set-key (kbd "C-c z") 'undo)
 (global-set-key (kbd "C-c s") 'set-mark-command)
 
@@ -124,6 +130,13 @@
 (setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-x C-r" "C-x r"))
 (guide-key-mode 1)
 (diminish 'guide-key-mode)
+
+;; yasnippet配置
+(require-package 'yasnippet)
+(require-package 'dropdown-list)
+(add-to-list 'load-path "~/.emacs.d/snippets")
+(yas-global-mode 1)
+(setq yas-prompt-functions '(yas-dropdown-prompt yas-ido-prompt yas-completing-prompt))
 
 ;; iedit配置,可以将相同的内容一起改
 (require-package 'iedit)

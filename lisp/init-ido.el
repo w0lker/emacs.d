@@ -1,4 +1,4 @@
-;; Use C-f during file selection to switch to regular find-file
+;; 使用C-f切换要找的文件
 (ido-mode t)
 (ido-everywhere t)
 (setq ido-enable-flex-matching t)
@@ -22,7 +22,6 @@
 
 ;; http://www.reddit.com/r/emacs/comments/21a4p9/use_recentf_and_ido_together/cgbprem
 (add-hook 'ido-setup-hook (lambda () (define-key ido-completion-map [up] 'previous-history-element)))
-
 
 
 

@@ -6,7 +6,7 @@
       evil-leader/in-all-states t)
 
 (evil-leader/set-key
-  "q" 'evil-quit
+  "q" 'kill-this-buffer
   "f" 'find-file
   "d" 'find-dired
   "r" 'iedit-mode
