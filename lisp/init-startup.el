@@ -38,6 +38,9 @@ locate PACKAGE."
 (setq package-enable-at-startup nil)
 (package-initialize)
 
+;; 指定默认目录
+(setq default-directory "~")
+
 ;; 配置个性化文件名
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 

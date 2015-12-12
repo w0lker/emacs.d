@@ -12,6 +12,6 @@
 (require 'init-markdown)
 (require 'init-dash)
 (require 'init-projectile)
+(require 'init-shell)
 (require 'init-evil)
 (require 'init-sessions)
-

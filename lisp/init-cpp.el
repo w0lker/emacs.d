@@ -1,10 +1,13 @@
-;; 代码检查
-(require-package 'flymake-google-cpplint)
-;; 让错误信息显示在minibuffer
-(require-package 'flymake-cursor)
+;;;-----------------------------------------------------------------------
+;;; 代码检查
+;;;-----------------------------------------------------------------------
+(require-package 'flymake-cursor) ;; 让错误信息显示在minibuffer
+(require 'flymake-cursor)
 (require-package 'flymake-easy)
+(require 'flymake-easy)
 
 ;; google风格检查
+(require-package 'flymake-google-cpplint)
 (require 'flymake-google-cpplint)
 (custom-set-variables
  '(flymake-google-cpplint-command "/usr/local/bin/cpplint")
@@ -19,10 +22,12 @@
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
-;; 自动补全
+;;;-----------------------------------------------------------------------
+;;; 自动补全
+;;;-----------------------------------------------------------------------
 (require-package 'auto-complete)
-;; 解决include ""之间不自动提示问题
-(setq ac-disable-faces nil)
+(require 'auto-complete)
+(setq ac-disable-faces nil) ;; 解决include ""之间不自动提示问题
 (ac-config-default)
 
 ;; 配置补全显示颜色
@@ -37,9 +42,14 @@
   (require 'auto-complete-c-headers)
   (add-to-list 'ac-sources 'ac-source-c-headers)
   (add-to-list 'achead:include-directories '"/usr/local/include/c++/5.3.0")
- )
+  )
 (add-hook 'c-mode-common-hook 'my:ac-c-header-init)
 
+;;;-----------------------------------------------------------------------
+;;;  cedet配置
+;;;-----------------------------------------------------------------------
+(require-package 'cedet)
+(require 'cedet)
 ;; 语法分析，可以将当前类目录的头文件中的symbol解析出来
 (semantic-mode 1)
 (defun my:add-semantic-to-autocomplete()
@@ -59,7 +69,7 @@
 ;; 配置在源码和头文件之间切换，如果文件不存在可以自动创建
 (add-hook 'c-mode-common-hook
           (lambda()
-                (local-set-key  (kbd "C-c o") 'ff-find-related-file)))
+            (local-set-key  (kbd "C-c o") 'ff-find-related-file)))
 
 ;; 编译工具
 (require-package 'cmake-mode)

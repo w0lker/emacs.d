@@ -1,4 +1,4 @@
-;; 使用C-f切换要找的文件
+;; 使用C-f切换原生自带的模式
 (ido-mode t)
 (ido-everywhere t)
 (setq ido-enable-flex-matching t)
