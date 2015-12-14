@@ -43,8 +43,9 @@
 ;; 显示空格信息
 (defun my/trailing-whitespace ()
   "Turn off display of trailing whitespace in this buffer."
-  (setq show-trailing-whitespace nil))
-(dolist (hook '(c++-mode-hook))
+  (setq show-trailing-whitespace t))
+(dolist (hook '(emacs-lisp-mode
+                c++-mode-hook))
   (add-hook hook #'my/trailing-whitespace))
 
 ;; 删除多余空白

@@ -18,7 +18,7 @@
         (shell-buf-list (identity ;;used to be reverse
                          (sort
                           (my-filter (lambda (x) (string-match "^\\*shell\\*" (buffer-name x))) (buffer-list))
-                          '(lambda (a b) (string< (buffer-name a) (buffer-name b)))))))
+                          #'(lambda (a b) (string< (buffer-name a) (buffer-name b)))))))
     (setq next-shell-buffer
           (if (string-match "^\\*shell\\*" (buffer-name buffer))
               (get-buffer (cadr (member (buffer-name) (mapcar (function buffer-name) (append shell-buf-list shell-buf-list)))))
@@ -29,22 +29,20 @@
             next-shell-buffer))
     (shell buffer)))
 
-;; bash补全
-(require-package 'bash-completion)
-(require 'bash-completion)
-(bash-completion-setup)
-
-;; 终端颜色配置
 (require-package 'xterm-color)
-(require 'xterm-color)
+(require-package 'bash-completion)
 (add-hook 'shell-mode-hook
           (function (lambda ()
-                      (setenv "TERM" "xterm-256color")
                       (setq comint-prompt-read-only t) ;提示符只读
-                      ;;(setq shell-command-completion-mode t) ;开启命令补全模式
+                      ;; 配置颜色
+                      (require 'xterm-color)
+                      (setenv "TERM" "xterm-256color")
                       (progn (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter)
                              (setq comint-output-filter-functions (remove 'ansi-color-process-output comint-output-filter-functions))
                              (setq font-lock-unfontify-region-function 'xterm-color-unfontify-region))
+                      ;; 配置补全
+                      (require 'bash-completion)
+                      (bash-completion-setup)
                       )))
 
 (provide 'init-shell)
