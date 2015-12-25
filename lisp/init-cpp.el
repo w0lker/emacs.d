@@ -51,7 +51,8 @@
       (add-to-list 'ac-sources 'ac-source-c-headers)
       (add-to-list 'achead:include-directories '"/usr/local/include/c++/5.3.0")
       )
-    (add-hook 'c-mode-common-hook 'my/ac-c-headers-init))
+    (add-hook 'c-mode-common-hook 'my/ac-c-headers-init)
+    )
 
   ;; 配置cedet
   (when (require-package 'cedet)
@@ -59,19 +60,31 @@
     (defun my/add-semantic-to-ac ()
       ;; 将语法分析的结果加入autocomplete的源当中
       (add-to-list 'ac-sources 'ac-source-semantic)
-      (global-semantic-decoration-mode 1)
-      (global-semantic-idle-scheduler-mode 2)
 
+      ;; 当头文件找不到的时候会被高亮
+      (global-semantic-decoration-mode 1)
+      (custom-set-faces
+       '(semantic-decoration-on-unknown-includes ((t (:background "brightmagenta")))))
+
+      ;; 空闲5秒后就开始分析
+      (global-semantic-idle-scheduler-mode 5)
+      ;; 大于1M的数据就不分析
+      (setq semantic-idle-scheduler-max-buffer-size 1000000)
       ;; 配置ede
       (global-ede-mode t)
-      (ede-cpp-root-project "my_project"
-                            :file "~/Works/so-index-slave/src/main.cc"
-                            :include-path '("/../my_inc")
-                            )
+      (when (require-package 'ede-compdb)
+        (require 'ede-compdb)
+        (ede-add-project-to-global-list
+         (ede-compdb-project "my_proj"
+                             :file (expand-file-name "~/Works/so-index-slave/CMakeLists.txt")
+                             :compdb-file (expand-file-name "~/Works/so-index-slave/build/compile_commands.json")))
+        )
+      ;; 添加ede头信息到auto-complete-c-headers
+      (add-hook 'ede-minor-mode-hook (lambda ()
+                                       (setq achead:get-include-directories-function 'ede-object-system-include-path)))
       ;; 设置定位到代码的定义位置的快捷键
       (local-set-key (kbd "C-c r") 'semantic-ia-fast-jump))
     (add-hook 'c-mode-common-hook 'my/add-semantic-to-ac))
-
   )
 
 ;; 配置在源码和头文件之间切换，如果文件不存在可以自动创建
@@ -81,6 +94,8 @@
             ))
 
 ;; 编译工具
-(require-package 'cmake-mode)
+(when (require-package 'cmake-mode)
+  (require 'cmake-mode)
+  )
 
 (provide 'init-cpp)

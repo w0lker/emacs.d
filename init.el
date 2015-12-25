@@ -6,6 +6,7 @@
 (require 'init-windows)
 (require 'init-ido)
 (require 'init-buffer)
+(require 'init-isearch)
 (require 'init-dired)
 (require 'init-editing)
 (require 'init-cpp)
