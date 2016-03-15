@@ -12,19 +12,19 @@
 (global-set-key (kbd "C-x o") 'switch-window)
 
 ;; 分出的窗口使用新的缓冲区
-(defun split-window-func-with-other-buffer (split-function)
-  (lexical-let ((s-f split-function))
-    (lambda (&optional arg)
-      "Split this window and switch to the new window unless ARG is provided."
-      (interactive "P")
-      (funcall s-f)
-      (let ((target-window (next-window)))
-        (set-window-buffer target-window (other-buffer))
-        (unless arg
-          (select-window target-window))))))
-
-(global-set-key "\C-x2" (split-window-func-with-other-buffer 'split-window-vertically))
-(global-set-key "\C-x3" (split-window-func-with-other-buffer 'split-window-horizontally))
+;;(defun split-window-func-with-other-buffer (split-function)
+;;  (lexical-let ((s-f split-function))
+;;    (lambda (&optional arg)
+;;      "Split this window and switch to the new window unless ARG is provided."
+;;      (interactive "P")
+;;      (funcall s-f)
+;;      (let ((target-window (next-window)))
+;;        (set-window-buffer target-window (other-buffer))
+;;        (unless arg
+;;          (select-window target-window))))))
+;;
+;;(global-set-key "\C-x2" (split-window-func-with-other-buffer 'split-window-vertically))
+;;(global-set-key "\C-x3" (split-window-func-with-other-buffer 'split-window-horizontally))
 
 (defun my/toggle-delete-other-windows ()
   "Delete other windows in frame if any, or restore previous window config."

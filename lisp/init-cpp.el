@@ -72,13 +72,6 @@
       (setq semantic-idle-scheduler-max-buffer-size 1000000)
       ;; 配置ede
       (global-ede-mode t)
-      (when (require-package 'ede-compdb)
-        (require 'ede-compdb)
-        (ede-add-project-to-global-list
-         (ede-compdb-project "my_proj"
-                             :file (expand-file-name "~/Works/so-index-slave/CMakeLists.txt")
-                             :compdb-file (expand-file-name "~/Works/so-index-slave/build/compile_commands.json")))
-        )
       ;; 添加ede头信息到auto-complete-c-headers
       (add-hook 'ede-minor-mode-hook (lambda ()
                                        (setq achead:get-include-directories-function 'ede-object-system-include-path)))
