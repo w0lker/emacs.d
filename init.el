@@ -15,4 +15,4 @@
 (require 'init-dash)
 (require 'init-projectile)
 (require 'init-shell)
-(require 'init-sessions)
+;;(require 'init-sessions)
