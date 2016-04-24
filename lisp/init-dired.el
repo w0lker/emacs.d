@@ -13,7 +13,11 @@
   (require 'dired-sort)
   (when (fboundp 'global-dired-hide-details-mode)
     (global-dired-hide-details-mode -1))
-  (setq dired-recursive-deletes 'top))
+  (setq dired-recursive-deletes 'top)
+  (define-key dired-mode-map [mouse-2] 'dired-find-file)
+  ;; 添加通过%快捷键显示帮助
+  (add-hook 'dired-mode-hook
+    (lambda () (guide-key/add-local-guide-key-sequence "%"))))
 
 (when (maybe-require-package 'diff-hl)
   (after-load 'dired

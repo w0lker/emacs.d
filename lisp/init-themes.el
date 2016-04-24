@@ -1,6 +1,5 @@
 ;; 使用主题
 (require-package 'molokai-theme)
-(require 'molokai-theme)
 (load-theme 'molokai t)
 
 ;; 美化mode-line

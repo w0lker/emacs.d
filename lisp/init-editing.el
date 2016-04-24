@@ -116,17 +116,6 @@
 (require 'avy)
 (global-set-key (kbd "C-c j") 'avy-goto-char)
 
-;; 文档查找
-(setq-default grep-highlight-matches t
-              grep-scroll-output t)
-(when *is-a-mac*
-  (setq-default locate-command "mdfind"))
-(when (executable-find "ag")
-  (require-package 'ag)
-  (require-package 'wgrep-ag)
-  (setq-default ag-highlight-search t)
-  (global-set-key (kbd "M-?") 'ag-project))
-
 ;; 向上或者向下复制当前行
 (require-package 'move-dup)
 (global-set-key (kbd "C-c p") 'md/duplicate-down)
@@ -140,11 +129,11 @@
 (make-variable-buffer-local 'whole-line-or-region-mode)
 
 ;; 提供快捷键提示
-;;(require-package 'guide-key)
-;;(require 'guide-key)
-;;(setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-x C-r" "C-x r"))
-;; (guide-key-mode 1)
-;;(diminish 'guide-key-mode)
+(when (require-package 'guide-key)
+  (require 'guide-key)
+  (setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-x C-r" "C-x r"))
+  (guide-key-mode 1)
+  (diminish 'guide-key-mode))
 
 ;; yasnippet配置
 (require-package 'yasnippet)
