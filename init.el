@@ -20,11 +20,12 @@
 ;; 关闭出错蜂鸣声
 (setq visible-bell t)
 (setq  ring-bell-function 'ignore)
-
 ;; 不显示工具栏
 (if (functionp 'tool-bar-mode) (tool-bar-mode -1))
 ;; 不显示菜单
 (if (functionp 'menu-bar-mode) (menu-bar-mode -1))
+;; 设置默认主模式为text-mode，而不是fundamental-mode
+(setq default-major-mode 'text-mode)
 
 
 (require 'init-utils)
