@@ -3,6 +3,9 @@
 ;; 把整段变成很多行
 (require-package 'unfill)
 
+;; 在行首C-k时，同时删除末尾换行符,让光标移到下一行的行首
+(setq kill-whole-line t)
+
 ;; 成对插入符号
 (when (fboundp 'electric-pair-mode)
   (electric-pair-mode))
