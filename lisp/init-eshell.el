@@ -45,4 +45,4 @@
                       (bash-completion-setup)
                       )))
 
-(provide 'init-shell)
+(provide 'init-eshell)

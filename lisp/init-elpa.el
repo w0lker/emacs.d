@@ -37,4 +37,30 @@ locate PACKAGE."
 (setq package-enable-at-startup nil)
 (package-initialize)
 
+
+;; 设置全屏
+(require-package 'fullframe)
+(fullframe list-packages quit-window)
+
+
+;; 设置package列表中的显示宽度
+(require-package 'cl-lib)
+(require 'cl-lib)
+
+(defun my/set-tabulated-list-column-width (col-name width)
+  "Set any column with name COL-NAME to the given WIDTH."
+  (cl-loop for column across tabulated-list-format
+           when (string= col-name (car column))
+           do (setf (elt column 1) width)))
+
+(defun my/maybe-widen-package-menu-columns ()
+  "Widen some columns of the package menu table to avoid truncation."
+  (when (boundp 'tabulated-list-format)
+    (my/set-tabulated-list-column-width "Version" 13)
+    (let ((longest-archive-name (apply 'max (mapcar 'length (mapcar 'car package-archives)))))
+      (my/set-tabulated-list-column-width "Archive" longest-archive-name))))
+
+(add-hook 'package-menu-mode-hook 'my/maybe-widen-package-menu-columns)
+
+
 (provide 'init-elpa)

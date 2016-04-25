@@ -1,8 +1,10 @@
-(require-package 'evil)
-(require 'evil)
+;; 配置使用vim快捷键
 
+(require-package 'evil)
+(evil-mode 1)
+
+;; 设置前缀键
 (require-package 'evil-leader)
-(require 'evil-leader)
 (setq evil-leader/leader ";"
       evil-leader/in-all-states t)
 
@@ -22,6 +24,6 @@
   )
 
 (global-evil-leader-mode)
-(evil-mode 1)
+
 
 (provide 'init-evil)
