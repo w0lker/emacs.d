@@ -13,9 +13,10 @@
 (add-hook 'after-init-hook
           (lambda () (setq gc-cons-threshold my/initial-gc-cons-threshold)))
 
-;; 全局配置
 ;; 隐藏启动画面
 (setq inhibit-startup-screen t)
+;; scratch默认不显示任何内容
+(setq  initial-scratch-message nil)
 ;; 关闭出错蜂鸣声
 (setq visible-bell t)
 (setq  ring-bell-function 'ignore)
@@ -24,6 +25,7 @@
 (if (functionp 'tool-bar-mode) (tool-bar-mode -1))
 ;; 不显示菜单
 (if (functionp 'menu-bar-mode) (menu-bar-mode -1))
+
 
 (require 'init-utils)
 (require 'init-elpa)
