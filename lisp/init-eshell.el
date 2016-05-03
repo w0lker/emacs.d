@@ -11,13 +11,15 @@
 (global-set-key (kbd "C-c l") 'clear-shell)
 
 (defun my-filter (condp lst)
+  "Filter match CONDP condition function element from LST."
   (delq nil (mapcar (lambda (x) (and (funcall condp x) x)) lst)))
+
 (defun shell-dwim (&optional create)
   "Start or switch to an inferior shell process, in a smart way.
-  If a buffer with a running shell process exists, simply switch to that buffer.
-  If a shell buffer exists, but the shell process is not running, restart the
-  shell.  If already in an active shell buffer, switch to the next one, if
-  any.  With prefix argument CREATE always start a new shell."
+If a buffer with a running shell process exists, simply switch to that buffer.
+If a shell buffer exists, but the shell process is not running, restart the
+shell.  If already in an active shell buffer, switch to the next one, if
+any.  With prefix argument CREATE always start a new shell."
   (interactive "P")
   (let ((next-shell-buffer) (buffer)
         (shell-buf-list (identity ;;used to be reverse
