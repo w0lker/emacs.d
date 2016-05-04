@@ -1,14 +1,13 @@
-;;; package --- eshell配置
+;;; package --- shell-mode配置
 ;;; Commentary:
 ;;; Code:
 
 ;; 清屏操作
-(defun clear-shell ()
-  "Clear shell."
+(defun my/clear-shell ()
   (interactive)
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
-(global-set-key (kbd "C-c l") 'clear-shell)
+(global-set-key (kbd "C-c l") 'my/clear-shell)
 
 (defun my-filter (condp lst)
   "Filter match CONDP condition function element from LST."
@@ -36,22 +35,16 @@ any.  With prefix argument CREATE always start a new shell."
             next-shell-buffer))
     (shell buffer)))
 
-(require-package 'xterm-color)
-(require-package 'bash-completion)
 (add-hook 'shell-mode-hook
           (function (lambda ()
                       (setq comint-prompt-read-only t) ;提示符只读
                       ;; 配置颜色
-                      (require 'xterm-color)
+                      (require-package 'xterm-color)
                       (setenv "TERM" "xterm-256color")
-                      (progn (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter)
-                             (setq comint-output-filter-functions (remove 'ansi-color-process-output comint-output-filter-functions))
-                             (setq font-lock-unfontify-region-function 'xterm-color-unfontify-region))
                       ;; 配置补全
-                      (require 'bash-completion)
+                      (require-package 'bash-completion)
                       (bash-completion-setup)
                       )))
 
-
-(provide 'init-eshell)
-;;; init-eshell.el ends here
+(provide 'init-shell)
+;;; init-shell.el ends here

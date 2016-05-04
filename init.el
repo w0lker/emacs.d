@@ -52,11 +52,12 @@
 (require 'init-recentf)
 (require 'init-windows)
 (require 'init-mmm)
+(require 'init-tramp)
 
 ;; 开发功能
 (require 'init-editing-utils)
 (require 'init-flycheck)
-(require 'init-company)
+;;(require 'init-company)
 (require 'init-hippie-expand)
 (require 'init-yasnippet)
 (require 'init-vc)
@@ -69,5 +70,6 @@
 (require 'init-ruby-mode)
 (require 'init-rails)
 (require 'init-sql)
-(require 'init-eshell)
+(require 'init-shell)
 (require 'init-cpp)
+(put 'erase-buffer 'disabled nil)
