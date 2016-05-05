@@ -4,10 +4,12 @@
 
 ;; 清屏操作
 (defun my/clear-shell ()
+  "Shell清屏操作."
   (interactive)
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
 (global-set-key (kbd "C-c l") 'my/clear-shell)
+
 
 (defun my-filter (condp lst)
   "Filter match CONDP condition function element from LST."
@@ -35,16 +37,27 @@ any.  With prefix argument CREATE always start a new shell."
             next-shell-buffer))
     (shell buffer)))
 
-(add-hook 'shell-mode-hook
-          (function (lambda ()
-                      (setq comint-prompt-read-only t) ;提示符只读
-                      ;; 配置颜色
-                      (require-package 'xterm-color)
-                      (setenv "TERM" "xterm-256color")
-                      ;; 配置补全
-                      (require-package 'bash-completion)
-                      (bash-completion-setup)
-                      )))
+
+(defun my/set-xterm-color ()
+  "配置xterm的颜色."
+  (when (maybe-require-package 'xterm-color)
+    (require 'xterm-color)
+    (setenv "TERM" "xterm-256color")
+    (progn (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter)
+           (setq comint-output-filter-functions (remove 'ansi-color-process-output comint-output-filter-functions))
+           (setq font-lock-unfontify-region-function 'xterm-color-unfontify-region)))
+  )
+
+(add-hook 'shell-mode-hook 'my/set-xterm-color)
+
+
+(defun my/bash-completion ()
+  "Bash shell 补全."
+  (require-package 'bash-completion)
+  (bash-completion-setup)
+  )
+
+(add-hook 'shell-mode-hook 'my/bash-completion)
 
 (provide 'init-shell)
 ;;; init-shell.el ends here

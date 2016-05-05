@@ -8,7 +8,7 @@
 (setq tramp-default-method "ssh")
 
 (defun tramp-shell (&optional buffer)
-   "当使用tramp连到某个远程文件后，使用M-x tramp-shell创建一个连接到当前远程文件的shell。"
+   "当使用tramp连到某个远程文件后，创建一个连接到当前远程文件的shell BUFFER."
    (interactive)
    (let* ((tramp-path (when (tramp-tramp-file-p default-directory)
                         (tramp-dissect-file-name default-directory)))
