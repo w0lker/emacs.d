@@ -14,11 +14,11 @@
 (global-set-key (kbd "C-x o") 'switch-window)
 
 
-;; 当分屏的时候，在新的窗口显示其它已经被打开的buffer
 (defun split-window-func-with-other-buffer (split-function)
   (lexical-let ((s-f split-function))
     (lambda (&optional arg)
-      "Split this window and switch to the new window unless ARG is provided."
+      "分屏并且把焦点放在新创建的window中，除非指定参数ARG。
+Split this window and switch to the new window unless ARG is provided."
       (interactive "P")
       (funcall s-f)
       (let ((target-window (next-window)))
@@ -90,4 +90,5 @@ Call a second time to restore the original window configuration."
 (unless (memq window-system '(nt w32))
     (windmove-default-keybindings 'control))
 
-(provide 'init-windows)
+
+(provide 'init-window)

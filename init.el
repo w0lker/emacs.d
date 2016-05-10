@@ -50,14 +50,14 @@
 (require 'init-ibuffer)
 (require 'init-ido)
 (require 'init-recentf)
-(require 'init-windows)
+(require 'init-window)
 (require 'init-mmm)
 (require 'init-tramp)
 
 ;; 开发功能
 (require 'init-editing-utils)
 (require 'init-flycheck)
-;;(require 'init-company)
+(require 'init-company)
 (require 'init-hippie-expand)
 (require 'init-yasnippet)
 (require 'init-vc)
