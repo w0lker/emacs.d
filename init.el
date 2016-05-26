@@ -56,13 +56,16 @@
 
 ;; 开发功能
 (require 'init-editing-utils)
-(require 'init-flycheck)
-(require 'init-company)
+;;(require 'init-flycheck)
+(require 'init-flymake)
+;;(require 'init-company)
+(require 'init-auto-complete)
 (require 'init-hippie-expand)
 (require 'init-yasnippet)
 (require 'init-vc)
 (require 'init-dash)
-(require 'init-projectile)
+;;(require 'init-projectile)
+(require 'init-cedet)
 
 ;; 主模式
 (require 'init-org)
@@ -73,3 +76,4 @@
 (require 'init-shell)
 (require 'init-cpp)
 (put 'erase-buffer 'disabled nil)
+(put 'set-goal-column 'disabled nil)
