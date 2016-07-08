@@ -1,12 +1,7 @@
 (require 'package)
 
-;; 屏蔽默认源
-(setq package-archives nil)
-(add-to-list 'package-archives
-             '("popkit" . "http://elpa.popkit.org/packages/"))
-
-;;(setq package-archives '(("gnu" . "http://elpa.zilongshanren.com/gnu/")
-;;                        ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
+(setq package-archives '(("gnu" . "http://elpa.zilongshanren.com/gnu/")
+                        ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
 
 (defun require-package (package &optional min-version no-refresh)
   "Install given PACKAGE, optionally requiring MIN-VERSION.

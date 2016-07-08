@@ -2,10 +2,8 @@
 ;; 一些常用的或者自定义的工具函数和宏
 ;;
 
-
 ;; common lisp所需要的库
 (eval-when-compile (require 'cl))
-
 
 ;; 定义宏after-load
 (if (fboundp 'with-eval-after-load)
