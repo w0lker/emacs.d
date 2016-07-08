@@ -1,4 +1,11 @@
 ;; 配置存放位置
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 ;; 配置个性化文件名
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -71,5 +78,6 @@
 (require 'init-sql)
 (require 'init-shell)
 (require 'init-cpp)
+(require 'init-web)
 (put 'erase-buffer 'disabled nil)
 (put 'set-goal-column 'disabled nil)
