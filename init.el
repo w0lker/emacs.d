@@ -1,11 +1,11 @@
-;; 配置存放位置
+;;; package -- 初始配置
+;;; Commentary:
+;;; Code:
 
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
+
 (package-initialize)
 
+;; 设置配置文件夹
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 ;; 配置个性化文件名
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -27,13 +27,21 @@
 ;; 关闭出错蜂鸣声
 (setq visible-bell t)
 (setq  ring-bell-function 'ignore)
-;; 不显示工具栏
-(if (functionp 'tool-bar-mode) (tool-bar-mode -1))
-;; 不显示菜单
-(if (functionp 'menu-bar-mode) (menu-bar-mode -1))
-;; 设置默认主模式为text-mode，而不是fundamental-mode
-(setq default-major-mode 'text-mode)
 
+;; 不显示工具栏
+(if (functionp 'tool-bar-mode)
+    (tool-bar-mode -1))
+;; 不显示菜单
+(if (functionp 'menu-bar-mode)
+    (menu-bar-mode -1))
+;; 不显示滚动条
+(if (fboundp 'scroll-bar-mode)
+    (scroll-bar-mode -1))
+
+;; 设置默认主模式为text-mode，而不是fundamental-mode
+(setq major-mode 'text-mode)
+
+;; 初始包
 (require 'init-utils)
 (require 'init-elpa)
 (require 'init-exec-path)
@@ -59,25 +67,25 @@
 (require 'init-window)
 (require 'init-mmm)
 (require 'init-tramp)
+(require 'init-shell)
 
 ;; 开发功能
 (require 'init-editing-utils)
-(require 'init-flymake)
-(require 'init-auto-complete)
+(require 'init-company)
+(require 'init-flycheck)
 (require 'init-hippie-expand)
 (require 'init-yasnippet)
 (require 'init-vc)
-(require 'init-projectile)
-(require 'init-cedet)
 
 ;; 主模式
 (require 'init-org)
 (require 'init-markdown)
-(require 'init-ruby-mode)
-(require 'init-rails)
+;;(require 'init-ruby-mode)
+;;(require 'init-rails)
 (require 'init-sql)
-(require 'init-shell)
 (require 'init-cpp)
 (require 'init-web)
+
 (put 'erase-buffer 'disabled nil)
 (put 'set-goal-column 'disabled nil)
+;;;  init.el ends here
