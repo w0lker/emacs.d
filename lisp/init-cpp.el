@@ -12,27 +12,27 @@
   (add-hook 'c-mode-common-hook 'google-set-c-style)
   (add-hook 'c-mode-common-hook 'google-make-newline-indent))
 
-
 ;; rtags配置
-(defun setup-flycheck-rtags ()
-  (interactive)
+(when (maybe-require-package 'rtags)
+  (require 'company)
+  (require 'company-rtags)
+  
+  (setq rtags-autostart-diagnostics t)
+  (rtags-enable-standard-keybindings)
+  
+  (setq rtags-completions-enabled t)
+  (push 'company-rtags company-backends))
+
+
+(defun my-flycheck-rtags-setup ()
+  "Seting rtags for flycheck."
+  (require 'flycheck-rtags)
   (flycheck-select-checker 'rtags)
   (setq-local flycheck-highlighting-mode nil)
   (setq-local flycheck-check-syntax-automatically nil))
 
-(when (maybe-require-package 'rtags)
-  (require 'company)
-  (require 'company-rtags)
-
-  (setq rtags-autostart-diagnostics t)
-  (rtags-enable-standard-keybindings)
-
-  (setq rtags-completions-enabled t)
-  (push 'company-rtags company-backends)
-  
-  ;; 代码检查
-  (require 'flycheck-rtags)
-  (add-hook 'c-mode-common-hook #'setup-flycheck-rtags))
+(add-hook 'c-mode-hook #'my-flycheck-rtags-setup)
+(add-hook 'c++-mode-hook #'my-flycheck-rtags-setup)
 
 
 (provide 'init-cpp)

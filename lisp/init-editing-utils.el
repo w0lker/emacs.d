@@ -1,10 +1,15 @@
-;; 关于编辑器的一些配置
+;;; package -- 编辑配置
+;;; Commentary:
+;;; Code:
+
 
 ;; 把整段变成很多行
 (require-package 'unfill)
 
+
 ;; 在行首C-k时，同时删除末尾换行符,让光标移到下一行的行首
 (setq kill-whole-line t)
+
 
 ;; 成对插入符号
 (when (fboundp 'electric-pair-mode)
@@ -12,19 +17,23 @@
 (when (eval-when-compile (version< "24.4" emacs-version))
   (electric-indent-mode 1))
 
+
 ;; 显示匹配的符号
 (require 'paren)
 (show-paren-mode 1)
 (set-face-background 'show-paren-match (face-background 'default))
 (set-face-foreground 'show-paren-match "brightgreen")
 
+
 ;; 选中region高亮
 (transient-mark-mode t)
+
 
 ;; 配置行号显示
 (require 'linum)
 (setq linum-format "%4d ")
 (toggle-indicate-empty-lines nil)
+
 
 ;; 基本配置
 (setq-default
@@ -75,7 +84,7 @@
 ;; 创建新行操作,按下RET时既建新行也进行格式化
 (global-set-key (kbd "RET") 'newline-and-indent)
 (defun my/newline-at-end-of-line ()
-  "移动到行尾并添加一个新行"
+  "移动到行尾并添加一个新行."
   (interactive)
   (move-end-of-line 1)
   (newline-and-indent))
@@ -85,21 +94,21 @@
 
 ;; 自定义的粘贴复制剪切
 (defun my/pbcopy ()
+  "自定义的复制."
   (interactive)
   (call-process-region (point) (mark) "pbcopy")
   (setq deactivate-mark t))
-(defun my/pbpaste ()
-  (interactive)
-  (call-process-region (point) (if mark-active (mark) (point)) "pbpaste" t t))
+
 (defun my/pbcut ()
+  "自定义的剪切."
   (interactive)
   (my/pbcopy)
   (delete-region (region-beginning) (region-end)))
-(global-set-key (kbd "C-c c") 'my/pbcopy)
-(global-set-key (kbd "C-c v") 'my/pbpaste)
-(global-set-key (kbd "C-c x") 'my/pbcut)
-(global-set-key (kbd "C-c z") 'undo)
-(global-set-key (kbd "C-c s") 'set-mark-command)
+
+(defun my/pbpaste ()
+  "自定义的粘贴."
+  (interactive)
+  (call-process-region (point) (if mark-active (mark) (point)) "pbpaste" t t))
 
 
 ;; 让原来对一个词的定位由整个词整个词变成一次定位词中有意义的一部分
@@ -107,11 +116,13 @@
 (after-load 'subword
   (diminish 'subword-mode))
 
-;; 对于对齐结果显示一根对齐竖线
-(when (maybe-require-package 'indent-guide)
-  (add-hook 'prog-mode-hook 'indent-guide-mode)
-  (after-load 'indent-guide
-    (diminish 'indent-guide-mode)))
+
+;; 对于对齐结果显示一根对齐竖线(有一个问题就是文件大的话会比较慢)
+;;(when (maybe-require-package 'indent-guide)
+;;  (add-hook 'prog-mode-hook 'indent-guide-mode)
+;;  (after-load 'indent-guide
+;;    (diminish 'indent-guide-mode)))
+
 
 ;; 使用undo树
 (require-package 'undo-tree)
@@ -139,20 +150,6 @@
 (global-set-key (kbd "C-c j") 'avy-goto-char)
 
 
-;; 向上或者向下复制当前行
-(require-package 'move-dup)
-(global-set-key (kbd "C-c p") 'md/duplicate-down)
-(global-set-key (kbd "C-c P") 'md/duplicate-up)
-
-
-;; 如果没选择就copy/cut当前行
-(require-package 'whole-line-or-region)
-(require 'whole-line-or-region)
-(whole-line-or-region-mode t)
-(diminish 'whole-line-or-region-mode)
-(make-variable-buffer-local 'whole-line-or-region-mode)
-
-
 ;; 提供快捷键提示
 (when (require-package 'guide-key)
   (require 'guide-key)
@@ -164,9 +161,8 @@
 ;; iedit配置,可以将相同的内容一起改
 (require-package 'iedit)
 (require 'iedit)
-; Fix iedit bug in Mac
-(define-key global-map (kbd "C-c ;") 'iedit-mode)
 
 
 
 (provide 'init-editing-utils)
+;;;  init-editing-utils.el ends here

@@ -41,6 +41,9 @@
 ;; 设置默认主模式为text-mode，而不是fundamental-mode
 (setq major-mode 'text-mode)
 
+;; 优化翻页速度
+(setq jit-lock-defer-time 0.05)
+
 ;; 初始包
 (require 'init-utils)
 (require 'init-elpa)
@@ -55,6 +58,7 @@
 
 ;; 基础功能
 (require 'init-xterm)
+(require 'init-fonts)
 (require 'init-themes)
 (require 'init-dired)
 (require 'init-isearch)
@@ -76,6 +80,7 @@
 (require 'init-hippie-expand)
 (require 'init-yasnippet)
 (require 'init-vc)
+(require 'init-cmake)
 
 ;; 主模式
 (require 'init-org)
@@ -83,7 +88,9 @@
 ;;(require 'init-ruby-mode)
 ;;(require 'init-rails)
 (require 'init-sql)
+(require 'init-python)
 (require 'init-cpp)
+(require 'init-eclim)
 (require 'init-web)
 
 (put 'erase-buffer 'disabled nil)

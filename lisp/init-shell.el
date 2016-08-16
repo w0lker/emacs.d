@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
+
 ;; 清屏操作
 (defun my/clear-shell ()
   "Shell清屏操作."
@@ -58,6 +59,7 @@ any.  With prefix argument CREATE always start a new shell."
   )
 
 (add-hook 'shell-mode-hook 'my/bash-completion)
+
 
 (provide 'init-shell)
 ;;; init-shell.el ends here

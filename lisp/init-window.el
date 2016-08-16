@@ -1,4 +1,6 @@
-;; window就是显示面板的意思
+;;; package -- window显示面板的配置
+;;; Commentary:
+;;; Code:
 
 
 ;; 使用C-c <left> 和C-c <right>来对窗口配置进行redo或者undo。这样在窗口乱了后可以恢复到原来不乱的状态
@@ -14,11 +16,11 @@
 (global-set-key (kbd "C-x o") 'switch-window)
 
 
-(defun split-window-func-with-other-buffer (split-function)
+(defun my/split-window-func-with-other-buffer (split-function)
+  "分屏并且把焦点放在新的window上, SPLIT-FUNCTION为分屏函数."
   (lexical-let ((s-f split-function))
     (lambda (&optional arg)
-      "分屏并且把焦点放在新创建的window中，除非指定参数ARG。
-Split this window and switch to the new window unless ARG is provided."
+      "Split this window and switch to the new window unless ARG is provided."
       (interactive "P")
       (funcall s-f)
       (let ((target-window (next-window)))
@@ -26,8 +28,8 @@ Split this window and switch to the new window unless ARG is provided."
         (unless arg
           (select-window target-window))))))
 
-(global-set-key "\C-x2" (split-window-func-with-other-buffer 'split-window-vertically))
-(global-set-key "\C-x3" (split-window-func-with-other-buffer 'split-window-horizontally))
+(global-set-key "\C-x2" (my/split-window-func-with-other-buffer 'split-window-vertically))
+(global-set-key "\C-x3" (my/split-window-func-with-other-buffer 'split-window-horizontally))
 
 
 ;; 触发删除其它窗口
@@ -92,3 +94,4 @@ Call a second time to restore the original window configuration."
 
 
 (provide 'init-window)
+;;;  init-window.el ends here
