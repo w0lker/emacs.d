@@ -1,3 +1,8 @@
+;;; package -- vim keys settings
+;;; Commentary:
+;;; Code:
+
+
 ;; 配置使用vim快捷键
 
 (require-package 'evil)
@@ -27,3 +32,4 @@
 
 
 (provide 'init-evil)
+;;;  init-evil.el ends here

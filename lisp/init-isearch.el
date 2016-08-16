@@ -1,3 +1,8 @@
+;;; package -- isearch settings
+;;; Commentary:
+;;; Code:
+
+
 ;; 显示匹配数目以及目前光标所在的匹配位置
 (when (maybe-require-package 'anzu)
   (global-anzu-mode t)
@@ -82,4 +87,6 @@ This is useful when followed by an immediate kill."
 (eval-after-load "isearch"
   `(my/isearch-face-settings))
 
+
 (provide 'init-isearch)
+;;;  init-isearch.el ends here
