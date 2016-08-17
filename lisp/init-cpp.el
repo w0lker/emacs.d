@@ -12,6 +12,7 @@
   (add-hook 'c-mode-common-hook 'google-set-c-style)
   (add-hook 'c-mode-common-hook 'google-make-newline-indent))
 
+
 ;; rtags配置
 (when (maybe-require-package 'rtags)
   (require 'company)
@@ -24,15 +25,15 @@
   (push 'company-rtags company-backends))
 
 
-(defun my-flycheck-rtags-setup ()
+(defun my/flycheck-rtags-setup ()
   "Seting rtags for flycheck."
   (require 'flycheck-rtags)
   (flycheck-select-checker 'rtags)
   (setq-local flycheck-highlighting-mode nil)
   (setq-local flycheck-check-syntax-automatically nil))
 
-(add-hook 'c-mode-hook #'my-flycheck-rtags-setup)
-(add-hook 'c++-mode-hook #'my-flycheck-rtags-setup)
+(add-hook 'c-mode-hook #'my/flycheck-rtags-setup)
+(add-hook 'c++-mode-hook #'my/flycheck-rtags-setup)
 
 
 (provide 'init-cpp)

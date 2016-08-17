@@ -3,9 +3,7 @@
 ;;; Code:
 
 
-(when (require-package 'cmake-mode)
-  (require 'cmake-mode)
-  )
+(require-package 'cmake-mode)
 
 
 (provide 'init-cmake)

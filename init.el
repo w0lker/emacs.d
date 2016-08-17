@@ -44,10 +44,12 @@
 ;; 优化翻页速度
 (setq jit-lock-defer-time 0.05)
 
+
 ;; 初始包
 (require 'init-utils)
 (require 'init-elpa)
 (require 'init-exec-path)
+
 
 ;; 必需的包
 (require-package 'wgrep)
@@ -55,6 +57,7 @@
 (require-package 'diminish)
 (require-package 'scratch)
 (require-package 'mwe-log-commands)
+
 
 ;; 基础功能
 (require 'init-themes)
@@ -73,6 +76,7 @@
 (require 'init-tramp)
 (require 'init-shell)
 
+
 ;; 开发功能
 (require 'init-editing-utils)
 (require 'init-company)
@@ -82,25 +86,23 @@
 (require 'init-vc)
 (require 'init-cmake)
 
+
 ;; 主模式
 (require 'init-org)
 (require 'init-markdown)
-;;(require 'init-ruby-mode)
-;;(require 'init-rails)
 (require 'init-sql)
 (require 'init-python)
 (require 'init-cpp)
-(require 'init-eclim)
 (require 'init-web)
+
+
+;; 必须放在最后
+(require 'init-locales)
+
 
 (put 'erase-buffer 'disabled nil)
 (put 'set-goal-column 'disabled nil)
 
-;; 加载个性化配置
-(when (file-exists-p custom-file)
-    (load custom-file))
-
-(require 'init-locale)
 
 (provide 'init)
 ;;;  init.el ends here
