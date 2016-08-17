@@ -52,6 +52,7 @@
  set-mark-command-repeat-pop t
  tooltip-delay 1.5
  show-trailing-whitespace nil ;; 默认不显示空格信息
+ indicate-empty-lines nil ;; 不显示文件结尾
  truncate-lines nil
  truncate-partial-width-windows nil)
 
@@ -161,7 +162,6 @@
 ;; iedit配置,可以将相同的内容一起改
 (require-package 'iedit)
 (require 'iedit)
-
 
 
 (provide 'init-editing-utils)

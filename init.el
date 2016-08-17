@@ -57,9 +57,9 @@
 (require-package 'mwe-log-commands)
 
 ;; 基础功能
+(require 'init-themes)
 (require 'init-xterm)
 (require 'init-fonts)
-(require 'init-themes)
 (require 'init-dired)
 (require 'init-isearch)
 (require 'init-grep)
@@ -95,4 +95,10 @@
 
 (put 'erase-buffer 'disabled nil)
 (put 'set-goal-column 'disabled nil)
+
+;; 加载个性化配置
+(when (file-exists-p custom-file)
+    (load custom-file))
+
+(provide 'init)
 ;;;  init.el ends here
