@@ -100,5 +100,7 @@
 (when (file-exists-p custom-file)
     (load custom-file))
 
+(require 'init-locale)
+
 (provide 'init)
 ;;;  init.el ends here
