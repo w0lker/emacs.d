@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: file encode 
+# key: fecd
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# contributor: w0lker.tg@gmail.com
+# --
+# -*- coding: utf-8 -*-
+
+$0

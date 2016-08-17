@@ -9,7 +9,6 @@
   (interactive)
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
-(global-set-key (kbd "C-c l") 'my/clear-shell)
 
 
 (defun my-filter (condp lst)
