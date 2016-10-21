@@ -2,25 +2,27 @@
 ;;; Commentary:
 ;;; Code:
 
-(diminish 'python-mode "PY")
+(setq auto-mode-alist
+      (append '(("SConstruct\\'" . python-mode)
+                ("SConscript\\'" . python-mode))
+              auto-mode-alist))
 
-(require-package 'elpy)
-(elpy-enable)
-(elpy-use-ipython)
-(setq elpy-rpc-backend "jedi")
+(require-package 'pip-requirements)
+
+(when (maybe-require-package 'anaconda-mode)
+  (after-load 'python
+    (add-hook 'python-mode-hook 'anaconda-mode)
+    (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+  (when (maybe-require-package 'company-anaconda)
+    (after-load 'company
+      (add-hook 'python-mode-hook
+                (lambda () (my/local-push-company-backend 'company-anaconda))))))
 
 (require-package 'pyenv-mode)
 (require-package 'pyenv-mode-auto)
 (require 'pyenv-mode-auto)
 
-;; Syntax checking
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
-
-;; PEP8 compliance
-(require-package 'py-autopep8)
-(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+(diminish 'python-mode "PY")
 
 (provide 'init-python)
 ;;;  init-python.el ends here
