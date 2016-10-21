@@ -75,6 +75,7 @@
 (require 'init-mmm)
 (require 'init-tramp)
 (require 'init-shell)
+(require 'init-vagrant)
 
 
 ;; 开发功能

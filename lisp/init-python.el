@@ -1,26 +1,26 @@
-;;; package -- python configure
+;;; Package -- Python configurations.
 ;;; Commentary:
 ;;; Code:
 
+(diminish 'python-mode "PY")
 
 (require-package 'elpy)
 (elpy-enable)
+(elpy-use-ipython)
+(setq elpy-rpc-backend "jedi")
 
+(require-package 'pyenv-mode)
+(require-package 'pyenv-mode-auto)
+(require 'pyenv-mode-auto)
 
-;; flycheck配置
+;; Syntax checking
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
-
-;; 添加pep8规范自动格式化
+;; PEP8 compliance
 (require-package 'py-autopep8)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
-
-
-;; 使用ipython
-(elpy-use-ipython)
-
 
 (provide 'init-python)
 ;;;  init-python.el ends here
