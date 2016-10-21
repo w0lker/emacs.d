@@ -22,7 +22,5 @@
 (require-package 'pyenv-mode-auto)
 (require 'pyenv-mode-auto)
 
-(diminish 'python-mode "PY")
-
 (provide 'init-python)
 ;;;  init-python.el ends here
