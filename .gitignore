@@ -45,3 +45,4 @@ site-lisp/package/
 /projectile-bookmarks.eld
 /bookmarks
 /anaconda-mode
+*.swp
