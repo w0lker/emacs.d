@@ -1,7 +1,6 @@
-;;; package -- 初始配置
+;;; package -- 启动脚本
 ;;; Commentary:
 ;;; Code:
-
 
 (package-initialize)
 
@@ -44,12 +43,10 @@
 ;; 优化翻页速度
 (setq jit-lock-defer-time 0.05)
 
-
 ;; 初始包
 (require 'init-utils)
 (require 'init-elpa)
 (require 'init-exec-path)
-
 
 ;; 必需的包
 (require-package 'wgrep)
@@ -58,8 +55,9 @@
 (require-package 'scratch)
 (require-package 'mwe-log-commands)
 
-
 ;; 基础功能
+(require 'init-osx-keys)
+(require 'init-gui-frames)
 (require 'init-themes)
 (require 'init-xterm)
 (require 'init-fonts)
@@ -95,7 +93,6 @@
 (require 'init-python)
 (require 'init-cpp)
 (require 'init-web)
-
 
 ;; 必须放在最后
 (require 'init-locales)

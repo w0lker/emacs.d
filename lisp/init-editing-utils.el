@@ -2,39 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-
-;; 把整段变成很多行
-(require-package 'unfill)
-
-;; 在行首C-k时，同时删除末尾换行符,让光标移到下一行的行首
-(setq kill-whole-line t)
-
-;; 成对插入符号
-(when (fboundp 'electric-pair-mode)
-  (electric-pair-mode))
-(when (eval-when-compile (version< "24.4" emacs-version))
-  (electric-indent-mode 1))
-
-;; 显示匹配的符号
-(require 'paren)
-(show-paren-mode 1)
-(set-face-background 'show-paren-match (face-background 'default))
-(set-face-foreground 'show-paren-match "brightgreen")
-
-;; 选中region高亮
-(transient-mark-mode t)
-
-;; 配置行号显示
-(require 'linum)
-(setq linum-format "%4d ")
-(toggle-indicate-empty-lines nil)
-
-;; 宽度标尺
-(require-package 'fill-column-indicator)
-(setq-default fci-rule-column 80)
-(setq fci-rule-width 1)
-(setq fci-rule-color "white")
-
 ;; 基本配置
 (setq-default
  blink-cursor-interval 0.4 ;; 光标闪动频率
@@ -52,9 +19,46 @@
  set-mark-command-repeat-pop t
  tooltip-delay 1.5
  show-trailing-whitespace nil ;; 默认不显示空格信息
- indicate-empty-lines nil ;; 不显示文件结尾
  truncate-lines nil
  truncate-partial-width-windows nil)
+
+;; 把整段变成很多行
+(require-package 'unfill)
+
+(global-auto-revert-mode)
+(setq global-auto-revert-non-file-buffers t
+      auto-revert-verbose nil)
+
+
+;; 在行首C-k时，同时删除末尾换行符,让光标移到下一行的行首
+(setq kill-whole-line t)
+
+;; 成对插入符号
+(when (fboundp 'electric-pair-mode)
+  (electric-pair-mode))
+(when (eval-when-compile (version< "24.4" emacs-version))
+  (electric-indent-mode 1))
+
+;; 显示匹配的符号
+(show-paren-mode 1)
+
+;; 让不同级别的括号显示不同颜色
+(when (require-package 'rainbow-delimiters)
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+
+;; 选中region高亮
+(transient-mark-mode t)
+
+;; 配置行号显示
+(require 'linum)
+(setq linum-format "%4d ")
+(toggle-indicate-empty-lines nil)
+
+;; 宽度标尺
+(require-package 'fill-column-indicator)
+(setq-default fci-rule-column 120)
+(setq fci-rule-width 1)
+(setq fci-rule-color "white")
 
 ;; 显示空格信息
 (defun my/trailing-whitespace ()
@@ -70,22 +74,31 @@
 
 ;; 高亮当前行
 ;;(global-hl-line-mode 1)
-;;(set-face-background hl-line-face "color-66")
-
-;; 恢复buffer到最原始的状态，会删除undo数据，注意使用
-(global-auto-revert-mode)
-(setq global-auto-revert-non-file-buffers t
-      auto-revert-verbose nil)
 
 ;; 创建新行操作,按下RET时既建新行也进行格式化
 (global-set-key (kbd "RET") 'newline-and-indent)
+
+;; 在当前行任意位置使用shift-RET创建一个新行
 (defun my/newline-at-end-of-line ()
   "移动到行尾并添加一个新行."
   (interactive)
   (move-end-of-line 1)
   (newline-and-indent))
-;; TODO 暂时还无法解决使用S-RET的问题，后面想办法改成shift-RET
-(global-set-key (kbd "M-RET") 'my/newline-at-end-of-line)
+;; 一定要使用<return>形式，快捷键Shift-<return>
+(global-set-key (kbd "S-<return>") 'my/newline-at-end-of-line)
+
+;; 删除到行首第一个非空白字符处
+(defun my/kill-back-to-indentation ()
+  "Kill from point back to the first non-whitespace character on the line."
+  (interactive)
+  (let ((prev-pos (point)))
+    (back-to-indentation)
+    (kill-region (point) prev-pos)))
+(global-set-key (kbd "C-M-<backspace>") 'my/kill-back-to-indentation)
+
+;; 会修改编码字符（如：lambda为λ）使其更容易读
+(when (fboundp 'global-prettify-symbols-mode)
+  (global-prettify-symbols-mode))
 
 ;; 自定义的粘贴复制剪切
 (defun my/pbcopy ()
@@ -93,13 +106,11 @@
   (interactive)
   (call-process-region (point) (mark) "pbcopy")
   (setq deactivate-mark t))
-
 (defun my/pbcut ()
   "自定义的剪切."
   (interactive)
   (my/pbcopy)
   (delete-region (region-beginning) (region-end)))
-
 (defun my/pbpaste ()
   "自定义的粘贴."
   (interactive)
@@ -107,36 +118,79 @@
 
 ;; 让原来对一个词的定位由整个词整个词变成一次定位词中有意义的一部分
 ;; https://github.com/purcell/emacs.d/issues/138
-(after-load 'subword
-  (diminish 'subword-mode))
+(when (eval-when-compile (string< "24.3.1" emacs-version))
+  (after-load 'subword
+    (diminish 'subword-mode)))
 
 ;; 对于对齐结果显示一根对齐竖线(有一个问题就是文件大的话会比较慢)
-;;(when (maybe-require-package 'indent-guide)
-;;  (add-hook 'prog-mode-hook 'indent-guide-mode)
-;;  (after-load 'indent-guide
-;;    (diminish 'indent-guide-mode)))
+(when (maybe-require-package 'indent-guide)
+  (add-hook 'prog-mode-hook 'indent-guide-mode)
+  (after-load 'indent-guide
+    (diminish 'indent-guide-mode)))
 
 ;; 使用undo树
 (require-package 'undo-tree)
-(require 'undo-tree)
 (global-undo-tree-mode)
 (diminish 'undo-tree-mode)
 
+;; 高亮显示符号
+(require-package 'highlight-symbol)
+(dolist (hook '(prog-mode-hook html-mode-hook css-mode-hook))
+  (add-hook hook 'highlight-symbol-mode)
+  (add-hook hook 'highlight-symbol-nav-mode))
+(add-hook 'org-mode-hook 'highlight-symbol-nav-mode)
+(after-load 'highlight-symbol
+  (diminish 'highlight-symbol-mode)
+  (defadvice highlight-symbol-temp-highlight (around my/maybe-suppress activate)
+    "Suppress symbol highlighting while isearching."
+    (unless (or isearch-mode
+                (and (boundp 'multiple-cursors-mode) multiple-cursors-mode))
+      ad-do-it)))
+
+;; 高亮被转移的字符
+(require-package 'highlight-escape-sequences)
+(hes-mode)
+
+;; 关闭缩小选中位置配置
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(put 'narrow-to-defun 'disabled nil)
+
 ;; 调整光标覆盖单词面积
 (require-package 'expand-region)
-(require 'expand-region)
-(global-set-key (kbd "C-c =") 'er/expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
 
 ;; 浏览所有被剪切/复制(kill)的内容,并且可以选择一个进行粘贴(yank)
 (require-package 'browse-kill-ring)
-(require 'browse-kill-ring)
 (setq browse-kill-ring-separator "\f")
-(global-set-key (kbd "C-c y") 'browse-kill-ring)
+(global-set-key (kbd "M-Y") 'browse-kill-ring)
+(after-load 'browse-kill-ring
+  (define-key browse-kill-ring-mode-map (kbd "C-g") 'browse-kill-ring-quit)
+  (define-key browse-kill-ring-mode-map (kbd "M-n") 'browse-kill-ring-forward)
+  (define-key browse-kill-ring-mode-map (kbd "M-p") 'browse-kill-ring-previous))
+(after-load 'page-break-lines
+  (push 'browse-kill-ring-mode page-break-lines-modes))
 
 ;; 跳到你想要的位置
-(require-package 'avy)
-(require 'avy)
-(global-set-key (kbd "C-c j") 'avy-goto-char)
+(when (maybe-require-package 'avy)
+  (global-set-key (kbd "C-;") 'avy-goto-word-or-subword-1))
+
+;; 隐藏丑陋的换行提示符
+(require-package 'page-break-lines)
+(global-page-break-lines-mode)
+(diminish 'page-break-lines-mode)
+
+;; 跳到当前表达式或者代码块的最前面
+;; Fix backward-up-list to understand quotes, see http://bit.ly/h7mdIL
+(defun my/backward-up-sexp (arg)
+  "Jump up to the start of the ARG'th enclosing sexp."
+  (interactive "p")
+  (let ((ppss (syntax-ppss)))
+    (cond ((elt ppss 3)
+           (goto-char (elt ppss 8))
+           (backward-up-sexp (1- arg)))
+          ((backward-up-list arg)))))
+(global-set-key [remap backward-up-list] 'my/backward-up-sexp) ; C-M-u, C-M-up
 
 ;; 提供快捷键提示
 (when (require-package 'guide-key)
@@ -144,10 +198,6 @@
   (setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-x C-r" "C-x r"))
   (guide-key-mode 1)
   (diminish 'guide-key-mode))
-
-;; iedit配置,可以将相同的内容一起改
-(require-package 'iedit)
-(require 'iedit)
 
 (provide 'init-editing-utils)
 ;;;  init-editing-utils.el ends here
