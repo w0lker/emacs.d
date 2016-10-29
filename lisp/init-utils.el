@@ -1,6 +1,6 @@
-;;
-;; 一些常用的或者自定义的工具函数和宏
-;;
+;;; package -- 常用工具函数和宏
+;;; Commentary:
+;;; Code:
 
 ;; common lisp所需要的库
 (eval-when-compile (require 'cl))
@@ -21,3 +21,4 @@
     (add-to-list 'auto-mode-alist (cons pattern mode))))
 
 (provide 'init-utils)
+;;;  init-utils.el ends here

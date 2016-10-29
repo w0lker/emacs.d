@@ -6,6 +6,8 @@
 
 ;; 设置配置文件夹
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+;; 设置默认工作目录
+(setq default-directory "~")
 ;; 配置个性化文件名
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 ;; 统一使用y/n
@@ -87,7 +89,6 @@
 
 
 ;; 主模式
-(require 'init-org)
 (require 'init-markdown)
 (require 'init-sql)
 (require 'init-python)

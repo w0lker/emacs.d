@@ -3,10 +3,6 @@
 ;;; Code:
 
 (when *is-a-mac*
-  ;;设置Command键为M键
-  (setq mac-command-modifier 'meta)
-  ;; 设置Option键为S键
-  (setq mac-option-modifier 'super)
   (setq-default default-input-method "MacOSX")
   ;; 减慢鼠标的滚动速度
   (setq mouse-wheel-scroll-amount '(1

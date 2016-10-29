@@ -34,7 +34,7 @@
 (when (and *is-a-mac* (fboundp 'toggle-frame-fullscreen))
   ;; Command-Shift-f to toggle fullscreen mode
   ;; Hint: Customize `ns-use-native-fullscreen'
-  (global-set-key (kbd "M-C-f") 'toggle-frame-fullscreen))
+  (global-set-key (kbd "C-s-f") 'toggle-frame-fullscreen))
 
 ;; 隐藏选中的窗口的菜单栏
 (add-hook 'after-make-frame-functions

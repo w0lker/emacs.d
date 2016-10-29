@@ -50,7 +50,7 @@
 (after-load 'company
   (dolist (hook '(ruby-mode-hook inf-ruby-mode-hook html-erb-mode-hook haml-mode))
     (add-hook hook
-              (lambda () (sanityinc/local-push-company-backend 'company-robe)))))
+              (lambda () (my/company/local-push-company-backend 'company-robe)))))
 
 
 

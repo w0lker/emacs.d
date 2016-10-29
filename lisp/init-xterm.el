@@ -2,6 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
+;; 环境变量
+;;(setenv "PATH" (concat "/usr/local/rtags/bin:/usr/local/bin:/usr/bin:/bin:" (getenv "PATH")))
+(setenv "TERM" "xterm-256color")
+
 ;; 修复按键映射
 (defun fix-up-xterm-control-arrows ()
   "Keys mapping."
@@ -16,7 +20,6 @@
     (define-key map "\e[5B"   [C-down])
     (define-key map "\e[5C"   [C-right])
     (define-key map "\e[5D"   [C-left])))
-
 (global-set-key [mouse-4] (lambda () (interactive) (scroll-down 1)))
 (global-set-key [mouse-5] (lambda () (interactive) (scroll-up 1)))
 

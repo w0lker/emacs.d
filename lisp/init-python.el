@@ -2,17 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-;; 添加环境变量
-(setenv "PYENV_ROOT"
-        (let ((current (getenv "PYENV_ROOT"))
-              (new "/usr/local/var/pyenv"))
-          (if current (concat new ":" current) new)))
-
-(setenv "WORKON_HOME"
-        (let ((current (getenv "WORKON_HOME"))
-              (new "/usr/local/var/pyenv/versions"))
-          (if current (concat new ":" current) new)))
-
+;; 绑定关联文件类型
 (setq auto-mode-alist
       (append '(("SConstruct\\'" . python-mode)
                 ("SConscript\\'" . python-mode))
@@ -20,6 +10,10 @@
 
 (require-package 'pip-requirements)
 
+;; 设置python-mode的交互模式使用ipython
+(setq python-shell-interpreter "ipython")
+
+;; 提供代码补全
 (when (maybe-require-package 'anaconda-mode)
   (after-load 'python
     (add-hook 'python-mode-hook 'anaconda-mode)
@@ -27,15 +21,29 @@
   (when (maybe-require-package 'company-anaconda)
     (after-load 'company
       (add-hook 'python-mode-hook
-                (lambda () (my/local-push-company-backend 'company-anaconda))))))
+                (lambda () (my/company/local-push-company-backend 'company-anaconda))))))
 
-(setq python-shell-interpreter "ipython")
 
 (require-package 'pyenv-mode)
 (require-package 'pyenv-mode-auto)
 (require 'pyenv-mode-auto)
 
 (when (require-package 'py-yapf) (require 'py-yapf))
+
+;; 配置环境变量，添加环境变量“PYENV_ROOT”和“PATH”
+(defun my/python-environment-variables ()
+  "Setting python buffer local environment variables."
+  (make-local-variable 'process-environment)
+  (with-temp-buffer
+    (call-process "bash" nil t nil "-c"
+                  "source ~/.bash_profile; env|egrep 'PYENV_ROOT|PATH'")
+    (goto-char (point-min))
+    (while (not (eobp))
+      (setq process-environment
+            (cons (buffer-substring (point) (line-end-position))
+                  process-environment))
+      (forward-line 1))))
+(add-hook 'python-mode-hook 'my/python-environment-variables)
 
 (provide 'init-python)
 ;;;  init-python.el ends here
