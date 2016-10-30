@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
+;; 载入elpa已经安装的插件
 (package-initialize)
 
 ;; 设置配置文件夹
@@ -10,6 +11,7 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 ;; 统一使用y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
+
 (defconst *is-a-mac* (eq system-type 'darwin))
 
 ;; GC垃圾收集
@@ -75,16 +77,12 @@
 (require 'init-shell)
 (require 'init-vagrant)
 
-
 ;; 开发功能
-(require 'init-editing-utils)
+(require 'init-editor)
 (require 'init-company)
 (require 'init-flycheck)
-(require 'init-hippie-expand)
 (require 'init-yasnippet)
 (require 'init-vc)
-(require 'init-cmake)
-
 
 ;; 主模式
 (require 'init-mu4e)
@@ -97,10 +95,8 @@
 ;; 必须放在最后
 (require 'init-locales)
 
-
 (put 'erase-buffer 'disabled nil)
 (put 'set-goal-column 'disabled nil)
-
 
 (provide 'init)
 ;;;  init.el ends here

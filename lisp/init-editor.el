@@ -1,4 +1,4 @@
-;;; package -- 编辑配置
+;;; package -- 编辑器
 ;;; Commentary:
 ;;; Code:
 
@@ -25,10 +25,19 @@
 ;; 把整段变成很多行
 (require-package 'unfill)
 
+;; 不断监听当前buffer的变化，如果有其它编辑器修改该文件会同步过来
 (global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t
       auto-revert-verbose nil)
 
+;; 设置补全，针对已经出现过的符号
+(setq hippie-expand-try-functions-list
+      '(try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev-from-kill))
+(global-set-key (kbd "M-/") 'hippie-expand)
 
 ;; 在行首C-k时，同时删除末尾换行符,让光标移到下一行的行首
 (setq kill-whole-line t)
@@ -52,20 +61,17 @@
 ;; 配置行号显示
 (require 'linum)
 (setq linum-format "%4d ")
-(toggle-indicate-empty-lines nil)
+
+;; 通过横杠指示文件结尾空行
+;; 可以通过M-x toggle-indicate-empty-lines关闭或者打开
+(setq indicate-empty-lines t)
+(setq indicate-buffer-boundaries 'right)
 
 ;; 宽度标尺
 (require-package 'fill-column-indicator)
 (setq-default fci-rule-column 120)
 (setq fci-rule-width 1)
 (setq fci-rule-color "white")
-
-;; 显示空格信息
-(defun my/trailing-whitespace ()
-  "Turn off display of trailing whitespace in this buffer."
-  (setq show-trailing-whitespace t))
-(dolist (hook '(emacs-lisp-mode c++-mode-hook))
-  (add-hook hook #'my/trailing-whitespace))
 
 ;; 删除多余空白
 (require-package 'whitespace-cleanup-mode)
@@ -99,22 +105,6 @@
 ;; 会修改编码字符（如：lambda为λ）使其更容易读
 (when (fboundp 'global-prettify-symbols-mode)
   (global-prettify-symbols-mode))
-
-;; 自定义的粘贴复制剪切
-(defun my/pbcopy ()
-  "自定义的复制."
-  (interactive)
-  (call-process-region (point) (mark) "pbcopy")
-  (setq deactivate-mark t))
-(defun my/pbcut ()
-  "自定义的剪切."
-  (interactive)
-  (my/pbcopy)
-  (delete-region (region-beginning) (region-end)))
-(defun my/pbpaste ()
-  "自定义的粘贴."
-  (interactive)
-  (call-process-region (point) (if mark-active (mark) (point)) "pbpaste" t t))
 
 ;; 让原来对一个词的定位由整个词整个词变成一次定位词中有意义的一部分
 ;; https://github.com/purcell/emacs.d/issues/138
@@ -175,7 +165,7 @@
 (when (maybe-require-package 'avy)
   (global-set-key (kbd "C-;") 'avy-goto-word-or-subword-1))
 
-;; 隐藏丑陋的换行提示符
+;; 将丑陋的换行提示符^L显示为一条线
 (require-package 'page-break-lines)
 (global-page-break-lines-mode)
 (diminish 'page-break-lines-mode)
@@ -199,5 +189,5 @@
   (guide-key-mode 1)
   (diminish 'guide-key-mode))
 
-(provide 'init-editing-utils)
-;;;  init-editing-utils.el ends here
+(provide 'init-editor)
+;;;  init-editor.el ends here

@@ -10,8 +10,14 @@
 
 (require-package 'pip-requirements)
 
-;; 设置python-mode的交互模式使用ipython
-(setq python-shell-interpreter "ipython")
+(setq
+ ;; 设置python-mode的交互模式使用ipython
+ python-shell-interpreter "ipython"
+ python-shell-prompt-regexp "In \\[[0-9]+\\]: "
+ python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: ")
+
+;; 解决ansi-color-filter-apply: Args out of range这个问题
+(setenv "IPY_TEST_SIMPLE_PROMPT" "1")
 
 ;; 提供代码补全
 (when (maybe-require-package 'anaconda-mode)

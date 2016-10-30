@@ -17,10 +17,6 @@
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-echo-area-message t)
 
-;; 在文件结尾通过横杠指示文件结束
-;; 可以通过M-x toggle-indicate-empty-lines关闭或者打开
-(setq indicate-empty-lines t)
-
 ;; 取消工具栏
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
