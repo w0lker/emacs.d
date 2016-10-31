@@ -3,9 +3,7 @@
 ;;; Code:
 
 (require-package 'yasnippet)
-(require 'yasnippet)
 (require-package 'dropdown-list)
-(require 'dropdown-list)
 (add-to-list 'load-path (expand-file-name "snippets" user-emacs-directory))
 
 (yas-global-mode 1)

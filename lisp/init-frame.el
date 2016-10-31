@@ -1,4 +1,4 @@
-;;; package -- 图形界面配置
+;;; package -- 图形界面
 ;;; Commentary:
 ;;; Code:
 
@@ -13,24 +13,28 @@
 ;; 禁止图形特性
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
+
 ;; 隐藏启动画面
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-echo-area-message t)
 
-;; 取消工具栏
-(when (fboundp 'tool-bar-mode)
-  (tool-bar-mode -1))
+;; scratch默认不显示任何内容
+(setq initial-scratch-message nil)
+
+;; 不显示工具栏
+(if (functionp 'tool-bar-mode)
+    (tool-bar-mode -1))
+;; 不显示菜单
+(if (functionp 'menu-bar-mode)
+    (menu-bar-mode -1))
+;; 不显示滚动条
+(if (fboundp 'scroll-bar-mode)
+    (scroll-bar-mode -1))
 
 ;; 无边框
 (let ((no-border '(internal-border-width . 0)))
   (add-to-list 'default-frame-alist no-border)
   (add-to-list 'initial-frame-alist no-border))
-
-;; 全屏模式
-(when (and *is-a-mac* (fboundp 'toggle-frame-fullscreen))
-  ;; Command-Shift-f to toggle fullscreen mode
-  ;; Hint: Customize `ns-use-native-fullscreen'
-  (global-set-key (kbd "C-M-f") 'toggle-frame-fullscreen))
 
 ;; 隐藏选中的窗口的菜单栏
 (add-hook 'after-make-frame-functions
@@ -51,8 +55,13 @@
           (lambda ()
             (setq line-spacing 0)))
 
-;; 不使用鼠标
-(require-package 'disable-mouse)
+;; 同步emacs的环境变量和shell的环境变量
+(require-package 'exec-path-from-shell)
+(after-load 'exec-path-from-shell
+  (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE"))
+    (add-to-list 'exec-path-from-shell-variables var)))
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
 
-(provide 'init-gui-frames)
-;;;  init-gui-frames.el ends here
+(provide 'init-frame)
+;;;  init-frame.el ends here

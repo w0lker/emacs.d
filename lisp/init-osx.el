@@ -1,6 +1,8 @@
-;;; package -- 苹果键盘配置
+;;; package -- 苹果配置
 ;;; Commentary:
 ;;; Code:
+
+(defconst *is-a-mac* (eq system-type 'darwin))
 
 (when *is-a-mac*
   (setq-default default-input-method "MacOSX")
@@ -20,5 +22,15 @@
   (global-set-key (kbd "M-ˍ") 'ns-do-hide-others) ;; what describe-key reports for cmd-option-h
   )
 
-(provide 'init-osx-keys)
-;;;  init-osx-keys.el ends here
+;; 全屏模式
+(when (and *is-a-mac* (fboundp 'toggle-frame-fullscreen))
+  ;; Command-Shift-f to toggle fullscreen mode
+  ;; Hint: Customize `ns-use-native-fullscreen'
+  (global-set-key (kbd "C-M-f") 'toggle-frame-fullscreen))
+
+;; 设置默认查找使用命令
+(when *is-a-mac*
+  (setq-default locate-command "mdfind"))
+
+(provide 'init-osx)
+;;;  init-osx.el ends here

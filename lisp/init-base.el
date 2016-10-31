@@ -1,8 +1,24 @@
-(require 'package)
+;;; package -- 常用工具函数和宏
+;;; Commentary:
+;;; Code:
 
-(setq package-archives '(
-   ("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-   ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+;; 配置个性化文件名
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+
+;; 定义宏after-load
+(if (fboundp 'with-eval-after-load)
+    (defalias 'after-load 'with-eval-after-load)
+  (defmacro after-load (feature &rest body)
+    "After FEATURE is loaded, evaluate BODY."
+    (declare (indent defun))
+    `(eval-after-load ,feature
+       '(progn ,@body))))
+
+;; 文模和模式关联
+(defun add-auto-mode (mode &rest patterns)
+  "Add entries to `auto-mode-alist' to use `MODE' for all given file `PATTERNS'."
+  (dolist (pattern patterns)
+    (add-to-list 'auto-mode-alist (cons pattern mode))))
 
 (defun require-package (package &optional min-version no-refresh)
   "Install given PACKAGE, optionally requiring MIN-VERSION.
@@ -19,7 +35,6 @@ re-downloaded in order to locate PACKAGE."
         (package-refresh-contents)
         (require-package package min-version t)))))
 
-
 (defun maybe-require-package (package &optional min-version no-refresh)
   "Try to install PACKAGE, and return non-nil if successful.
 In the event of failure, return nil and print a warning message.
@@ -32,33 +47,17 @@ locate PACKAGE."
      (message "Couldn't install package `%s': %S" package err)
      nil)))
 
-(setq package-enable-at-startup nil)
-(package-initialize)
-
-
-;; 设置全屏
-(require-package 'fullframe)
-(fullframe list-packages quit-window)
-
-
-;; 设置package列表中的显示宽度
+;; common lisp扩展库
 (require-package 'cl-lib)
 (require 'cl-lib)
+(eval-when-compile (require 'cl))
 
-(defun my/set-tabulated-list-column-width (col-name width)
-  "Set any column with name COL-NAME to the given WIDTH."
-  (cl-loop for column across tabulated-list-format
-           when (string= col-name (car column))
-           do (setf (elt column 1) width)))
+;; 必需的包
+(require-package 'wgrep)
+(require-package 'project-local-variables)
+(require-package 'diminish)
+(require-package 'scratch)
+(require-package 'mwe-log-commands)
 
-(defun my/maybe-widen-package-menu-columns ()
-  "Widen some columns of the package menu table to avoid truncation."
-  (when (boundp 'tabulated-list-format)
-    (my/set-tabulated-list-column-width "Version" 13)
-    (let ((longest-archive-name (apply 'max (mapcar 'length (mapcar 'car package-archives)))))
-      (my/set-tabulated-list-column-width "Archive" longest-archive-name))))
-
-(add-hook 'package-menu-mode-hook 'my/maybe-widen-package-menu-columns)
-
-
-(provide 'init-elpa)
+(provide 'init-base)
+;;;  init-base.el ends here

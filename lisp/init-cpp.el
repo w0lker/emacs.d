@@ -21,15 +21,15 @@
             (lambda () (my/company/local-push-company-backend 'company-rtags))))
 
 ;; 代码检查
-(defun my/flycheck-rtags-setup ()
+(defun my/cpp/flycheck-rtags-setup ()
   "Seting rtags for flycheck."
   (require 'flycheck-rtags)
   (flycheck-select-checker 'rtags)
   (message "hello")
   (setq-local flycheck-highlighting-mode nil)
   (setq-local flycheck-check-syntax-automatically nil))
-(add-hook 'c-mode-hook 'my/flycheck-rtags-setup)
-(add-hook 'c++-mode-hook 'my/flycheck-rtags-setup)
+(add-hook 'c-mode-hook 'my/cpp/flycheck-rtags-setup)
+(add-hook 'c++-mode-hook 'my/cpp/flycheck-rtags-setup)
 
 (require-package 'cmake-mode)
 

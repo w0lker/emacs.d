@@ -1,4 +1,4 @@
-;;; package -- company配置文件
+;;; package -- 代码补全工具company配置文件
 ;;; Commentary:
 ;;; Code:
 

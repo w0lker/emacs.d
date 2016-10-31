@@ -19,5 +19,5 @@ This is helpful for writeroom-mode, in particular."
     (remove-hook 'after-setting-font-hook 'visual-fill-column--adjust-window t)))
 (add-hook 'visual-fill-column-mode-hook 'my/maybe-adjust-visual-fill-column)
 
-(provide 'init-fonts)
-;;;  init-fonts.el ends here
+(provide 'init-font)
+;;;  init-font.el ends here

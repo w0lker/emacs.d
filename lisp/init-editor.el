@@ -4,6 +4,8 @@
 
 ;; 基本配置
 (setq-default
+ major-mode 'text-mode ;; 默认模式不使用fundamental-mode
+ jit-lock-defer-time 0.05 ;; 优化翻页速度
  blink-cursor-interval 0.4 ;; 光标闪动频率
  case-fold-search t ;; 搜索时大小写不敏感,nil表示敏感
  column-number-mode t ;; mode-line上显示列数
@@ -20,7 +22,15 @@
  tooltip-delay 1.5
  show-trailing-whitespace nil ;; 默认不显示空格信息
  truncate-lines nil
- truncate-partial-width-windows nil)
+ truncate-partial-width-windows nil
+ visible-bell t ;; 关闭出错蜂鸣声
+ ring-bell-function 'ignore)
+
+;; 统一使用y/n
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; 不使用鼠标
+(require-package 'disable-mouse)
 
 ;; 把整段变成很多行
 (require-package 'unfill)
