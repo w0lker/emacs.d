@@ -30,9 +30,6 @@
 (setq tab-always-indent 'complete
       completion-cycle-threshold 5
       company-idle-delay .1 ;; 补全延迟
-      company-tooltip-idle-delay .1 ;; 提示框延迟
-      company-tooltip-margin 1
-      company-tooltip-flip-when-above t ;;如果覆盖住内容就反转一边
       )
 
 ;; company主题
@@ -61,29 +58,28 @@
   (after-load 'page-break-lines-mode
     (defvar my/completion/page-break-lines-on-p nil)
     (make-variable-buffer-local 'my/completion/page-break-lines-on-p)
-
     (defun my/completion/page-break-lines-disable (&rest ignore)
       (when (setq my/completion/page-break-lines-on-p (bound-and-true-p page-break-lines-mode))
         (page-break-lines-mode -1)))
-
     (defun my/completion/page-break-lines-maybe-reenable (&rest ignore)
       (when my/completion/page-break-lines-on-p
         (page-break-lines-mode 1)))
-
     (add-hook 'company-completion-started-hook 'my/completion/page-break-lines-disable)
     (add-hook 'company-completion-finished-hook 'my/completion/page-break-lines-maybe-reenable)
     (add-hook 'company-completion-cancelled-hook 'my/completion/page-break-lines-maybe-reenable)))
-
-;; 只在使用桌面系统时使用
-;;(when window-system
-;;  (when (maybe-require-package 'company-quickhelp)
-;;    (add-hook 'after-init-hook 'company-quickhelp-mode))
-;;  (setq company-quickhelp-delay 0.5))
 
 (defun my/company/local-push-company-backend (backend)
   "Add BACKEND to a buffer-local version of `company-backends'."
   (set (make-local-variable 'company-backends)
        (append (list backend) company-backends)))
+
+;; 只在使用桌面系统时使用
+(when window-system
+  (require-package 'company-quickhelp)
+  (company-quickhelp-mode 1)
+  (setq company-quickhelp-delay nil)
+  (eval-after-load 'company
+    '(define-key company-active-map (kbd "M-h") #'company-quickhelp-manual-begin)))
 
 (provide 'init-completion)
 ;;; init-completion.el ends here

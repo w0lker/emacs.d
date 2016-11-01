@@ -10,7 +10,7 @@
   (add-hook 'c-mode-common-hook 'google-set-c-style)
   (add-hook 'c-mode-common-hook 'google-make-newline-indent))
 
-;; rtags配置
+;; 代码补全，rtags配置
 (when (maybe-require-package 'rtags)
   (require 'company)
   (require 'company-rtags)

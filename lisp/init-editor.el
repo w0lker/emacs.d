@@ -29,6 +29,11 @@
 ;; 统一使用y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; 禁用鼠标滚动内容
+(require-package 'disable-mouse)
+(global-disable-mouse-mode)
+
+;;
 ;; 不断监听当前buffer的变化，如果有其它编辑器修改该文件会同步过来
 (global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t
@@ -62,12 +67,11 @@
 (setq indicate-empty-lines t)
 (setq indicate-buffer-boundaries 'right)
 
-;; 宽度标尺
+;; 宽度标尺，与company的样式有冲突，不要自启动
 (require-package 'fill-column-indicator)
 (setq-default fci-rule-column 80)
 (setq fci-rule-width 1)
 (setq fci-rule-color "dark gray")
-(add-hook 'prog-mode-hook 'fci-mode)
 
 ;; 删除多余空白
 (require-package 'whitespace-cleanup-mode)
