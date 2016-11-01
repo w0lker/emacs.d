@@ -15,6 +15,7 @@
 
 ;; 基本配置
 (require 'init-base)
+(require 'init-mmm)
 (require 'init-theme)
 (require 'init-font)
 (require 'init-frame)
@@ -30,7 +31,6 @@
 (require 'init-dired)
 (require 'init-grep)
 (require 'init-isearch)
-(require 'init-mmm)
 (require 'init-tramp)
 
 ;; 开发组建
