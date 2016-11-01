@@ -32,16 +32,15 @@
 (require 'init-isearch)
 (require 'init-mmm)
 (require 'init-tramp)
-(require 'init-shell)
 
 ;; 开发组建
 (require 'init-editor)
+(require 'init-version-control)
 (require 'init-completion)
-(require 'init-yasnippet)
-(require 'init-flycheck)
-(require 'init-vc)
+(require 'init-code-check)
 
 ;; 主模式
+(require 'init-shell)
 (require 'init-email)
 (require 'init-markdown)
 (require 'init-sql)

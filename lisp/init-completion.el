@@ -7,6 +7,15 @@
 ;; 使用这个样式可以补全首字母缩写，如:使用lch补全list-command-history
 (add-to-list 'completion-styles 'initials t)
 
+;;; 模版补全
+(require-package 'yasnippet)
+(require-package 'dropdown-list)
+(add-to-list 'load-path (expand-file-name "snippets" user-emacs-directory))
+
+(setq yas-prompt-functions '(yas-dropdown-prompt yas-ido-prompt yas-completing-prompt))
+(yas-global-mode 1)
+(diminish 'yas-minor-mode)
+
 ;;; hippie-expand方式补全
 ;; 设置补全，针对已经出现过的符号
 (setq hippie-expand-try-functions-list

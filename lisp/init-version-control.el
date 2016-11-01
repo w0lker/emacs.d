@@ -11,5 +11,5 @@
 (require-package 'ibuffer-vc)
 (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root)
 
-(provide 'init-vc)
-;;;  init-vc.el ends here
+(provide 'init-version-control)
+;;;  init-version-control.el ends here
