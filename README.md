@@ -1,3 +1,2 @@
 ### 使用方式
-
-git clone git@github.com:w0lker/conf_emacs.git .emacs.d
+git clone https://github.com/w0lker/emacs.d.git ~/.emacs.d
