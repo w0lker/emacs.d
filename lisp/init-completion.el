@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-;; 设置补全样式
+;; 补全样式
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Completion-Styles.html
 ;; 使用这个样式可以补全首字母缩写，如:使用lch补全list-command-history
 (add-to-list 'completion-styles 'initials t)
@@ -27,23 +27,24 @@
 (global-set-key (kbd "M-/") 'hippie-expand)
 
 ;;; company方式补全
-;; 基本
 (setq tab-always-indent 'complete
       completion-cycle-threshold 5
-      company-idle-delay 0.1)
+      company-idle-delay .1 ;; 补全延迟
+      company-tooltip-idle-delay .1 ;; 提示框延迟
+      company-tooltip-margin 1
+      company-tooltip-flip-when-above t ;;如果覆盖住内容就反转一边
+      )
 
-;; 主题
-(let ((bg (face-attribute 'default :background)))
-  (custom-set-faces
-   `(company-tooltip ((t :inherit default :background "#403D3D")))
-   `(company-scrollbar-bg ((t :background "#232526")))
-   `(company-scrollbar-fg ((t :background "#E6DB74")))
-   `(company-preview ((t :background "color-66")))
-   `(company-preview-search ((t :background "color-66")))
-   `(company-tooltip-selection ((t :inherit font-lock-function-name-face)))
-   `(company-tooltip-common ((t :inherit font-lock-constant-face)))
-   '(font-lock-comment-face ((t (:foreground "#888888" :slant italic))))
-   ))
+;; company主题
+(custom-set-faces
+ '(company-tooltip ((t :background "#403d3d"))) ;; 弹窗背景
+ '(company-tooltip-selection ((t :foreground "#f62d6e" :background "#525151"))) ;; 选中选项颜色
+ '(company-tooltip-common ((t :foreground "#f62d6e"))) ;; 前缀部分
+ '(company-tooltip-common-selection ((t :foreground "#f62d6e"))) ;; 前缀选中部分
+ '(company-tooltip-annotation ((t :foreground "#92e56d"))) ;; 注解部分
+ '(company-scrollbar-bg ((t :background "#403d3d"))) ;; 进度条背景色
+ '(company-scrollbar-fg ((t :background "#f8f7f1"))) ;; 进度条前景色
+ )
 
 (when (maybe-require-package 'company)
   (add-hook 'after-init-hook 'global-company-mode)
@@ -74,10 +75,10 @@
     (add-hook 'company-completion-cancelled-hook 'my/completion/page-break-lines-maybe-reenable)))
 
 ;; 只在使用桌面系统时使用
-(when window-system
-  (when (maybe-require-package 'company-quickhelp)
-    (add-hook 'after-init-hook 'company-quickhelp-mode))
-  (setq company-quickhelp-delay 0.5))
+;;(when window-system
+;;  (when (maybe-require-package 'company-quickhelp)
+;;    (add-hook 'after-init-hook 'company-quickhelp-mode))
+;;  (setq company-quickhelp-delay 0.5))
 
 (defun my/company/local-push-company-backend (backend)
   "Add BACKEND to a buffer-local version of `company-backends'."

@@ -29,7 +29,7 @@
 (require 'init-ido)
 (require 'init-dired)
 (require 'init-grep)
-(require 'init-isearch)
+(require 'init-search)
 (require 'init-tramp)
 
 ;; 开发组建

@@ -11,5 +11,19 @@
 (require-package 'ibuffer-vc)
 (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root)
 
+;; git配置
+(require-package 'gitignore-mode)
+(require-package 'gitconfig-mode)
+
+(when (maybe-require-package 'magit)
+  (setq-default magit-diff-refine-hunk t))
+
+(require-package 'fullframe)
+(after-load 'magit
+  (fullframe magit-status magit-mode-quit-window))
+
+(when (maybe-require-package 'git-commit)
+  (add-hook 'git-commit-mode-hook 'goto-address-mode))
+
 (provide 'init-version-control)
 ;;;  init-version-control.el ends here

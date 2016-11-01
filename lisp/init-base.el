@@ -65,5 +65,12 @@ locate PACKAGE."
 (setq mmm-global-mode 'buffers-with-submode-classes)
 (setq mmm-submode-decoration-level 2)
 
+;; 启动后临时减小垃圾收集时间
+(defconst my/initial-gc-cons-threshold gc-cons-threshold
+  "Initial value of `gc-cons-threshold' at start-up time.")
+(setq gc-cons-threshold (* 128 1024 1024))
+(add-hook 'after-init-hook
+          (lambda () (setq gc-cons-threshold my/initial-gc-cons-threshold)))
+
 (provide 'init-base)
 ;;;  init-base.el ends here
