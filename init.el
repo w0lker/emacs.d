@@ -36,13 +36,13 @@
 
 ;; 开发组建
 (require 'init-editor)
-(require 'init-company)
+(require 'init-completion)
 (require 'init-yasnippet)
 (require 'init-flycheck)
 (require 'init-vc)
 
 ;; 主模式
-(require 'init-mu4e)
+(require 'init-email)
 (require 'init-markdown)
 (require 'init-sql)
 (require 'init-python)

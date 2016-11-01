@@ -1,4 +1,4 @@
-;;; package -- 代码补全工具company配置文件
+;;; package -- 代码补全配置
 ;;; Commentary:
 ;;; Code:
 
@@ -7,6 +7,17 @@
 ;; 使用这个样式可以补全首字母缩写，如:使用lch补全list-command-history
 (add-to-list 'completion-styles 'initials t)
 
+;;; hippie-expand方式补全
+;; 设置补全，针对已经出现过的符号
+(setq hippie-expand-try-functions-list
+      '(try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev-from-kill))
+(global-set-key (kbd "M-/") 'hippie-expand)
+
+;;; company方式补全
 ;; 基本
 (setq tab-always-indent 'complete
       completion-cycle-threshold 5
@@ -38,20 +49,20 @@
 ;; (see https://github.com/company-mode/company-mode/issues/416)
 (after-load 'company
   (after-load 'page-break-lines-mode
-    (defvar my/company/page-break-lines-on-p nil)
-    (make-variable-buffer-local 'my/company/page-break-lines-on-p)
+    (defvar my/completion/page-break-lines-on-p nil)
+    (make-variable-buffer-local 'my/completion/page-break-lines-on-p)
 
-    (defun my/company/page-break-lines-disable (&rest ignore)
-      (when (setq my/company/page-break-lines-on-p (bound-and-true-p page-break-lines-mode))
+    (defun my/completion/page-break-lines-disable (&rest ignore)
+      (when (setq my/completion/page-break-lines-on-p (bound-and-true-p page-break-lines-mode))
         (page-break-lines-mode -1)))
 
-    (defun my/company/page-break-lines-maybe-reenable (&rest ignore)
-      (when my/company/page-break-lines-on-p
+    (defun my/completion/page-break-lines-maybe-reenable (&rest ignore)
+      (when my/completion/page-break-lines-on-p
         (page-break-lines-mode 1)))
 
-    (add-hook 'company-completion-started-hook 'my/company/page-break-lines-disable)
-    (add-hook 'company-completion-finished-hook 'my/company/page-break-lines-maybe-reenable)
-    (add-hook 'company-completion-cancelled-hook 'my/company/page-break-lines-maybe-reenable)))
+    (add-hook 'company-completion-started-hook 'my/completion/page-break-lines-disable)
+    (add-hook 'company-completion-finished-hook 'my/completion/page-break-lines-maybe-reenable)
+    (add-hook 'company-completion-cancelled-hook 'my/completion/page-break-lines-maybe-reenable)))
 
 ;; 只在使用桌面系统时使用
 (when window-system
@@ -64,5 +75,5 @@
   (set (make-local-variable 'company-backends)
        (append (list backend) company-backends)))
 
-(provide 'init-company)
-;;; init-company.el ends here
+(provide 'init-completion)
+;;; init-completion.el ends here

@@ -29,25 +29,10 @@
 ;; 统一使用y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; 不使用鼠标
-(require-package 'disable-mouse)
-
-;; 把整段变成很多行
-(require-package 'unfill)
-
 ;; 不断监听当前buffer的变化，如果有其它编辑器修改该文件会同步过来
 (global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t
       auto-revert-verbose nil)
-
-;; 设置补全，针对已经出现过的符号
-(setq hippie-expand-try-functions-list
-      '(try-complete-file-name-partially
-        try-complete-file-name
-        try-expand-dabbrev
-        try-expand-dabbrev-all-buffers
-        try-expand-dabbrev-from-kill))
-(global-set-key (kbd "M-/") 'hippie-expand)
 
 ;; 在行首C-k时，同时删除末尾换行符,让光标移到下一行的行首
 (setq kill-whole-line t)
@@ -79,9 +64,10 @@
 
 ;; 宽度标尺
 (require-package 'fill-column-indicator)
-(setq-default fci-rule-column 120)
+(setq-default fci-rule-column 80)
 (setq fci-rule-width 1)
-(setq fci-rule-color "white")
+(setq fci-rule-color "dark gray")
+(add-hook 'prog-mode-hook 'fci-mode)
 
 ;; 删除多余空白
 (require-package 'whitespace-cleanup-mode)

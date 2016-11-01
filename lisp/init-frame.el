@@ -2,6 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
+;; 基础配置
+;; 初始窗口大小
+(setq initial-frame-alist '((width . 120) (height . 60)))
+
 ;; 除了mac和windows之外使用C-z可以暂停当前窗口
 (defun my/maybe-suspend-frame ()
   "Suspend frame when using `C-z`."
