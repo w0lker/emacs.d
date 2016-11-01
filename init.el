@@ -15,7 +15,6 @@
 
 ;; 基本配置
 (require 'init-base)
-(require 'init-mmm)
 (require 'init-theme)
 (require 'init-font)
 (require 'init-frame)
@@ -23,7 +22,7 @@
 (require 'init-xterm)
 (require 'init-osx)
 
-;; 功能组建
+;; 扩展功能
 (require 'init-evil)
 (require 'init-recentf)
 (require 'init-ibuffer)

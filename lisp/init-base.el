@@ -59,5 +59,11 @@ locate PACKAGE."
 (require-package 'scratch)
 (require-package 'mwe-log-commands)
 
+;; 让多个主模式共存
+(require-package 'mmm-mode)
+(require 'mmm-auto)
+(setq mmm-global-mode 'buffers-with-submode-classes)
+(setq mmm-submode-decoration-level 2)
+
 (provide 'init-base)
 ;;;  init-base.el ends here
