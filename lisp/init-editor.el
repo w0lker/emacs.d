@@ -29,6 +29,11 @@
 ;; 统一使用y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; 设置redo支持
+(require-package 'redo+)
+(global-set-key (kbd "C-?") 'redo)
+(setq undo-no-redo t)
+
 ;; 禁用鼠标
 ;;(require-package 'disable-mouse)
 ;;(global-disable-mouse-mode)

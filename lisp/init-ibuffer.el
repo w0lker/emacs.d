@@ -32,9 +32,9 @@
 (setq uniquify-ignore-buffers-re "^\\*")
 
 ;; vim快捷键
-(after-load 'ibuffer
-  (if (functionp 'evil-set-initial-state)
-      (evil-set-initial-state 'ibuffer-mode 'normal)))
+;;(after-load 'ibuffer
+;;  (if (functionp 'evil-set-initial-state)
+;;      (evil-set-initial-state 'ibuffer-mode 'normal)))
 
 ;; 设置启动快捷键
 (global-set-key (kbd "C-x C-b") 'ibuffer)
