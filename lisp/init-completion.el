@@ -29,7 +29,7 @@
 ;;; company方式补全
 (setq tab-always-indent 'complete
       completion-cycle-threshold 5
-      company-idle-delay .1 ;; 补全延迟
+      company-idle-delay .6 ;; 补全延迟
       )
 
 ;; company主题

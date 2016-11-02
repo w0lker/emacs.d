@@ -6,6 +6,10 @@
 (when (fboundp 'winner-mode)
   (winner-mode 1))
 
+;; 使用shift+方向键选择面板
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
+
 ;; 超过两个窗口，可以使用"C-x o"进行切换
 (require-package 'switch-window)
 (require 'switch-window)

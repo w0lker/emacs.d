@@ -49,7 +49,8 @@ any.  With prefix argument CREATE always start a new shell."
     (setenv "TERM" "xterm-256color")
     (progn (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter)
            (setq comint-output-filter-functions (remove 'ansi-color-process-output comint-output-filter-functions))
-           (setq font-lock-unfontify-region-function 'xterm-color-unfontify-region)))
+           ;;(setq font-lock-unfontify-region-function 'xterm-color-unfontify-region)
+           ))
   )
 (add-hook 'shell-mode-hook 'my/shell/set-xterm-color)
 
