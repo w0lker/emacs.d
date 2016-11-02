@@ -13,6 +13,7 @@
 (setq
  ;; 设置python-mode的交互模式使用ipython
  python-shell-interpreter "ipython"
+ python-shell-completion-native-enable nil
  python-shell-prompt-regexp "In \\[[0-9]+\\]: "
  python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: ")
 
