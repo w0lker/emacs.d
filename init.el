@@ -34,6 +34,7 @@
 
 ;; 开发组建
 (require 'init-editor)
+(require 'init-projectile)
 (require 'init-version-control)
 (require 'init-completion)
 (require 'init-code-check)
