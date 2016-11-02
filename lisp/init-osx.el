@@ -5,6 +5,8 @@
 (defconst *is-a-mac* (eq system-type 'darwin))
 
 (when *is-a-mac*
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier 'none)
   (setq-default default-input-method "MacOSX")
   ;; 减慢鼠标的滚动速度
   (setq mouse-wheel-scroll-amount '(1

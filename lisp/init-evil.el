@@ -4,6 +4,8 @@
 
 (require-package 'evil)
 (evil-mode 1)
+;; 默认启动emacs，使用快捷键C-z进行切换
+(setq evil-default-state 'emacs)
 
 ;; 设置前缀键
 (require-package 'evil-leader)

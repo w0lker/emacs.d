@@ -29,9 +29,9 @@
 ;; 统一使用y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; 禁用鼠标滚动内容
-(require-package 'disable-mouse)
-(global-disable-mouse-mode)
+;; 禁用鼠标
+;;(require-package 'disable-mouse)
+;;(global-disable-mouse-mode)
 
 ;;
 ;; 不断监听当前buffer的变化，如果有其它编辑器修改该文件会同步过来

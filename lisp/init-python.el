@@ -8,6 +8,7 @@
                 ("SConscript\\'" . python-mode))
               auto-mode-alist))
 
+;; 提供PyPI补全
 (require-package 'pip-requirements)
 
 (setq
@@ -30,7 +31,7 @@
       (add-hook 'python-mode-hook
                 (lambda () (my/company/local-push-company-backend 'company-anaconda))))))
 
-
+;; 虚拟环境
 (require-package 'pyenv-mode)
 (require-package 'pyenv-mode-auto)
 (require 'pyenv-mode-auto)
@@ -38,7 +39,7 @@
 (when (require-package 'py-yapf) (require 'py-yapf))
 
 ;; 配置环境变量，添加环境变量“PYENV_ROOT”和“PATH”
-(defun my/python-environment-variables ()
+(defun my/python/set-environment-variables ()
   "Setting python buffer local environment variables."
   (make-local-variable 'process-environment)
   (with-temp-buffer
@@ -50,7 +51,7 @@
             (cons (buffer-substring (point) (line-end-position))
                   process-environment))
       (forward-line 1))))
-(add-hook 'python-mode-hook 'my/python-environment-variables)
+(add-hook 'python-mode-hook 'my/python/set-environment-variables)
 
 (provide 'init-python)
 ;;;  init-python.el ends here

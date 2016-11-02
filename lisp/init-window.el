@@ -68,17 +68,5 @@ Call a second time to restore the original window configuration."
     (switch-to-buffer-other-window nil)))
 (global-set-key (kbd "<f7>") 'my/window/split-window)
 
-;; 显示当前窗口关联了那个buffer
-(defun my/window/toggle-current-window-dedication ()
-  "Toggle whether the current window is dedicated to its current buffer."
-  (interactive)
-  (let* ((window (selected-window))
-         (was-dedicated (window-dedicated-p window)))
-    (set-window-dedicated-p window (not was-dedicated))
-    (message "Window %sdedicated to %s"
-             (if was-dedicated "no longer " "")
-             (buffer-name))))
-(global-set-key (kbd "C-c <down>") 'my/window/toggle-current-window-dedication)
-
 (provide 'init-window)
 ;;;  init-window.el ends here
