@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(when (maybe-require-package 'projectile)
+(when (require-package 'projectile)
   (add-hook 'after-init-hook 'projectile-global-mode)
 
   ;; 按"C-c p"会获得提示菜单

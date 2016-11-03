@@ -5,7 +5,7 @@
 (require-package 'molokai-theme)
 (load-theme 'molokai t)
 
-;; Beautiful mode-line
+;; 美化mode-line
 (require-package 'smart-mode-line)
 (require-package 'smart-mode-line-powerline-theme)
 (setq sml/shorten-directory t)

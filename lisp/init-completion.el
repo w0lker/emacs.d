@@ -1,4 +1,4 @@
-;;; package -- 代码补全配置
+;;; package -- 代码补全
 ;;; Commentary:
 ;;; Code:
 
@@ -31,7 +31,7 @@
       company-idle-delay .6 ;; 补全延迟
       )
 
-(when (maybe-require-package 'company)
+(when (require-package 'company)
   (add-hook 'after-init-hook 'global-company-mode)
   (with-eval-after-load 'company
     (diminish 'company-mode)

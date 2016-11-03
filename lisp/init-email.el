@@ -51,7 +51,7 @@
   (setq smtpmail-smtp-service 465)
   (setq smtpmail-smtp-user "tangjun@secoo.com")
   ;; 邮件签名
-  (setq mu4e-compose-signature "From my emacs.")
+  (setq mu4e-compose-signature "by w0lker.")
   )
 
 (provide 'init-email)

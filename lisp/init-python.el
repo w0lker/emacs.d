@@ -1,4 +1,4 @@
-;;; Package -- Python开发环境配置
+;;; Package -- Python开发环境
 ;;; Commentary:
 ;;; Code:
 
@@ -18,13 +18,13 @@
 (setenv "IPY_TEST_SIMPLE_PROMPT" "1")
 
 ;; 提供代码补全
-(when (maybe-require-package 'anaconda-mode)
+(when (require-package 'anaconda-mode)
   (with-eval-after-load 'python
     (add-hook 'python-mode-hook 'anaconda-mode)
     (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
 
   (with-eval-after-load 'company
-    (when (maybe-require-package 'company-anaconda)
+    (when (require-package 'company-anaconda)
       (add-hook 'python-mode-hook
                 (lambda () (my/company/local-push-company-backend 'company-anaconda))))))
 
@@ -37,9 +37,8 @@
 (require-package 'pyenv-mode-auto)
 (require 'pyenv-mode-auto)
 
-;; 配置环境变量，添加环境变量“PYENV_ROOT”和“PATH”
 (defun my/python/set-environment-variables ()
-  "Setting python buffer local environment variables."
+  "配置环境变量，添加环境变量PYENV_ROOT和PATH."
   (make-local-variable 'process-environment)
   (with-temp-buffer
     (call-process "bash" nil t nil "-c"

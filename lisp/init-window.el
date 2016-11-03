@@ -17,6 +17,16 @@
 (setq-default switch-window-timeout nil)
 (global-set-key (kbd "C-x o") 'switch-window)
 
+;; 触发删除其它窗口
+(defun my/window/toggle-delete-other-windows ()
+  "Delete other windows in frame if any, or restore previous window config."
+  (interactive)
+  (if (and winner-mode
+           (equal (selected-window) (next-window)))
+      (winner-undo)
+    (delete-other-windows)))
+(global-set-key "\C-x1" 'my/window/toggle-delete-other-windows)
+
 (defun my/window/split-window-func-with-other-buffer (split-function)
   "分屏并且把焦点放在新的window上, SPLIT-FUNCTION为分屏函数."
   (lexical-let ((s-f split-function))
@@ -28,19 +38,8 @@
         (set-window-buffer target-window (other-buffer))
         (unless arg
           (select-window target-window))))))
-
 (global-set-key "\C-x2" (my/window/split-window-func-with-other-buffer 'split-window-vertically))
 (global-set-key "\C-x3" (my/window/split-window-func-with-other-buffer 'split-window-horizontally))
-
-;; 触发删除其它窗口
-(defun my/window/toggle-delete-other-windows ()
-  "Delete other windows in frame if any, or restore previous window config."
-  (interactive)
-  (if (and winner-mode
-           (equal (selected-window) (next-window)))
-      (winner-undo)
-    (delete-other-windows)))
-(global-set-key "\C-x1" 'my/window/toggle-delete-other-windows)
 
 ;; 设置分屏, C-x |和C-x _分别表示竖分和横分。使用这个操作的时候只会一直只有两个window
 (defun my/window/split-window-horizontally-instead ()
@@ -49,28 +48,15 @@
   (save-excursion
     (delete-other-windows)
     (funcall (my/window/split-window-func-with-other-buffer 'split-window-horizontally))))
+(global-set-key "\C-x|" 'my/window/split-window-horizontally-instead)
+
 (defun my/window/split-window-vertically-instead ()
   "纵向分割."
   (interactive)
   (save-excursion
     (delete-other-windows)
     (funcall (my/window/split-window-func-with-other-buffer 'split-window-vertically))))
-(global-set-key "\C-x|" 'my/window/split-window-horizontally-instead)
 (global-set-key "\C-x_" 'my/window/split-window-vertically-instead)
-
-;; 使用F7键会分屏显示最后打开的buffer，如果再按一下则关闭分屏。很实用的功能
-;; Borrowed from http://postmomentum.ch/blog/201304/blog-on-emacs
-(defun my/window/split-window()
-  "Split the window to see the most recent buffer in the other window.
-Call a second time to restore the original window configuration."
-  (interactive)
-  (if (eq last-command 'my/window/split-window)
-      (progn
-        (jump-to-register :my/window/split-window)
-        (setq this-command 'my/window/unsplit-window))
-    (window-configuration-to-register :my/window/split-window)
-    (switch-to-buffer-other-window nil)))
-(global-set-key (kbd "<f7>") 'my/window/split-window)
 
 (provide 'init-window)
 ;;;  init-window.el ends here

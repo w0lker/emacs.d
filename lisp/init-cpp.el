@@ -2,16 +2,16 @@
 ;;; Commentary:
 ;;; Code:
 
-;; 指定头文件使用c++-mode打开
+;; 关联文件
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 ;; 代码自动格式化为google风格
-(when (maybe-require-package 'google-c-style)
+(when (require-package 'google-c-style)
   (add-hook 'c-mode-common-hook 'google-set-c-style)
   (add-hook 'c-mode-common-hook 'google-make-newline-indent))
 
 ;; 代码补全，rtags配置
-(when (maybe-require-package 'rtags)
+(when (require-package 'rtags)
   (require 'company)
   (require 'company-rtags)
   (setq rtags-autostart-diagnostics t)

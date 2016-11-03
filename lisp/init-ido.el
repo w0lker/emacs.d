@@ -10,11 +10,11 @@
 (setq ido-auto-merge-work-directories-length 0)
 (setq ido-use-virtual-buffers t)
 
-(when (maybe-require-package 'ido-ubiquitous)
+(when (require-package 'ido-ubiquitous)
   (ido-ubiquitous-mode t))
 
 ;; 使用smex设置M-x命令补全
-(when (maybe-require-package 'smex)
+(when (require-package 'smex)
   ;; Change path for ~/.smex-items
   (setq smex-save-file (expand-file-name ".smex-items" user-emacs-directory))
   (global-set-key [remap execute-extended-command] 'smex))

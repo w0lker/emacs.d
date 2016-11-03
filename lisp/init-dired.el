@@ -25,10 +25,10 @@
 
 ;; 内容diff左侧提示
 (with-eval-after-load 'dired
-  (when (maybe-require-package 'diff-hl)
+  (when (require-package 'diff-hl)
     (add-hook 'dired-mode-hook 'diff-hl-dired-mode)))
 
-;; 配置VIM快捷键
+;; 配置Vim快捷键
 (with-eval-after-load 'dired
   (when (functionp 'evil-set-initial-state)
     (evil-set-initial-state 'dired-mode 'normal))

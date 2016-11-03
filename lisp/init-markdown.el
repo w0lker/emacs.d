@@ -1,11 +1,9 @@
-;;; package -- markdown编辑
+;;; package -- Markdown编辑
 ;;; Commentary:
 ;;; Code:
 
 ;; 关联文件
-(setq auto-mode-alist
-      (append '(("\\.\\(markdown\\|md\\)\\'" . python-mode))
-              auto-mode-alist))
+(add-to-list 'auto-mode-alist '("\\.\\(markdown\\|md\\)\\'" . python-mode))
 
 (require-package 'markdown-mode)
 

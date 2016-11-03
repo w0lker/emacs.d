@@ -25,7 +25,7 @@
 ;; 扩展功能
 (require 'init-evil)
 (require 'init-recentf)
-(require 'init-ibuffer)
+(require 'init-buffer)
 (require 'init-ido)
 (require 'init-dired)
 (require 'init-grep)

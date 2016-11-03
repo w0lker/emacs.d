@@ -1,4 +1,4 @@
-;;; package -- Buffer管理系统ibuffer配置
+;;; package -- Buffer管理配置
 ;;; Commentary:
 ;;; Code:
 
@@ -39,6 +39,15 @@
 ;; 设置启动快捷键
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-(provide 'init-ibuffer)
+;; Buffer快捷切换
+(require-package 'swbuff)
+(setq swbuff-exclude-buffer-regexps '("^ " "^\*.*\*")
+      swbuff-recent-buffers-first t
+      swbuff-clear-delay-ends-switching 1)
+(custom-set-faces '(swbuff-current-buffer-face
+                    ((t :foreground "#ffffff" :background "#6aa84f"))))
+(global-set-key (kbd "C-<tab>") 'swbuff-switch-to-next-buffer)
 
-;;;  init-ibuffer.el ends here
+(provide 'init-buffer)
+
+;;;  init-buffer.el ends here

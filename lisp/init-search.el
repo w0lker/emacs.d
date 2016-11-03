@@ -3,7 +3,7 @@
 ;;; Code:
 
 ;; 显示匹配数目以及目前光标所在的匹配位置
-(when (maybe-require-package 'anzu)
+(when (require-package 'anzu)
   (global-anzu-mode t)
   (diminish 'anzu-mode)
   (custom-set-variables

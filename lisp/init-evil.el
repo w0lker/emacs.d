@@ -1,11 +1,12 @@
-;;; package -- VIM快捷键配置
+;;; package -- Vim快捷键
 ;;; Commentary:
 ;;; Code:
 
 (require-package 'evil)
 (evil-mode 1)
-;; 默认启动状态为emacs，使用快捷键C-z切换其它状态
-(setq evil-default-state 'emacs)
+
+;; 默认启动状态为normal，使用快捷键C-z切换其它状态
+(setq evil-default-state 'normal)
 
 ;; 设置前缀键
 (require-package 'evil-leader)

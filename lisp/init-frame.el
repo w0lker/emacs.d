@@ -1,4 +1,4 @@
-;;; package -- 图形界面
+;;; package -- 窗口设置
 ;;; Commentary:
 ;;; Code:
 
@@ -6,7 +6,7 @@
 (defun my/maybe-suspend-frame ()
   "Suspend frame when using `C-z`."
   (interactive)
-  (unless (and *is-a-mac* window-system)
+  (unless window-system
     (suspend-frame)))
 (global-set-key (kbd "C-z") 'my/maybe-suspend-frame)
 
@@ -21,11 +21,11 @@
 ;; scratch默认不显示任何内容
 (setq initial-scratch-message nil)
 
-;; 不显示工具栏
+;; 控制不显示工具栏
 (if (functionp 'tool-bar-mode)
     (tool-bar-mode -1))
 ;; 不显示菜单
-(if (functionp 'menu-bar-mode)
+(if (and (functionp 'menu-bar-mode)(not window-system))
     (menu-bar-mode -1))
 ;; 不显示滚动条
 (if (fboundp 'scroll-bar-mode)
