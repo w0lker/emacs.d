@@ -19,7 +19,7 @@
   (setq-default magit-diff-refine-hunk t))
 
 (require-package 'fullframe)
-(after-load 'magit
+(with-eval-after-load 'magit
   (fullframe magit-status magit-mode-quit-window))
 
 (when (maybe-require-package 'git-commit)

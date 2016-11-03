@@ -8,7 +8,7 @@
 
 ;; 设置全屏显示
 (require-package 'fullframe)
-(after-load 'ibuffer
+(with-eval-after-load 'ibuffer
   (fullframe ibuffer ibuffer-quit))
 
 ;; 设置按照文件名或者进程排序
@@ -16,7 +16,7 @@
                            (unless (eq ibuffer-sorting-mode 'filename/process)
                              (ibuffer-do-sort-by-filename/process))))
 ;; 配置比较友好的显示buffer尺寸
-(after-load 'ibuffer
+(with-eval-after-load 'ibuffer
   (define-ibuffer-column size-h
     (:name "Size" :inline t)
     (cond
@@ -31,10 +31,10 @@
 (setq uniquify-after-kill-buffer-p t)
 (setq uniquify-ignore-buffers-re "^\\*")
 
-;; vim快捷键
-;;(after-load 'ibuffer
-;;  (if (functionp 'evil-set-initial-state)
-;;      (evil-set-initial-state 'ibuffer-mode 'normal)))
+;; Vim快捷键
+(with-eval-after-load 'ibuffer
+  (if (functionp 'evil-set-initial-state)
+      (evil-set-initial-state 'ibuffer-mode 'normal)))
 
 ;; 设置启动快捷键
 (global-set-key (kbd "C-x C-b") 'ibuffer)

@@ -57,7 +57,7 @@
 
 ;; 同步emacs的环境变量和shell的环境变量
 (require-package 'exec-path-from-shell)
-(after-load 'exec-path-from-shell
+(with-eval-after-load 'exec-path-from-shell
   (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE"))
     (add-to-list 'exec-path-from-shell-variables var)))
 (when (memq window-system '(mac ns x))

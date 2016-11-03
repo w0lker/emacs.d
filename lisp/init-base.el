@@ -2,24 +2,19 @@
 ;;; Commentary:
 ;;; Code:
 
+;; 统一使用y/n
+(defalias 'yes-or-no-p 'y-or-n-p)
 ;; 配置个性化文件名
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
-;; 定义宏after-load
-(if (fboundp 'with-eval-after-load)
-    (defalias 'after-load 'with-eval-after-load)
-  (defmacro after-load (feature &rest body)
-    "After FEATURE is loaded, evaluate BODY."
-    (declare (indent defun))
-    `(eval-after-load ,feature
-       '(progn ,@body))))
+;; 启动后临时减小垃圾收集时间
+(defconst my/base/initial-gc-cons-threshold gc-cons-threshold
+  "Initial value of `gc-cons-threshold' at start-up time.")
+(setq gc-cons-threshold (* 128 1024 1024))
+(add-hook 'after-init-hook
+          (lambda () (setq gc-cons-threshold my/base/initial-gc-cons-threshold)))
 
-;; 文模和模式关联
-(defun add-auto-mode (mode &rest patterns)
-  "Add entries to `auto-mode-alist' to use `MODE' for all given file `PATTERNS'."
-  (dolist (pattern patterns)
-    (add-to-list 'auto-mode-alist (cons pattern mode))))
-
+;; 自动下载指定包
 (defun require-package (package &optional min-version no-refresh)
   "Install given PACKAGE, optionally requiring MIN-VERSION.
 If NO-REFRESH is non-nil, the available package lists will not be
@@ -35,6 +30,7 @@ re-downloaded in order to locate PACKAGE."
         (package-refresh-contents)
         (require-package package min-version t)))))
 
+;; 自动下载指定包，如果失败返回nil并且打印错误信息
 (defun maybe-require-package (package &optional min-version no-refresh)
   "Try to install PACKAGE, and return non-nil if successful.
 In the event of failure, return nil and print a warning message.
@@ -53,24 +49,24 @@ locate PACKAGE."
 (eval-when-compile (require 'cl))
 
 ;; 必需的包
-(require-package 'wgrep)
-(require-package 'project-local-variables)
 (require-package 'diminish)
 (require-package 'scratch)
 (require-package 'mwe-log-commands)
+(require-package 'wgrep)
+(require-package 'project-local-variables)
 
-;; 让多个主模式共存
+;; 让主模式共存
 (require-package 'mmm-mode)
 (require 'mmm-auto)
 (setq mmm-global-mode 'buffers-with-submode-classes)
 (setq mmm-submode-decoration-level 2)
 
-;; 启动后临时减小垃圾收集时间
-(defconst my/initial-gc-cons-threshold gc-cons-threshold
-  "Initial value of `gc-cons-threshold' at start-up time.")
-(setq gc-cons-threshold (* 128 1024 1024))
-(add-hook 'after-init-hook
-          (lambda () (setq gc-cons-threshold my/initial-gc-cons-threshold)))
+;; 快捷键提示
+(when (maybe-require-package 'guide-key)
+  (require 'guide-key)
+  (setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-x C-r" "C-x r"))
+  (guide-key-mode 1)
+  (diminish 'guide-key-mode))
 
 (provide 'init-base)
 ;;;  init-base.el ends here

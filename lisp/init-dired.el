@@ -10,23 +10,29 @@
 (let ((gls (executable-find "gls")))
   (when gls (setq insert-directory-program gls)))
 
-(require-package 'dired+)
-(require-package 'dired-sort)
-(after-load 'dired
+(with-eval-after-load 'dired
+  (require-package 'dired+)
   (require 'dired+)
+  (require-package 'dired-sort)
   (require 'dired-sort)
   (when (fboundp 'global-dired-hide-details-mode)
     (global-dired-hide-details-mode -1))
   (setq dired-recursive-deletes 'top)
   (define-key dired-mode-map [mouse-2] 'dired-find-file)
-  ;; 添加通过%快捷键显示帮助
+  ;; 添加通过%快捷键显示帮助，？快捷键是dired使用的帮助快捷键
   (add-hook 'dired-mode-hook
             (lambda () (guide-key/add-local-guide-key-sequence "%"))))
 
-;; 修改内容左侧提示
-(when (maybe-require-package 'diff-hl)
-  (after-load 'dired
+;; 内容diff左侧提示
+(with-eval-after-load 'dired
+  (when (maybe-require-package 'diff-hl)
     (add-hook 'dired-mode-hook 'diff-hl-dired-mode)))
+
+;; 配置VIM快捷键
+(with-eval-after-load 'dired
+  (when (functionp 'evil-set-initial-state)
+    (evil-set-initial-state 'dired-mode 'normal))
+  )
 
 (provide 'init-dired)
 ;;;  init-dired.el ends here

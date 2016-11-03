@@ -1,9 +1,9 @@
-;;; package -- sql配置
+;;; package -- SQL配置
 ;;; Commentary:
 ;;; Code:
 
 (require-package 'sql-indent)
-(after-load 'sql
+(with-eval-after-load 'sql
   (require 'sql-indent))
 
 (defun my/sql/pop-to-sqli-buffer ()
@@ -26,9 +26,6 @@
   (unless (eq 'oracle sql-product)
     (sql-product-font-lock nil nil)))
 (add-hook 'sql-interactive-mode-hook 'my/sql/font-lock-everything-in-sql-interactive-mode)
-
-(after-load 'page-break-lines
-  (push 'sql-mode page-break-lines-modes))
 
 (provide 'init-sql)
 ;;;  init-sql.el ends here

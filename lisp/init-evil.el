@@ -4,7 +4,7 @@
 
 (require-package 'evil)
 (evil-mode 1)
-;; 默认启动emacs，使用快捷键C-z进行切换
+;; 默认启动状态为emacs，使用快捷键C-z切换其它状态
 (setq evil-default-state 'emacs)
 
 ;; 设置前缀键

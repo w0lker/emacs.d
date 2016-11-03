@@ -1,16 +1,16 @@
-;;; package -- projectile配置
+;;; package -- Project配置
 ;;; Commentary:
 ;;; Code:
 
 (when (maybe-require-package 'projectile)
   (add-hook 'after-init-hook 'projectile-global-mode)
 
-  ;; The following code means you get a menu if you hit "C-c p" and wait
-  (after-load 'guide-key
+  ;; 按"C-c p"会获得提示菜单
+  (with-eval-after-load 'guide-key
     (add-to-list 'guide-key/guide-key-sequence "C-c p"))
 
-  ;; Shorter modeline
-  (after-load 'projectile
+  ;; 设置modeline显示格式
+  (with-eval-after-load 'projectile
     (setq-default
      projectile-mode-line
      '(:eval
@@ -18,5 +18,5 @@
            " Pr"
          (format " Pr[%s]" (projectile-project-name)))))))
 
-(provide 'init-projectile)
-;;;  init-projectile.el ends here
+(provide 'init-project)
+;;;  init-project.el ends here

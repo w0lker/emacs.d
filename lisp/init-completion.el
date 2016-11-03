@@ -11,7 +11,6 @@
 (require-package 'yasnippet)
 (require-package 'dropdown-list)
 (add-to-list 'load-path (expand-file-name "snippets" user-emacs-directory))
-
 (setq yas-prompt-functions '(yas-dropdown-prompt yas-ido-prompt yas-completing-prompt))
 (yas-global-mode 1)
 (diminish 'yas-minor-mode)
@@ -32,6 +31,14 @@
       company-idle-delay .6 ;; 补全延迟
       )
 
+(when (maybe-require-package 'company)
+  (add-hook 'after-init-hook 'global-company-mode)
+  (with-eval-after-load 'company
+    (diminish 'company-mode)
+    (define-key company-mode-map (kbd "M-/") 'company-complete)
+    (define-key company-active-map (kbd "M-/") 'company-select-next)
+    (setq-default company-backends '((company-capf company-dabbrev-code) company-dabbrev))))
+
 ;; company主题
 (custom-set-faces
  '(company-tooltip ((t :background "#403d3d"))) ;; 弹窗背景
@@ -43,43 +50,19 @@
  '(company-scrollbar-fg ((t :background "#f8f7f1"))) ;; 进度条前景色
  )
 
-(when (maybe-require-package 'company)
-  (add-hook 'after-init-hook 'global-company-mode)
-  (after-load 'company
-    (diminish 'company-mode)
-    (define-key company-mode-map (kbd "M-/") 'company-complete)
-    (define-key company-active-map (kbd "M-/") 'company-select-next)
-    (setq-default company-backends '((company-capf company-dabbrev-code) company-dabbrev))))
+;; 文档弹出，只在使用桌面系统时使用
+(when window-system
+  (with-eval-after-load 'company
+    (require-package 'company-quickhelp)
+    (company-quickhelp-mode 1)
+    (setq company-quickhelp-delay nil)
+    (define-key company-active-map (kbd "M-h") #'company-quickhelp-manual-begin)))
 
-;; company中停用page-break-lines-mode
-;; Suspend page-break-lines-mode while company menu is active
-;; (see https://github.com/company-mode/company-mode/issues/416)
-(after-load 'company
-  (after-load 'page-break-lines-mode
-    (defvar my/completion/page-break-lines-on-p nil)
-    (make-variable-buffer-local 'my/completion/page-break-lines-on-p)
-    (defun my/completion/page-break-lines-disable (&rest ignore)
-      (when (setq my/completion/page-break-lines-on-p (bound-and-true-p page-break-lines-mode))
-        (page-break-lines-mode -1)))
-    (defun my/completion/page-break-lines-maybe-reenable (&rest ignore)
-      (when my/completion/page-break-lines-on-p
-        (page-break-lines-mode 1)))
-    (add-hook 'company-completion-started-hook 'my/completion/page-break-lines-disable)
-    (add-hook 'company-completion-finished-hook 'my/completion/page-break-lines-maybe-reenable)
-    (add-hook 'company-completion-cancelled-hook 'my/completion/page-break-lines-maybe-reenable)))
-
+;; 工具函数
 (defun my/company/local-push-company-backend (backend)
   "Add BACKEND to a buffer-local version of `company-backends'."
   (set (make-local-variable 'company-backends)
        (append (list backend) company-backends)))
-
-;; 只在使用桌面系统时使用
-(when window-system
-  (require-package 'company-quickhelp)
-  (company-quickhelp-mode 1)
-  (setq company-quickhelp-delay nil)
-  (eval-after-load 'company
-    '(define-key company-active-map (kbd "M-h") #'company-quickhelp-manual-begin)))
 
 (provide 'init-completion)
 ;;; init-completion.el ends here

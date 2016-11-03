@@ -2,14 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
-;; 配置关联文件
-(add-auto-mode 'markdown-mode "\\.\\(markdown\\|md\\)\\'")
+;; 关联文件
+(setq auto-mode-alist
+      (append '(("\\.\\(markdown\\|md\\)\\'" . python-mode))
+              auto-mode-alist))
 
 (require-package 'markdown-mode)
-
-;; 如果启动了whitspace-cleanup-mode，则添加当前模式到忽略列表
-(after-load 'whitespace-cleanup-mode
-  (push 'markdown-mode whitespace-cleanup-mode-ignore-modes))
 
 (provide 'init-markdown)
 ;;;  init-markdown.el ends here
