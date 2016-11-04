@@ -32,7 +32,7 @@
 ;;; company方式补全
 (setq tab-always-indent 'complete
       completion-cycle-threshold 5
-      company-idle-delay .6 ;; 补全延迟
+      company-idle-delay .5 ;; 补全延迟
       )
 
 (when (require-package 'company)
