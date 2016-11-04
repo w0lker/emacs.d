@@ -4,6 +4,7 @@
 
 (defconst my-lisp-dir "lisp" "存放lisp配置代码目录.")
 (defconst my-temp-dir "temp" "运行时生产的数据的保存目录.")
+(setq custom-file (concat user-emacs-directory (file-name-as-directory my-temp-dir) "custom.el"))
 
 ;; 包管理器
 (require 'package)
@@ -14,6 +15,7 @@
       package-user-dir (concat user-emacs-directory (file-name-as-directory my-temp-dir) "elpa"))
 (package-initialize)
 
+;; 载入lisp配置目录
 (add-to-list 'load-path (expand-file-name my-lisp-dir user-emacs-directory))
 
 ;; 基本配置
@@ -52,37 +54,12 @@
 (require 'init-web)
 (require 'init-vagrant)
 
+;; 加载个性化配置
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 ;; 必须放在最后
 (require 'init-locale)
 
-(put 'erase-buffer 'disabled nil)
-(put 'set-goal-column 'disabled nil)
-
 (provide 'init)
 ;;;  init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(anzu-deactivate-region t)
- '(anzu-mode-lighter "")
- '(anzu-replace-threshold 50)
- '(anzu-replace-to-string-separator " => ")
- '(anzu-search-threshold 1000)
- '(package-selected-packages
-   (quote
-    (vagrant-tramp vagrant web-mode emmet-mode cmake-mode rtags google-c-style pip-requirements pyenv-mode-auto pyenv-mode company-anaconda anaconda-mode sql-indent markdown-mode mu4e-alert company-shell flycheck company-quickhelp company dropdown-list yasnippet magit gitconfig-mode gitignore-mode ibuffer-vc projectile browse-kill-ring avy expand-region highlight-escape-sequences fill-column-indicator indent-guide rainbow-delimiters redo+ anzu wgrep-ag ag diff-hl dired-sort dired+ smex ido-ubiquitous swbuff fullframe evil-leader evil switch-window exec-path-from-shell default-text-scale smart-mode-line-powerline-theme smart-mode-line molokai-theme guide-key mmm-mode project-local-variables wgrep mwe-log-commands scratch diminish))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(company-scrollbar-bg ((t :background "#403d3d")))
- '(company-scrollbar-fg ((t :background "#f8f7f1")))
- '(company-tooltip ((t :background "#403d3d")))
- '(company-tooltip-annotation ((t :foreground "#92e56d")))
- '(company-tooltip-common ((t :foreground "#f62d6e")))
- '(company-tooltip-common-selection ((t :foreground "#f62d6e")))
- '(company-tooltip-selection ((t :foreground "#f62d6e" :background "#525151")))
- '(swbuff-current-buffer-face ((t :foreground "#ffffff" :background "#6aa84f"))))

@@ -19,6 +19,7 @@
 
 ;; 提供代码补全
 (when (require-package 'anaconda-mode)
+  (setq anaconda-mode-installation-directory (concat user-emacs-directory (file-name-as-directory my-temp-dir) "anaconda-mode"))
   (with-eval-after-load 'python
     (add-hook 'python-mode-hook 'anaconda-mode)
     (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
