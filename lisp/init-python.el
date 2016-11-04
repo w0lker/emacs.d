@@ -28,10 +28,6 @@
       (add-hook 'python-mode-hook
                 (lambda () (my/company/local-push-company-backend 'company-anaconda))))))
 
-;; 保存时自动按照PEP8规范格式化代码
-(when (require-package 'py-yapf) (require 'py-yapf))
-(add-hook 'python-mode-hook 'py-yapf-enable-on-save)
-
 ;; 虚拟环境
 (require-package 'pyenv-mode)
 (require-package 'pyenv-mode-auto)

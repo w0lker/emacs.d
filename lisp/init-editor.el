@@ -24,7 +24,12 @@
  truncate-lines nil
  truncate-partial-width-windows nil
  visible-bell t ;; 关闭出错蜂鸣声
- ring-bell-function 'ignore)
+ ring-bell-function 'ignore
+ auto-save-list-file-prefix (concat user-emacs-directory
+                                    (file-name-as-directory my-temp-dir)
+                                    (file-name-as-directory "auto-save-list")
+                                    "saves-") ;; 自动保存
+ )
 
 ;; 关闭narrowing功能，使用narrowing功能，可以在buffer中只显示选中的区域的内容，其它部分隐藏，比较容易造成困惑
 (put 'narrow-to-region 'disabled nil)

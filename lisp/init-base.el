@@ -2,11 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-;; 配置个性化文件名
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-;; 统一使用y/n
-(defalias 'yes-or-no-p 'y-or-n-p)
-
 ;; 启动后临时减小垃圾收集时间
 (defconst my/base/initial-gc-cons-threshold gc-cons-threshold
   "Initial value of `gc-cons-threshold' at start-up time.")
@@ -34,7 +29,7 @@ NO-REFRESH 如果为非nil是则不下载指定库而使用本地的."
      (message "Couldn't install package `%s': %S" package err)
      nil)))
 
-;; common lisp扩展库
+;; Common-Lisp扩展库
 (require-package 'cl-lib)
 (require 'cl-lib)
 (eval-when-compile (require 'cl))

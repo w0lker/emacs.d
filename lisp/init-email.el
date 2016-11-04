@@ -3,7 +3,6 @@
 ;;; Code:
 
 (when (executable-find "mu")
-  (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
   (require 'mu4e)
   ;; 使用mu4e作为默认邮件代理
   (setq mail-user-agent 'mu4e-user-agent)

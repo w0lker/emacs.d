@@ -2,6 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
+(setq projectile-cache-file (concat user-emacs-directory (file-name-as-directory my-temp-dir) "projectile.cache"))
+(setq projectile-known-projects-file (concat user-emacs-directory (file-name-as-directory my-temp-dir) "projectile-bookmarks.eld"))
+
 (when (require-package 'projectile)
   (add-hook 'after-init-hook 'projectile-global-mode)
 
