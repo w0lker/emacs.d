@@ -3,7 +3,7 @@
 ;;; Code:
 
 ;; 关联文件
-(add-to-list 'auto-mode-alist '("\\.\\(markdown\\|md\\)\\'" . python-mode))
+(add-to-list 'auto-mode-alist '("\\.\\(markdown\\|md\\)\\'" . markdown-mode))
 
 (require-package 'markdown-mode)
 
