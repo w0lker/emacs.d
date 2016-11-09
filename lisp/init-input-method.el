@@ -1,4 +1,4 @@
-;;; package -- 输入法设置
+;;; package -- 输入法
 ;;; Commentary:
 ;;; Code:
 
@@ -25,9 +25,9 @@
 ;; 单行选框
 (setq pyim-page-style 'one-line)
 ;; 在mode-line中显示名称
-(setq pyim-title "中")
+(setq-default pyim-title "中")
 ;; 设置默认输入法
-(setq-default default-input-method "MacOSX")
+(setq-default default-input-method "rfc1345")
 
 ;; 启动时自动载入词库
 (add-hook 'emacs-startup-hook (lambda ()
