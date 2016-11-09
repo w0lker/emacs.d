@@ -15,7 +15,7 @@
       package-user-dir (concat user-emacs-directory (file-name-as-directory my-temp-dir) "elpa"))
 (package-initialize)
 
-;; 载入lisp配置目录
+;; 载入 lisp 配置目录
 (add-to-list 'load-path (expand-file-name my-lisp-dir user-emacs-directory))
 
 ;; 基本配置
@@ -26,6 +26,7 @@
 (require 'init-window)
 (require 'init-xterm)
 (require 'init-osx)
+(require 'init-input-method)
 
 ;; 扩展功能
 (require 'init-evil)
@@ -45,6 +46,7 @@
 (require 'init-code-check)
 
 ;; 主模式
+(require 'init-org)
 (require 'init-shell)
 (require 'init-email)
 (require 'init-markdown)

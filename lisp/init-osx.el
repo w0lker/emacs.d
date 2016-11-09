@@ -7,7 +7,6 @@
 (when *is-a-mac*
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier 'none)
-  (setq-default default-input-method "MacOSX")
   ;; 减慢鼠标的滚动速度
   (setq mouse-wheel-scroll-amount '(1
                                     ((shift) . 5)
@@ -36,6 +35,14 @@
 ;; 设置默认查找命令
 (when *is-a-mac*
   (setq-default locate-command "mdfind"))
+
+;; 允许从特定的应用抽取URL和选中的内容拷贝到Org模式中
+(when *is-a-mac*
+  (with-eval-after-load 'org
+    (require-package 'grab-mac-link)
+    (add-hook 'org-mode-hook (lambda ()
+                               (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link))))
+   )
 
 (provide 'init-osx)
 ;;;  init-osx.el ends here

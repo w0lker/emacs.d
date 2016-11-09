@@ -8,6 +8,7 @@
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
 (add-hook 'shell-mode-hook (lambda ()
+                             (local-unset-key (kbd "C-c l"))
                              (local-set-key (kbd "C-c l") 'my/shell/clear-shell)))
 
 ;; 配置company补全

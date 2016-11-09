@@ -5,7 +5,8 @@
 ;; 显示匹配数目以及目前光标所在的匹配位置
 (when (require-package 'anzu)
   (global-anzu-mode t)
-  (diminish 'anzu-mode)
+  (with-eval-after-load 'anzu
+    (diminish 'anzu-mode))
   (custom-set-variables
    '(anzu-mode-lighter "")
    '(anzu-deactivate-region t)

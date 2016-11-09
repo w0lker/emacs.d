@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: ruby代码区块 
+# key: sruby
+# --
+#+BEGIN_SRC ruby
+$0
+#+END_SRC

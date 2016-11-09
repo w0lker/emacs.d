@@ -2,6 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
+;; 设置个人信息
+(setq user-full-name "w0lker")
+(setq user-mail-address "w0lker.tg@gmail.com")
+
 ;; 启动后临时减小垃圾收集时间
 (defconst my/base/initial-gc-cons-threshold gc-cons-threshold
   "Initial value of `gc-cons-threshold' at start-up time.")
@@ -52,7 +56,8 @@ NO-REFRESH 如果为非nil是则不下载指定库而使用本地的."
   (require 'guide-key)
   (setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-x C-r" "C-x r"))
   (guide-key-mode 1)
-  (diminish 'guide-key-mode))
+  (with-eval-after-load 'guide-key
+    (diminish 'guide-key-mode)))
 
 (provide 'init-base)
 ;;;  init-base.el ends here

@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: cpp代码区块 
-# key: scpp
-# --
-#+BEGIN_SRC cpp
-$0
-#+END_SRC
