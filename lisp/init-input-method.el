@@ -22,11 +22,16 @@
                                       (file-name-as-directory "pyim")
                                       "dcache"))
   ;; 自动切换英文策略
+ ;; (setq pyim-english-input-switch-functions
+ ;;       '(pyim-probe-dynamic-english
+ ;;         pyim-probe-isearch-mode ;; isearch英文输入
+ ;;         pyim-probe-program-mode ;; 字符串和comment中
+ ;;         pyim-probe-evil-normal-mode ;; evil的normal模式下使用英文
+ ;;         pyim-probe-org-structure-template))
   (setq pyim-english-input-switch-functions
-        '(pyim-probe-dynamic-english
-          pyim-probe-isearch-mode ;; isearch英文输入
+        '(pyim-probe-isearch-mode ;; isearch英文输入
           pyim-probe-program-mode ;; 字符串和comment中
-          (lambda () "判断是否是evil的normal模式，如果是则返回true." (evil-normal-state-p))
+          pyim-probe-evil-normal-mode ;; evil的normal模式下使用英文
           pyim-probe-org-structure-template))
   ;; 自动切换全角和半角标点输入
   (setq pyim-punctuation-half-width-functions
