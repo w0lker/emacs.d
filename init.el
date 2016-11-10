@@ -5,6 +5,14 @@
 (defconst my-lisp-dir "lisp" "存放lisp配置代码目录.")
 (defconst my-temp-dir "temp" "运行时生产的数据的保存目录.")
 (setq custom-file (concat user-emacs-directory (file-name-as-directory my-temp-dir) "custom.el"))
+;; 存储位置
+(setq pyim-directory (concat user-emacs-directory
+                             (file-name-as-directory my-temp-dir)
+                             "pyim"))
+(setq pyim-dcache-directory (concat user-emacs-directory
+                                    (file-name-as-directory my-temp-dir)
+                                    (file-name-as-directory "pyim")
+                                    "dcache"))
 
 ;; 包管理器
 (require 'package)

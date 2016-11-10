@@ -6,7 +6,7 @@
 (evil-mode 1)
 
 ;; 默认启动状态为emacs，使用快捷键C-z切换其它状态
-(setq evil-default-state 'emacs)
+(setq evil-default-state 'normal)
 
 ;; 设置前缀键
 (require-package 'evil-leader)
