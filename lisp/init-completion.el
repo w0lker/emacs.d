@@ -10,17 +10,14 @@
 ;;; 模版补全
 (require-package 'yasnippet)
 (require-package 'dropdown-list)
+
 ;; 配置提示位置
 (setq yas-prompt-functions '(yas-dropdown-prompt yas-ido-prompt yas-completing-prompt))
 
-;; 设置个性化snippets目录为.snippets
+;; 设置个性化snippets目录
 (setq yas-snippet-dirs (expand-file-name ".snippets" user-emacs-directory))
-(when (file-exists-p custom-yas-snippets-dir)
-    (message "hello %s" custom-yas-snippets-dir)
-    (setq yas-snippet-dirs custom-yas-snippets-dir))
-
-;; 添加到lisp环境，方便在snippets中使用lisp代码编写模版
 (add-to-list 'load-path yas-snippet-dirs)
+
 (yas-global-mode 1)
 (with-eval-after-load 'yas-minor-mode
   (diminish 'yas-minor-mode))
