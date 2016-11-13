@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name: define  
-# key: def
-# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
-# contributor: w0lker.tg@gmail.com
-# --
-#define ${1: $$(upcase yas-text)}
-$0

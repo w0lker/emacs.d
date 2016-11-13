@@ -12,7 +12,7 @@
 
 (defun my/input-method/init-pyim-configs ()
   "初始化pyim的配置."
-  (setq default-input-method "chinese-pyim")
+  (setq default-input-method "MacOSX")
   ;; 存储位置
   (setq pyim-directory (concat user-emacs-directory
                                (file-name-as-directory my-temp-dir)

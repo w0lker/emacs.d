@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: python代码区块 
-# key: spy
-# --
-#+BEGIN_SRC python
-$0
-#+END_SRC
