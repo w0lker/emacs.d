@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: scout 
+# key: scout
+# expand-env: ((yas-indent-line 'auto))
+# contributor: w0lker.tg@gmail.com
+# --
+System.out.println("$1");$0
