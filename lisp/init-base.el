@@ -2,10 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-;; 设置个人信息
-(setq user-full-name "w0lker")
-(setq user-mail-address "w0lker.tg@gmail.com")
-
 ;; 启动后临时减小垃圾收集时间
 (defconst my/base/initial-gc-cons-threshold gc-cons-threshold
   "Initial value of `gc-cons-threshold' at start-up time.")

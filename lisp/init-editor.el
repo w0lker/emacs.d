@@ -2,45 +2,66 @@
 ;;; Commentary:
 ;;; Code:
 
-;; 基本配置
-(setq-default
- major-mode 'text-mode ;; 默认模式不使用 fundamental-mode
- jit-lock-defer-time 0.05 ;; 优化翻页速度
- blink-cursor-interval 0.5 ;; 光标闪动频率
- case-fold-search t ;; 搜索时大小写不敏感,nil 表示敏感
- column-number-mode t ;; mode-line 上显示列数
- delete-selection-mode t ;; 可以像普通编辑器一样用 delete 删除
- kill-whole-line t ;; 在行首 C-k 时，同时删除末尾换行符,让光标移到下一行的行首
- ediff-split-window-function 'split-window-horzontally
- ediff-window-setup-function 'ediff-setup-windows-plain
- indent-tabs-mode nil ;; 使用空格代替 tab 进行缩进
- tab-width 4 ;;使用 4 个空格代替
- make-backup-files nil ;; 有版本控制系统，无必要
- mouse-yank-at-point t
- save-interprogram-paste-before-kill t
- scroll-preserve-screen-position 'always
- set-mark-command-repeat-pop t
- tooltip-delay .5
- show-trailing-whitespace nil ;; 默认不显示空格信息
- truncate-lines nil
- truncate-partial-width-windows nil
- visible-bell t ;; 关闭出错蜂鸣声
- ring-bell-function 'ignore
- auto-save-list-file-prefix (concat user-emacs-directory
-                                    (file-name-as-directory my-temp-dir)
-                                    (file-name-as-directory "auto-save-list")
-                                    "saves-") ;; 自动保存
- )
+;; 默认主模式为 text-mode
+(setq major-mode 'text-mode)
 
-;; 关闭 narrowing 功能，使用 narrowing 功能，可以在 buffer 中只显示选中的区域的内容，其它部分隐藏，比较容易造成困惑
-(put 'narrow-to-region 'disabled nil)
-(put 'narrow-to-page 'disabled nil)
-(put 'narrow-to-defun 'disabled nil)
+;; 优化翻页速度
+(setq jit-lock-defer-time 0.05)
+
+;; 关闭出错蜂鸣声
+(setq visible-bell t
+      ring-bell-function 'ignore)
+
+;; 设置自动保存目录
+(setq  auto-save-list-file-prefix (concat user-emacs-directory
+                                          (file-name-as-directory my-temp-dir)
+                                          (file-name-as-directory "auto-save-list")
+                                          "saves-"))
 
 ;; 不断监听当前 buffer 的变化，如果其它编辑器同时修改该文件，修改会同步过来
 (setq global-auto-revert-non-file-buffers t
       auto-revert-verbose nil)
 (global-auto-revert-mode)
+
+;; 光标闪动频率
+(setq  blink-cursor-interval 0.5)
+
+;; 滚动屏幕时，光标位置不变
+(setq scroll-preserve-screen-position 'always)
+
+;; 取消不管多少个空行只显示一行
+(setq truncate-lines nil
+      truncate-partial-width-windows nil)
+
+;; 默认不显示空格信息
+(setq show-trailing-whitespace nil)
+
+;; 使用空格代替tab键
+(setq indent-tabs-mode nil
+      tab-width 4)
+
+;; mode-line 上显示列数
+(setq  column-number-mode t)
+
+;; 可以像普通编辑器一样用delete删除
+(setq  delete-selection-mode t)
+
+;; 同时删除末尾换行符
+(setq kill-whole-line t)
+
+;; 自动将其它程序加入系统剪切板的内容加入 kill-ring
+(setq save-interprogram-paste-before-kill nil)
+
+;; 不用点击直接拷贝鼠标下面内容
+(setq mouse-yank-at-point t)
+
+;; 打标记时，每次 C-SPC 算不同的标记记录
+(setq set-mark-command-repeat-pop t)
+
+;; 关闭 narrowing 功能，使用 narrowing 功能，可以在 buffer 中只显示选中的区域的内容，其它部分隐藏，比较容易造成困惑
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(put 'narrow-to-defun 'disabled nil)
 
 ;; 配置 undo 树
 (require-package 'undo-tree)
@@ -89,7 +110,7 @@
 
 ;; 指示文件尾空行的横杠,t 表示打开，nil 表示关闭，可以通过 M-x toggle-indicate-empty-lines 关闭或者打开
 ;; 同 indicate-unused-lines
-(setq indicate-empty-lines t)
+(setq-default indicate-empty-lines nil)
 ;; 左侧添加文件指示的标示，在文件中间时间箭头，在头部和尾部显示一个 L 型标识
 (setq indicate-buffer-boundaries 'left)
 

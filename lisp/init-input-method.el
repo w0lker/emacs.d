@@ -19,25 +19,29 @@
                                       (file-name-as-directory my-temp-dir)
                                       (file-name-as-directory "pyim")
                                       "dcache"))
-  ;; 自动切换英文策略
-  (setq pyim-english-input-switch-functions
+
+  ;; 自动切换英文
+  (setq-default pyim-english-input-switch-functions
         '(pyim-probe-dynamic-english
           pyim-probe-isearch-mode
           pyim-probe-program-mode
           pyim-probe-evil-normal-mode
           pyim-probe-org-structure-template))
-  ;; 自动切换全角和半角标点输入
-  (setq pyim-punctuation-half-width-functions
+
+  ;; 自动切换全角和半角标点
+  (setq-default pyim-punctuation-half-width-functions
         '(pyim-probe-punctuation-line-beginning
           pyim-probe-punctuation-after-punctuation))
+
+  ;; 在mode-line中显示名称
+  (setq-default pyim-title "中")
+
   ;; 每页显示词条数目
   (setq pyim-page-length 6)
   ;; 选框绘制实现
   (setq pyim-page-tooltip nil)
   ;; 单行选框
   (setq pyim-page-style 'one-line)
-  ;; 在mode-line中显示名称
-  (setq pyim-title "中")
   ;; 加快反应速度，减少backends
   (setq pyim-backends '(dcache-personal dcache-common pinyin-chars)))
 

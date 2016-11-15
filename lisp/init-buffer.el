@@ -41,7 +41,7 @@
 
 ;; Buffer快捷切换
 (require-package 'swbuff)
-(setq swbuff-exclude-buffer-regexps '("^ " "^\*.*\*")
+(setq swbuff-exclude-buffer-regexps '("^ " "^\*Rtags.*\*" "^\*Ibuffer.*\*")
       swbuff-recent-buffers-first t
       swbuff-clear-delay-ends-switching 1)
 (custom-set-faces '(swbuff-current-buffer-face

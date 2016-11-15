@@ -2,6 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
+(setq case-fold-search t ;; 搜索时大小写不敏感,nil 表示敏感
+ )
+
 ;; 显示匹配数目以及目前光标所在的匹配位置
 (when (require-package 'anzu)
   (global-anzu-mode t)

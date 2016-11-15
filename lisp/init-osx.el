@@ -18,7 +18,7 @@
   (global-set-key (kbd "M-h") 'ns-do-hide-emacs) ;; 隐藏emacs
   )
 
-;; 与系统剪贴板
+;; 系统剪贴板快捷键
 (when *is-a-mac*
   ;; 取消首字母大写快捷键M-c，设置为复制选中的内容到粘贴板
   (global-unset-key (kbd "M-c"))

@@ -2,6 +2,13 @@
 ;;; Commentary:
 ;;; Code:
 
+;; 有版本控制系统，不启动文件备份
+(setq make-backup-files nil)
+
+;; Ediff配置，Emacs下的diff工具
+(setq ediff-split-window-function 'split-window-horzontally
+      ediff-window-setup-function 'ediff-setup-windows-plain)
+
 ;; 修改内容左侧显示提示
 (require-package 'diff-hl)
 (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
