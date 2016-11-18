@@ -112,7 +112,7 @@
 ;; 同 indicate-unused-lines
 (setq-default indicate-empty-lines nil)
 ;; 左侧添加文件指示的标示，在文件中间时间箭头，在头部和尾部显示一个 L 型标识
-(setq indicate-buffer-boundaries 'left)
+(setq-default indicate-buffer-boundaries '((up . left) (down . left)))
 
 ;; 让原来对一个词的定位由整个词整个词变成一次定位词中有意义的一部分
 ;; https://github.com/purcell/emacs.d/issues/138

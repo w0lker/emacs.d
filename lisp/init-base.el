@@ -40,6 +40,7 @@ NO-REFRESH 如果为非nil是则不下载指定库而使用本地的."
 (require-package 'mwe-log-commands)
 (require-package 'wgrep)
 (require-package 'project-local-variables)
+(require-package 'fullframe)
 
 ;; 让主模式共存
 (require-package 'mmm-mode)
@@ -54,6 +55,9 @@ NO-REFRESH 如果为非nil是则不下载指定库而使用本地的."
   (guide-key-mode 1)
   (with-eval-after-load 'guide-key
     (diminish 'guide-key-mode)))
+
+;; 全屏显示包列表
+(fullframe list-packages quit-window)
 
 (provide 'init-base)
 ;;;  init-base.el ends here

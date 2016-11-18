@@ -2,6 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
+(add-hook 'shell-mode-hook (lambda ()
+			     (make-local-variable 'comint-prompt-read-only)
+			     (setq comint-prompt-read-only t)))
+
 (defun my/shell/clear-shell ()
   "Shell清屏操作."
   (interactive)

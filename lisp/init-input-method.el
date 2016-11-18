@@ -46,6 +46,7 @@
 		pyim-probe-isearch-mode
 		pyim-probe-program-mode
 		pyim-probe-evil-normal-mode
+		evil-visual-state-p
 		pyim-probe-org-structure-template))
 
 ;; 全角和半角标点自动切换

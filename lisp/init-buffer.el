@@ -7,7 +7,6 @@
               ibuffer-filter-group-name-face 'font-lock-doc-face)
 
 ;; 设置全屏显示
-(require-package 'fullframe)
 (with-eval-after-load 'ibuffer
   (fullframe ibuffer ibuffer-quit))
 
