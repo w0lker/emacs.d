@@ -54,7 +54,6 @@
 (require 'init-sql)
 (require 'init-python)
 (require 'init-cpp)
-;;(require 'init-java)
 (require 'init-web)
 (require 'init-docker)
 

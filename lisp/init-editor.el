@@ -86,10 +86,10 @@
 (show-paren-mode 1)
 
 ;; 对于对齐结果显示一根对齐竖线(有一个问题就是文件大的话会比较慢，如果程序打开大文件比较慢可以考虑关闭)
-(when (require-package 'indent-guide)
-  (add-hook 'prog-mode-hook 'indent-guide-mode)
-  (with-eval-after-load 'indent-guide
-    (diminish 'indent-guide-mode)))
+;;(when (require-package 'indent-guide)
+;;  (add-hook 'prog-mode-hook 'indent-guide-mode)
+;;  (with-eval-after-load 'indent-guide
+;;    (diminish 'indent-guide-mode)))
 
 ;; 配置行号显示样式
 (require 'linum)
