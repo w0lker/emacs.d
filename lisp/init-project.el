@@ -18,8 +18,8 @@
      projectile-mode-line
      '(:eval
        (if (file-remote-p default-directory)
-           " Pr"
-         (format " Pr[%s]" (projectile-project-name)))))))
+           " Prj"
+         (format " Prj[%s]" (projectile-project-name)))))))
 
 (provide 'init-project)
 ;;;  init-project.el ends here

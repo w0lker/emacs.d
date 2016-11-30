@@ -49,7 +49,6 @@
 ;; 主模式
 (require 'init-org)
 (require 'init-shell)
-(require 'init-email)
 (require 'init-markdown)
 (require 'init-sql)
 (require 'init-python)

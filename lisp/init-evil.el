@@ -21,5 +21,9 @@
   )
 (global-evil-leader-mode)
 
+;; 用来操作成对匹配的括号
+(require-package 'evil-surround)
+(global-evil-surround-mode 1)
+
 (provide 'init-evil)
 ;;;  init-evil.el ends here
