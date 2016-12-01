@@ -27,7 +27,6 @@
 (require 'init-window)
 (require 'init-xterm)
 (require 'init-osx)
-(require 'init-input-method)
 
 ;; 扩展功能
 (require 'init-evil)
