@@ -35,8 +35,7 @@
 ;;; company方式补全
 (setq tab-always-indent 'complete
       completion-cycle-threshold 5
-      company-idle-delay .5 ;; 补全延迟
-      )
+      company-idle-delay .5)
 
 (when (require-package 'company)
   (add-hook 'after-init-hook 'global-company-mode)
@@ -63,7 +62,7 @@
     (require-package 'company-quickhelp)
     (company-quickhelp-mode 1)
     (setq company-quickhelp-delay nil)
-    (define-key company-active-map (kbd "M-h") #'company-quickhelp-manual-begin)))
+    (define-key company-active-map (kbd "M-h") 'company-quickhelp-manual-begin)))
 
 ;; 工具函数
 (defun my/company/local-push-company-backend (backend)

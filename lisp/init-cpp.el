@@ -5,32 +5,50 @@
 ;; 关联文件
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
-;; 代码自动格式化为google风格
-(when (require-package 'google-c-style)
-  (add-hook 'c-mode-common-hook 'google-set-c-style)
-  (add-hook 'c-mode-common-hook 'google-make-newline-indent))
+;; 自动格式化为google风格
+(require-package 'google-c-style)
+(defun my/cpp/google-style()
+  "设置Google代码风格."
+  (google-set-c-style)
+  (google-make-newline-indent))
+(add-hook 'c-mode-common-hook 'my/cpp/google-style)
 
-;; 代码补全，rtags配置
-(when (require-package 'rtags)
-  (require 'company)
-  (require 'company-rtags)
-  (setq rtags-autostart-diagnostics t)
-  (rtags-enable-standard-keybindings)
+;; 自动补全
+(require 'company)
+;; 头文件补全
+(require-package 'company-c-headers)
+(defun my/cpp/header-add-to-company()
+  "添加头文件补全到company."
+  (push 'company-c-headers company-backends))
+(add-hook 'c-mode-common-hook 'my/cpp/header-add-to-company)
+
+;; rtags配置
+(require-package 'rtags)
+(setq rtags-autostart-diagnostics t)
+;; 如果没启动则启动
+(add-hook 'c-mode-common-hook 'rtags-start-process-unless-running)
+
+;; 符号补全
+(require 'company-rtags)
+(defun my/cpp/rtags-add-to-company()
+  "添加rtags补全到company."
   (setq rtags-completions-enabled t)
-  (add-hook 'c++-mode
-            (lambda () (my/company/local-push-company-backend 'company-rtags))))
+  (push 'company-rtags company-backends))
+(add-hook 'c-mode-common-hook 'my/cpp/rtags-add-to-company)
 
 ;; 代码检查
-(defun my/cpp/flycheck-rtags-setup ()
-  "Seting rtags for flycheck."
-  (require 'flycheck-rtags)
+(require 'flycheck)
+(require 'flycheck-rtags)
+(defun my/cpp/rtags-add-to-flycheck()
+  "添加rtags到flycheck中"
   (flycheck-select-checker 'rtags)
-  (message "hello")
   (setq-local flycheck-highlighting-mode nil)
   (setq-local flycheck-check-syntax-automatically nil))
-(add-hook 'c-mode-hook 'my/cpp/flycheck-rtags-setup)
-(add-hook 'c++-mode-hook 'my/cpp/flycheck-rtags-setup)
+(add-hook 'c-mode-common-hook 'my/cpp/rtags-add-to-flycheck)
 
+(require-package 'flycheck-google-cpplint)
+
+;; cmake配置
 (require-package 'cmake-mode)
 
 (provide 'init-cpp)

@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
+
 (defconst my-lisp-dir "lisp" "存放lisp配置代码目录.")
 (defconst my-temp-dir "temp" "运行时生产的数据的保存目录.")
 
@@ -32,7 +33,6 @@
 (require 'init-evil)
 (require 'init-recentf)
 (require 'init-buffer)
-(require 'init-ido)
 (require 'init-dired)
 (require 'init-grep)
 (require 'init-search)
