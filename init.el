@@ -4,6 +4,7 @@
 
 
 (defconst my-lisp-dir "lisp" "存放lisp配置代码目录.")
+(defconst my-deps-dir "deps" "依赖文件目录.")
 (defconst my-temp-dir "temp" "运行时生产的数据的保存目录.")
 
 (setq custom-file (concat user-emacs-directory (file-name-as-directory my-temp-dir) "custom.el"))

@@ -5,14 +5,6 @@
 ;; 关联文件
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
-;; 自动格式化为google风格
-(require-package 'google-c-style)
-(defun my/cpp/google-style()
-  "设置Google代码风格."
-  (google-set-c-style)
-  (google-make-newline-indent))
-(add-hook 'c-mode-common-hook 'my/cpp/google-style)
-
 ;; 自动补全
 (require 'company)
 ;; 头文件补全
@@ -45,8 +37,6 @@
   (setq-local flycheck-highlighting-mode nil)
   (setq-local flycheck-check-syntax-automatically nil))
 (add-hook 'c-mode-common-hook 'my/cpp/rtags-add-to-flycheck)
-
-(require-package 'flycheck-google-cpplint)
 
 ;; cmake配置
 (require-package 'cmake-mode)
