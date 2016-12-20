@@ -1,1 +1,17 @@
 /temp
+/.emacs.desktop
+/auto-save-list
+/.session
+/session.*
+/custom.el
+*.elc
+.svn
+*.swp
+/ido.last
+/.smex-items
+/eshell
+/projectile-bookmarks.eld
+/anaconda-mode/
+/thumbs/
+/.bookmarks.el
+/history
