@@ -2,13 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
-;; 使用C-c <left> 和C-c <right>来对窗口配置进行redo或者undo。这样在窗口乱了后可以恢复到原来不乱的状态
-(when (fboundp 'winner-mode)
-  (winner-mode 1))
+;; 使用C-c <left> 和C-c <right>来对窗口配置进行 redo 或者 undo。这样在窗口乱了后可以恢复到原来不乱的状态
+(when (fboundp 'winner-mode) (winner-mode 1))
 
-;; 使用shift+方向键选择面板
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings))
+;; 使用 shift+方向键 选择面板
+(when (fboundp 'windmove-default-keybindings) (windmove-default-keybindings))
 
 ;; 超过两个窗口，可以使用"C-x o"进行切换
 (require-package 'switch-window)

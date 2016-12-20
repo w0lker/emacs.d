@@ -12,13 +12,15 @@
 (require-package 'dropdown-list)
 ;; 配置提示位置
 (setq yas-prompt-functions '(yas-dropdown-prompt yas-ido-prompt yas-completing-prompt))
-;; 设置个性化snippets目录
+;; 设置个性化 snippets 目录
 (setq-default yas-snippet-dirs (expand-file-name ".snippets" user-emacs-directory))
 ;; 添加 snippets 到 load-path
 (add-to-list 'load-path yas-snippet-dirs)
 (yas-global-mode 1)
-;; 隐藏模式
-(with-eval-after-load 'yas-minor-mode (diminish 'yas-minor-mode))
+(with-eval-after-load 'yasnippet (diminish 'yas-minor-mode))
+
+;; 隐藏 Abbrev 的 mode-line 提示
+(with-eval-after-load 'abbrev (diminish 'abbrev-mode))
 
 ;; 已经出现过的符号补全
 (setq hippie-expand-try-functions-list '(try-complete-file-name-partially try-complete-file-name try-expand-dabbrev try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill))
@@ -32,10 +34,11 @@
 (require-package 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 (with-eval-after-load 'company
-  (diminish 'company-mode)
+  (setq company-backends '((company-capf company-dabbrev-code) company-dabbrev))
   (define-key company-mode-map (kbd "M-/") 'company-complete)
-  (define-key company-active-map (kbd "M-/") 'company-select-next)
-  (setq-default company-backends '((company-capf company-dabbrev-code) company-dabbrev)))
+  (define-key company-active-map (kbd "M-/") 'company-select-next))
+
+(with-eval-after-load 'company (diminish 'company-mode))
 
 (custom-set-faces
  '(company-tooltip ((t :background "#403d3d"))) ;; 弹窗背景

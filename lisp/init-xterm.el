@@ -8,9 +8,7 @@
 ;; 修复按键映射
 (defun fix-up-xterm-control-arrows ()
   "Keys mapping."
-  (let ((map (if (boundp 'input-decode-map)
-                 input-decode-map
-               function-key-map)))
+  (let ((map (if (boundp 'input-decode-map) input-decode-map function-key-map)))
     (define-key map "\e[1;5A" [C-up])
     (define-key map "\e[1;5B" [C-down])
     (define-key map "\e[1;5C" [C-right])
@@ -19,6 +17,8 @@
     (define-key map "\e[5B"   [C-down])
     (define-key map "\e[5C"   [C-right])
     (define-key map "\e[5D"   [C-left])))
+(add-hook 'after-make-console-frame-hooks 'fix-up-xterm-control-arrows)
+
 (global-set-key [mouse-4] (lambda () (interactive) (scroll-down 1)))
 (global-set-key [mouse-5] (lambda () (interactive) (scroll-up 1)))
 

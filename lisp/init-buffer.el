@@ -6,10 +6,10 @@
 (with-eval-after-load 'ibuffer (fullframe ibuffer ibuffer-quit))
 
 (require-package 'ibuffer-vc)
+(add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root)
+
 (defun my/buffer/config-ibuffer-sort ()
   "设置按照文件名或者进程排序并支持版本控制信息."
-  (require 'ibuffer-vc)
-  (ibuffer-vc-set-filter-groups-by-vc-root)
   (unless (eq ibuffer-sorting-mode 'filename/process)
     (ibuffer-do-sort-by-filename/process)) )
 (add-hook 'ibuffer-hook 'my/buffer/config-ibuffer-sort)

@@ -2,13 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
-;; 基本配置
-(setq recentf-max-saved-items 2000
-      recentf-save-file  (concat user-emacs-directory
-                                 (file-name-as-directory my-temp-dir)
-                                 "recentf") ;; 保存目录
-      recentf-auto-cleanup 'never ;; 使用tramp模式的时候需要关闭，否则会判断文件的可访问性
-      recentf-exclude '("/tmp/" "\\.emacs\\.d/temp/"))
+(setq recentf-max-saved-items 2000)
+;; 使用tramp模式的时候需要关闭，否则会判断文件的可访问性
+(setq recentf-auto-cleanup 'never)
+;; 保存目录
+(setq-default recentf-save-file  (concat user-emacs-directory (file-name-as-directory my-temp-dir) "recentf"))
+(setq-default recentf-exclude '("/tmp/" "\\.emacs\\.d/temp/"))
 (recentf-mode 1)
 
 ;; 每10分钟保存一次数据
