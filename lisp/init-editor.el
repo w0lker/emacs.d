@@ -13,7 +13,7 @@
 (setq ring-bell-function 'ignore)
 
 ;; 设置自动保存目录
-(setq auto-save-list-file-prefix (concat user-emacs-directory
+(setq-default auto-save-list-file-prefix (concat user-emacs-directory
                                          (file-name-as-directory my-temp-dir)
                                          (file-name-as-directory "auto-save-list")
                                          "saves-"))

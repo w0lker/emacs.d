@@ -1,4 +1,4 @@
-;;; package -- 文件管理工具 dired+ 配置
+;;; package -- 文件管理配置
 ;;; Commentary:
 ;;; Code:
 
@@ -15,16 +15,17 @@
   (require 'dired-sort)
   (when (fboundp 'global-dired-hide-details-mode) (global-dired-hide-details-mode -1))
   (setq dired-recursive-deletes 'top)
-  (define-key dired-mode-map [mouse-2] 'dired-find-file)
-  ;; 添加通过 % 快捷键显示帮助，？ 快捷键是 dired 使用的帮助快捷键
+  (define-key dired-mode-map [mouse-2] 'dired-find-file))
+
+;; 添加通过 % 快捷键显示帮助，？ 快捷键是 dired 使用的帮助快捷键
+(with-eval-after-load 'guide-key
   (add-hook 'dired-mode-hook (lambda () (guide-key/add-local-guide-key-sequence "%"))))
 
 ;; 左侧提示 diff 内容
-(with-eval-after-load 'dired
-  (require-package 'diff-hl)
-  (add-hook 'dired-mode-hook 'diff-hl-dired-mode))
+(require-package 'diff-hl)
+(add-hook 'dired-mode-hook 'diff-hl-dired-mode)
 
-;; Vim 快捷键
+;; 配置 Vim 快捷键
 (with-eval-after-load 'dired
   (when (functionp 'evil-set-initial-state)
     (evil-set-initial-state 'dired-mode 'normal)))

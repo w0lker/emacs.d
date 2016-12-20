@@ -5,7 +5,7 @@
 ;; 有版本控制系统，不启动文件备份
 (setq-default make-backup-files nil)
 
-;; Ediff配置，Emacs下的 diff 工具
+;; Ediff配置
 (setq-default ediff-split-window-function 'split-window-horzontally)
 (setq-default ediff-window-setup-function 'ediff-setup-windows-plain)
 
@@ -14,7 +14,7 @@
 (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
 (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
 
-;; git配置
+;; Git 配置
 (require-package 'gitignore-mode)
 (require-package 'gitconfig-mode)
 

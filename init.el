@@ -30,9 +30,9 @@
 
 ;; 扩展功能
 (require 'init-evil)
-(require 'init-recentf)
 (require 'init-buffer)
 (require 'init-dired)
+(require 'init-recentf)
 (require 'init-grep)
 (require 'init-search)
 (require 'init-tramp)

@@ -20,7 +20,7 @@ NO-REFRESH 如果为非nil是则不下载指定库而使用本地的."
           (progn (package-refresh-contents) (require-package package min-version t))))
     (error (message "Couldn't install package `%s': %S" package err) nil)))
 
-;; Common-Lisp扩展库
+;; Common-Lisp 扩展库
 (require-package 'cl-lib)
 (require 'cl-lib)
 (eval-when-compile (require 'cl))
