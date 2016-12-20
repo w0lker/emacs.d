@@ -19,9 +19,6 @@
 (yas-global-mode 1)
 (with-eval-after-load 'yasnippet (diminish 'yas-minor-mode))
 
-;; 隐藏 Abbrev 的 mode-line 提示
-(with-eval-after-load 'abbrev (diminish 'abbrev-mode))
-
 ;; 已经出现过的符号补全
 (setq hippie-expand-try-functions-list '(try-complete-file-name-partially try-complete-file-name try-expand-dabbrev try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill))
 (global-set-key (kbd "M-/") 'hippie-expand)
@@ -33,11 +30,9 @@
 
 (require-package 'company)
 (add-hook 'after-init-hook 'global-company-mode)
-(with-eval-after-load 'company
-  (setq company-backends '((company-capf company-dabbrev-code) company-dabbrev))
-  (define-key company-mode-map (kbd "M-/") 'company-complete)
-  (define-key company-active-map (kbd "M-/") 'company-select-next))
-
+(setq company-backends '((company-capf company-dabbrev-code) company-dabbrev))
+(define-key company-mode-map (kbd "M-/") 'company-complete)
+(define-key company-active-map (kbd "M-/") 'company-select-next)
 (with-eval-after-load 'company (diminish 'company-mode))
 
 (custom-set-faces
