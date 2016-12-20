@@ -10,9 +10,6 @@
 (setq-default recentf-exclude '("/tmp/" "\\.emacs\\.d/temp/"))
 (recentf-mode 1)
 
-;; 每10分钟保存一次数据
-(run-at-time nil (* 10 60) 'recentf-save-list)
-
 ;; 配置显示最近打开的文件
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
