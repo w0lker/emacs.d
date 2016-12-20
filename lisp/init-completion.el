@@ -31,8 +31,10 @@
 (require-package 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 (setq company-backends '((company-capf company-dabbrev-code) company-dabbrev))
-(define-key company-mode-map (kbd "M-/") 'company-complete)
-(define-key company-active-map (kbd "M-/") 'company-select-next)
+;; 按键绑定
+(with-eval-after-load 'company
+  (define-key company-mode-map (kbd "M-/") 'company-complete)
+  (define-key company-active-map (kbd "M-/") 'company-select-next))
 (with-eval-after-load 'company (diminish 'company-mode))
 
 (custom-set-faces
