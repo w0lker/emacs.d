@@ -14,9 +14,9 @@
 
 ;; 设置自动保存目录
 (setq-default auto-save-list-file-prefix (concat user-emacs-directory
-                                         (file-name-as-directory my-temp-dir)
-                                         (file-name-as-directory "auto-save-list")
-                                         "saves-"))
+                                                 (file-name-as-directory my-temp-dir)
+                                                 (file-name-as-directory "auto-save-list")
+                                                 "saves-"))
 
 ;; 不断监听当前 buffer 的变化，如果其它编辑器同时修改该文件，修改会同步过来
 (setq global-auto-revert-non-file-buffers t)

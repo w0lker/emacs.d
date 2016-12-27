@@ -2,5 +2,5 @@
 # name: bash header
 # key: bhd
 # --
-#!/bin/bash
+#!/usr/bin/env bash
 $0

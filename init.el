@@ -20,7 +20,7 @@
 ;; 载入 lisp 配置目录
 (add-to-list 'load-path (expand-file-name my-lisp-dir user-emacs-directory))
 
-;; 基本配置
+;; 基本
 (require 'init-base)
 (require 'init-theme)
 (require 'init-frame)
@@ -28,7 +28,7 @@
 (require 'init-xterm)
 (require 'init-osx)
 
-;; 扩展功能
+;; 扩展
 (require 'init-evil)
 (require 'init-buffer)
 (require 'init-dired)
@@ -37,7 +37,7 @@
 (require 'init-search)
 (require 'init-tramp)
 
-;; 开发组建
+;; 开发
 (require 'init-editor)
 (require 'init-project)
 (require 'init-version-control)
@@ -45,6 +45,7 @@
 (require 'init-code-check)
 
 ;; 主模式
+(require 'init-make)
 (require 'init-org)
 (require 'init-shell)
 (require 'init-markdown)

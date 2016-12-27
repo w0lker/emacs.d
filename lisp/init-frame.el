@@ -39,6 +39,11 @@
               (unless window-system
                 (set-frame-parameter nil 'menu-bar-lines 0)))))
 
+;; 鼠标滚动平滑
+(require-package 'smooth-scrolling)
+(setq smooth-scroll-margin 1)
+(smooth-scrolling-mode 1)
+
 ;; 设置窗口标题格式
 (setq frame-title-format '((:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name)) "%b"))))
 
