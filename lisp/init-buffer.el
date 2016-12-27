@@ -71,10 +71,9 @@
 (ido-ubiquitous-mode t)
 
 ;; 支持 completing-read-multiple 的补全
+(require-package 'crm-custom)
 (require 'crm-custom)
 (crm-custom-mode 1)
-
-(require-package 'idomenu)
 
 ;; 支持命令自动补全
 (require-package 'smex)

@@ -1,4 +1,4 @@
-;;; package -- Cpp 配置
+;;; package -- C++ 配置
 ;;; Commentary:
 ;;; Code:
 
