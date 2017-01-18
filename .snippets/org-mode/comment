@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: 注释
-# key: cmt
+# key: comm
 # --
 #+BEGIN_COMMENT
 $0

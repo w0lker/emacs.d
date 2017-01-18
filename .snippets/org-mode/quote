@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: 缩进区块
+# name: 引用(左右都缩进)
 # key: quote
 # --
 #+BEGIN_QUOTE

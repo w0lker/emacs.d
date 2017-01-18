@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: 分行区块
+# name: 诗歌模式(区域单独分行)
 # key: verse
 # --
 #+BEGIN_VERSE

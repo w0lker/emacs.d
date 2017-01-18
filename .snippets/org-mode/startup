@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: 启动部分
+# key: startup
+# --
+#+STARTUP: $0

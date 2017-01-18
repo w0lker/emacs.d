@@ -3,7 +3,7 @@
 ;;; Code:
 
 ;; 美化 mode-line
-(require-package 'smart-mode-line)
+(use-package smart-mode-line :ensure t)
 (setq sml/no-confirm-load-theme t)
 (setq sml/shorten-directory t)
 (setq sml/shorten-modes t)
@@ -18,18 +18,18 @@
  '(sml/vc-edited ((t :foreground "#203c04")))
  '(sml/minor-modes ((t :foreground "#99cc66"))))
 
-(require-package 'smart-mode-line-powerline-theme)
+(use-package smart-mode-line-powerline-theme :ensure t)
 (if (window-system) (setq sml/theme 'powerline) (setq sml/theme 'dark))
 (sml/setup)
 
-(require-package 'molokai-theme)
+(use-package molokai-theme :ensure t)
 (load-theme 'molokai t)
 
 ;; 设置默认字体
 (set-default-font "Menlo 11")
 
 ;; 调整字体大小
-(require-package 'default-text-scale)
+(use-package default-text-scale :ensure t)
 (global-set-key (kbd "C-M-=") 'default-text-scale-increase)
 (global-set-key (kbd "C-M--") 'default-text-scale-decrease)
 

@@ -2,52 +2,49 @@
 ;;; Commentary:
 ;;; Code:
 
-;; 启动后设置垃圾收集阈值
-(defconst my/base/initial-gc-cons-threshold gc-cons-threshold "Initial value of `gc-cons-threshold' at start-up time.")
-(setq gc-cons-threshold (* 128 1024 1024))
-(add-hook 'after-init-hook (lambda () (setq gc-cons-threshold my/base/initial-gc-cons-threshold)))
+(defun package-install-require (package-name)
+  "下载指定 PACKAGE-NAME 包并且导入."
+  (unless (package-installed-p package-name)
+    (unless (assoc package-name package-archive-contents)
+      (package-refresh-contents))
+    (package-install package-name))
+  (require package-name))
 
-(defun require-package (package &optional min-version no-refresh)
-  "自动下载指定包 PACKAGE，如果失败返回nil并且打印错误信息.
-可选参数:
-MIN-VERSION 指定最小版本，
-NO-REFRESH 如果为非nil是则不下载指定库而使用本地的."
-  (condition-case err
-      (if (package-installed-p package min-version)
-          t
-        (if (or (assoc package package-archive-contents) no-refresh)
-            (if (boundp 'package-selected-packages) (package-install package nil) (package-install package))
-          (progn (package-refresh-contents) (require-package package min-version t))))
-    (error (message "Couldn't install package `%s': %S" package err) nil)))
+(defun base/config-use-package ()
+  "配置 use-package."
+  (package-install-require 'use-package)
+  (eval-when-compile (require 'use-package))
+  (package-install-require 'diminish)
+  (package-install-require 'bind-key))
+(base/config-use-package)
 
-;; Common-Lisp 扩展库
-(require-package 'cl-lib)
-(require 'cl-lib)
-(eval-when-compile (require 'cl))
+(use-package cl-lib
+  :ensure t
+  :config
+  (eval-when-compile (require 'cl)))
 
-;; 必需的包
-(require-package 'diminish)
-(require-package 'scratch)
-(require-package 'mwe-log-commands)
-(require-package 'wgrep)
-(require-package 'project-local-variables)
-(require-package 'fullframe)
+(use-package fullframe :ensure t)
+(use-package scratch :ensure t)
+(use-package mwe-log-commands :ensure t)
+(use-package wgrep :ensure t)
+(use-package project-local-variables :ensure t)
 
 ;; 让主模式共存
-(require-package 'mmm-mode)
-(require 'mmm-auto)
-(setq mmm-global-mode 'buffers-with-submode-classes)
-(setq mmm-submode-decoration-level 2)
+(use-package mmm-mode
+  :ensure t
+  :commands mmm-auto
+  :init
+  (setq mmm-global-mode 'buffers-with-submode-classes)
+  (setq mmm-submode-decoration-level 2))
 
 ;; 快捷键提示
-(require-package 'guide-key)
-(require 'guide-key)
-(setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-x C-r" "C-x r"))
-(guide-key-mode 1)
-(with-eval-after-load 'guide-key (diminish 'guide-key-mode))
-
-;; 全屏显示包列表
-(fullframe list-packages quit-window)
+(use-package guide-key
+  :ensure t
+  :diminish guide-key-mode
+  :init
+  (setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-x C-r" "C-x r"))
+  :config
+  (guide-key-mode 1))
 
 (provide 'init-base)
 ;;;  init-base.el ends here

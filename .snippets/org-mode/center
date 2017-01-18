@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: 居中内容
+# name: 文本居中
 # key: cent
 # --
 #+BEGIN_CENTER

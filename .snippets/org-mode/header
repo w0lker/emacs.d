@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: file meta information
-# key: fhd
+# name: 文件头
+# key: head
 # --
 #+LATEX_HEADER: \usepackage{${1:fontspec}}
 #+LATEX_HEADER: \setmainfont{${2:STSong}}

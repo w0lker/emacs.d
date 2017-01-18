@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: 多行的例子
-# key: exmp
+# key: examp
 # --
 #+BEGIN_EXAMPLE
 $0

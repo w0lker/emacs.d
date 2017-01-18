@@ -2,12 +2,14 @@
 ;;; Commentary:
 ;;; Code:
 
+(defconst *is-frame* (memq window-system '(mac ns x)))
+
 ;; 除了mac和windows之外使用C-z可以暂停当前窗口
-(defun my/maybe-suspend-frame ()
+(defun frame/maybe-suspend-frame ()
   "Suspend frame when using `C-z`."
   (interactive)
   (unless window-system (suspend-frame)))
-(global-set-key (kbd "C-z") 'my/maybe-suspend-frame)
+(global-set-key (kbd "C-z") 'frame/maybe-suspend-frame)
 
 ;; 禁止图形特性
 (setq use-file-dialog nil)
@@ -40,23 +42,24 @@
                 (set-frame-parameter nil 'menu-bar-lines 0)))))
 
 ;; 鼠标滚动平滑
-(require-package 'smooth-scrolling)
-(setq smooth-scroll-margin 1)
-(smooth-scrolling-mode 1)
+(use-package smooth-scrolling
+  :ensure t
+  :config
+  (smooth-scrolling-mode 1)
+  )
 
 ;; 设置窗口标题格式
 (setq frame-title-format '((:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name)) "%b"))))
 
-;; Non-zero values for `line-spacing' can mess up ansi-term and co,
-;; so we zero it explicitly in those cases.
-(add-hook 'term-mode-hook (lambda () (setq line-spacing 0)))
-
 ;; 同步emacs的环境变量和shell的环境变量
-(require-package 'exec-path-from-shell)
-(with-eval-after-load 'exec-path-from-shell
+(use-package exec-path-from-shell
+  :ensure t
+  :if *is-frame*
+  :config
   (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE"))
-    (add-to-list 'exec-path-from-shell-variables var)))
-(when (memq window-system '(mac ns x)) (exec-path-from-shell-initialize))
+    (add-to-list 'exec-path-from-shell-variables var))
+  (exec-path-from-shell-initialize)
+  )
 
 (provide 'init-frame)
 ;;;  init-frame.el ends here

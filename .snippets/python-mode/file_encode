@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: file encode 
-# key: fec
+# name: 文件默认编码
+# key: ecd
 # expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
 # contributor: w0lker.tg@gmail.com
 # --

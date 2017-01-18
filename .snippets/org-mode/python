@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: python代码区块 
-# key: spy
+# key: python
 # --
 #+BEGIN_SRC python
 $0

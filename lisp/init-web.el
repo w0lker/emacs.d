@@ -1,28 +1,32 @@
-;;; package -- web编辑
+;;; package -- Web 编辑
 ;;; Commentary:
 ;;; Code:
 
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-
-(require-package 'emmet-mode)
-(add-hook 'sgml-mode-hook 'emmet-mode)
-(add-hook 'html-mode-hook 'emmet-mode)
-(add-hook 'web-mode-hook 'emmet-mode)
-(add-hook 'css-mode-hook  'emmet-mode)
-
-(require-package 'web-mode)
-(defun my/web/config-web-mode ()
-  "配置 web 模式."
+(use-package emmet-mode
+  :ensure t
+  :commands emmet-mode
+  :init
   (setq emmet-indentation 2)
-  (setq web-mode-enable-current-column-highlight t))
-(add-hook 'web-mode-hook 'my/web/config-web-mode)
+  (use-package web-mode
+    :ensure t
+    :mode (("\\.phtml\\'" . web-mode)
+	   ("\\.tpl\\.php\\'" . web-mode)
+	   ("\\.[agj]sp\\'" . web-mode)
+	   ("\\.as[cp]x\\'" . web-mode)
+	   ("\\.erb\\'" . web-mode)
+	   ("\\.mustache\\'" . web-mode)
+	   ("\\.djhtml\\'" . web-mode)
+	   ("\\.html?\\'" . web-mode))
+    :init
+    (setq web-mode-enable-current-column-highlight t)
+    )
+  :config
+  (add-hook 'sgml-mode-hook 'emmet-mode)
+  (add-hook 'html-mode-hook 'emmet-mode)
+  (add-hook 'web-mode-hook 'emmet-mode)
+  (add-hook 'css-mode-hook  'emmet-mode)
+  )
+
 
 (provide 'init-web)
 ;;;  init-web.el ends here

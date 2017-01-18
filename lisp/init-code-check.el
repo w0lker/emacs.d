@@ -2,11 +2,14 @@
 ;;; Commentary:
 ;;; Code:
 
-(require-package 'flycheck)
-(add-hook 'after-init-hook 'global-flycheck-mode)
-(setq flycheck-display-errors-function 'flycheck-display-error-messages-unless-error-list)
-;; 隐藏 modeline 提示
-(with-eval-after-load 'flycheck (diminish 'flycheck-mode "flyc"))
+(use-package flycheck
+  :ensure t
+  :diminish flycheck-mode
+  :init
+  (setq flycheck-display-errors-function 'flycheck-display-error-messages-unless-error-list)
+  :config
+  (add-hook 'after-init-hook 'global-flycheck-mode)
+  )
 
 (provide 'init-code-check)
 ;;;  init-code-check.el ends here

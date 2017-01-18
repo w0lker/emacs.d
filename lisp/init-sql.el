@@ -2,11 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
-(require-package 'sql-indent)
-(with-eval-after-load 'sql
-  (require 'sql-indent))
+(defconst sql-input-ring-file-name (concat user-temp-dir ".sqli_history"))
 
-(defun my/sql/pop-to-sqli-buffer ()
+(use-package sql-indent :ensure t)
+
+(defun sql/pop-to-sqli-buffer ()
   "Switch to the corresponding sqli buffer."
   (interactive)
   (if sql-buffer
@@ -15,10 +15,7 @@
         (goto-char (point-max)))
     (sql-set-sqli-buffer)
     (when sql-buffer
-      (my/sql/pop-to-sqli-buffer))))
-
-(setq-default sql-input-ring-file-name
-              (expand-file-name ".sqli_history" user-emacs-directory))
+      (sql/pop-to-sqli-buffer))))
 
 (provide 'init-sql)
 ;;;  init-sql.el ends here

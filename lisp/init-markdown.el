@@ -2,9 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
-(add-to-list 'auto-mode-alist '("\\.\\(markdown\\|md\\)\\'" . markdown-mode))
-
-(require-package 'markdown-mode)
+(use-package markdown-mode
+  :ensure t
+  :mode ("\\.\\(markdown\\|md\\)\\'" . markdown-mode)
+  )
 
 (provide 'init-markdown)
 ;;;  init-markdown.el ends here

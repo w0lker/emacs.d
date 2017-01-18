@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: ruby代码区块 
-# key: sruby
+# key: ruby
 # --
 #+BEGIN_SRC ruby
 $0

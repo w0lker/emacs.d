@@ -12,29 +12,20 @@
 (setq visible-bell t)
 (setq ring-bell-function 'ignore)
 
-;; 设置自动保存目录
-(setq-default auto-save-list-file-prefix (concat user-emacs-directory
-                                                 (file-name-as-directory my-temp-dir)
-                                                 (file-name-as-directory "auto-save-list")
-                                                 "saves-"))
-
 ;; 不断监听当前 buffer 的变化，如果其它编辑器同时修改该文件，修改会同步过来
 (setq global-auto-revert-non-file-buffers t)
-(setq auto-revert-verbose nil)
 (global-auto-revert-mode)
+(with-eval-after-load 'autorevert (diminish 'auto-revert-mode))
 
 ;; 光标闪动频率
-(setq blink-cursor-interval 0.5)
-
-;; 滚动屏幕时，光标位置不变
-(setq scroll-preserve-screen-position 'always)
+(setq blink-cursor-interval 0.8)
 
 ;; 取消不管多少个空行只显示一行
 (setq truncate-lines nil)
 (setq truncate-partial-width-windows nil)
 
 ;; 默认不显示空格信息
-(setq show-trailing-whitespace nil)
+(setq show-trailing-whitespace t)
 
 ;; 使用空格代替 TAB 键
 (setq indent-tabs-mode nil)
@@ -52,8 +43,13 @@
 ;; 自动将其它程序加入系统剪切板的内容加入 kill-ring
 (setq save-interprogram-paste-before-kill nil)
 
-;; 不用点击直接拷贝鼠标下面内容
-(setq mouse-yank-at-point t)
+;; primary section中内容不放入系统剪切版
+(setq select-enable-primary nil)
+;; 不把当前选中的选区中的内容放入primary section
+(setq select-active-regions nil)
+
+;; 剪切复制使用系统剪切板
+(setq select-enable-clipboard t)
 
 ;; 打标记时，每次 C-SPC 算不同的标记记录
 (setq set-mark-command-repeat-pop t)
@@ -64,14 +60,20 @@
 (put 'narrow-to-defun 'disabled nil)
 
 ;; 配置 undo 树
-(require-package 'undo-tree)
-(global-undo-tree-mode)
-(with-eval-after-load 'undo-tree (diminish 'undo-tree-mode))
+(use-package undo-tree
+  :ensure t
+  :diminish undo-tree-mode
+  :config
+  (global-undo-tree-mode)
+  )
 
 ;; 设置 redo
-(require-package 'redo+)
-(setq undo-no-redo t)
-(global-set-key (kbd "C-?") 'redo)
+(use-package redo+
+  :ensure t
+  :init
+  (setq undo-no-redo t)
+  :bind ("C-?" . redo)
+  )
 
 ;; 成对插入符号
 (if (fboundp 'electric-pair-mode) (electric-pair-mode))
@@ -87,8 +89,11 @@
 (transient-mark-mode t)
 
 ;; 高亮转义字符
-(require-package 'highlight-escape-sequences)
-(hes-mode)
+(use-package highlight-escape-sequences
+  :ensure t
+  :config
+  (hes-mode)
+  )
 
 ;; 指示文件尾空行的横杠,t 表示打开，nil 表示关闭，可以通过 M-x toggle-indicate-empty-lines 关闭或者打开
 ;; 同 indicate-unused-lines
@@ -96,20 +101,18 @@
 ;; 左侧添加文件指示的标示，在文件中间时间箭头，在头部和尾部显示一个 L 型标识
 (setq-default indicate-buffer-boundaries '((up . left) (down . left)))
 
-;; 让原来对一个词的定位由整个词整个词变成一次定位词中有意义的一部分
-;; https://github.com/purcell/emacs.d/issues/138
-(when (eval-when-compile (string< "24.3.1" emacs-version))
-  (with-eval-after-load 'subword (diminish 'subword-mode)))
-
 ;; 调整光标覆盖单词面积
-(require-package 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
+(use-package expand-region
+  :ensure t
+  :bind ("C-=" . er/expand-region)
+  )
 
 ;; 跳到你想要的位置
-(require-package 'avy)
-(global-set-key (kbd "C-;") 'avy-goto-word-or-subword-1)
+(use-package avy
+  :bind ("C-;" . avy-goto-word-or-subword-1)
+  )
 
-(defun my/editor/backward-up-sexp (arg)
+(defun editor/backward-up-sexp (arg)
   "跳到包围当前表达式、代码块或者字符串的前 ARG 层括号处.
 解决 backwark-up-list 函数不能识别包围字符串的引号的问题.
 参数 ARG 表示执行到的层数,负数表示往右括号跳."
@@ -120,41 +123,32 @@
            (backward-up-sexp (1- arg)))
           ((backward-up-list arg)))))
 ;; 使用快捷键 C-M-u
-(global-set-key [remap backward-up-list] 'my/editor/backward-up-sexp)
+(global-set-key [remap backward-up-list] 'editor/backward-up-sexp)
 
 ;; 创建新行使用和前面文本同样的缩进
 (global-set-key (kbd "RET") 'newline-and-indent)
 
-(defun my/editor/newline-at-end-of-line ()
+(defun editor/newline-at-end-of-line ()
   "下方创建一个新行，光标移到行首."
   (interactive)
   (move-end-of-line 1)
   (newline-and-indent))
-(global-set-key (kbd "S-<return>") 'my/editor/newline-at-end-of-line)
+(global-set-key (kbd "S-<return>") 'editor/newline-at-end-of-line)
 
-(defun my/editor/newline-at-beginnging-of-line ()
+(defun editor/newline-at-beginnging-of-line ()
   "上方创建一个新行，光标移到行首."
   (interactive)
   (previous-line)
-  (my/editor/newline-at-end-of-line))
-(global-set-key (kbd "S-M-<return>") 'my/editor/newline-at-beginnging-of-line)
+  (editor/newline-at-end-of-line))
+(global-set-key (kbd "S-M-<return>") 'editor/newline-at-beginnging-of-line)
 
-(defun my/editor/kill-back-to-indentation ()
+(defun editor/kill-back-to-indentation ()
   "从当前位置删除到行首缩进位置."
   (interactive)
   (let ((prev-pos (point)))
     (back-to-indentation)
     (kill-region (point) prev-pos)))
-(global-set-key (kbd "C-M-<backspace>") 'my/editor/kill-back-to-indentation)
-
-;; 浏览所有被剪切/复制(kill)的内容,并且可以选择一个进行粘贴(yank)
-(require-package 'browse-kill-ring)
-(setq browse-kill-ring-separator "\f")
-(global-set-key (kbd "M-Y") 'browse-kill-ring)
-(with-eval-after-load 'browse-kill-ring
-  (define-key browse-kill-ring-mode-map (kbd "C-g") 'browse-kill-ring-quit)
-  (define-key browse-kill-ring-mode-map (kbd "M-n") 'browse-kill-ring-forward)
-  (define-key browse-kill-ring-mode-map (kbd "M-p") 'browse-kill-ring-previous))
+(global-set-key (kbd "C-M-<backspace>") 'editor/kill-back-to-indentation)
 
 (provide 'init-editor)
 ;;;  init-editor.el ends here

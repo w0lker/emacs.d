@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: 包含内容
-# key: inc
+# key: include
 # --
 #+INCLUDE: "${1:filename}" $2 $3
 $0
