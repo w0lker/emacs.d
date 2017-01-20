@@ -42,7 +42,6 @@
     :config
     (fullframe ibuffer ibuffer-quit)
     )
-
   )
 
 (use-package ido

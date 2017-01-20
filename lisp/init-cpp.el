@@ -54,7 +54,13 @@
       )
     )
 
-  (use-package cmake-mode :ensure t)
+  (use-package make-mode
+    :mode ("\\(/\\|\\`\\)[Mm]akefile" . makefile-gmake-mode)
+    )
+
+  (use-package cmake-mode
+    :ensure t
+    )
   )
 
 (provide 'init-cpp)

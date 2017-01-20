@@ -25,10 +25,11 @@
 (require 'init-theme)
 (require 'init-frame)
 (require 'init-window)
-(require 'init-mac)
-(require 'init-xterm)
 
-;; 扩展
+;; 系统
+(require 'init-mac)
+
+;; 增强
 (require 'init-evil)
 (require 'init-buffer)
 (require 'init-dired)
@@ -44,7 +45,6 @@
 (require 'init-code-check)
 
 ;; 主模式
-(require 'init-make)
 (require 'init-org)
 (require 'init-shell)
 (require 'init-markdown)
@@ -57,7 +57,7 @@
 ;; 加载个性化配置
 (if (file-exists-p custom-file) (load custom-file))
 
-;; 必须放在最后
+;; 本地化(必须放在最后)
 (require 'init-locale)
 
 (provide 'init)

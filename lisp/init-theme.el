@@ -2,43 +2,39 @@
 ;;; Commentary:
 ;;; Code:
 
+(use-package molokai-theme
+  :ensure t
+  :config
+  (load-theme 'molokai t)
+  )
+
 ;; 美化 mode-line
-(use-package smart-mode-line :ensure t)
-(setq sml/no-confirm-load-theme t)
-(setq sml/shorten-directory t)
-(setq sml/shorten-modes t)
-(setq sml/vc-mode-show-backend t) ;; 是否显示使用的版本控制工具
-(custom-set-faces
- '(sml/modes ((t :foreground "#202000")))
- '(sml/prefix ((t :foreground "#d83b5d")))
- '(sml/folder ((t :foreground "#99cc66")))
- '(sml/filename ((t :foreground "#99cc66")))
- '(sml/process ((t :foreground "#99cc66")))
- '(sml/vc ((t :foreground "#92e56d")))
- '(sml/vc-edited ((t :foreground "#203c04")))
- '(sml/minor-modes ((t :foreground "#99cc66"))))
-
-(use-package smart-mode-line-powerline-theme :ensure t)
-(if (window-system) (setq sml/theme 'powerline) (setq sml/theme 'dark))
-(sml/setup)
-
-(use-package molokai-theme :ensure t)
-(load-theme 'molokai t)
-
-;; 设置默认字体
-(set-default-font "Menlo 11")
-
-;; 调整字体大小
-(use-package default-text-scale :ensure t)
-(global-set-key (kbd "C-M-=") 'default-text-scale-increase)
-(global-set-key (kbd "C-M--") 'default-text-scale-decrease)
-
-(defun my/maybe-adjust-visual-fill-column ()
-  "自动适配列数."
-  (if visual-fill-column-mode
-      (add-hook 'after-setting-font-hook 'visual-fill-column--adjust-window nil t)
-    (remove-hook 'after-setting-font-hook 'visual-fill-column--adjust-window t)))
-(add-hook 'visual-fill-column-mode-hook 'my/maybe-adjust-visual-fill-column)
+(use-package smart-mode-line
+  :ensure t
+  :init
+  (setq sml/theme 'dark)
+  (setq sml/no-confirm-load-theme t)
+  (setq sml/shorten-directory t)
+  (setq sml/shorten-modes t)
+  (setq sml/vc-mode-show-backend t)
+  (custom-set-faces
+   '(sml/modes ((t :foreground "#202000")))
+   '(sml/prefix ((t :foreground "#d83b5d")))
+   '(sml/folder ((t :foreground "#99cc66")))
+   '(sml/filename ((t :foreground "#99cc66")))
+   '(sml/process ((t :foreground "#99cc66")))
+   '(sml/vc ((t :foreground "#92e56d")))
+   '(sml/vc-edited ((t :foreground "#203c04")))
+   '(sml/minor-modes ((t :foreground "#99cc66"))))
+  :config
+  (use-package smart-mode-line-powerline-theme
+    :ensure t
+    :if window-system
+    :config
+    (setq sml/theme 'powerline)
+    )
+  (sml/setup)
+  )
 
 (provide 'init-theme)
 ;;;  init-theme.el ends here

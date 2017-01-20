@@ -46,5 +46,8 @@
   :config
   (guide-key-mode 1))
 
+;; 选中帮助的面板
+(setq help-window-select t)
+
 (provide 'init-base)
 ;;;  init-base.el ends here
