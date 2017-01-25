@@ -2,6 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
+(fetch-package 'undo-tree)
+(fetch-package 'redo+)
+(fetch-package 'highlight-escape-sequences)
+(fetch-package 'expand-region)
+(fetch-package 'avy)
+
 ;; 默认主模式为 text-mode
 (setq major-mode 'text-mode)
 
@@ -15,7 +21,7 @@
 ;; 不断监听当前 buffer 的变化，如果其它编辑器同时修改该文件，修改会同步过来
 (setq global-auto-revert-non-file-buffers t)
 (global-auto-revert-mode)
-(with-eval-after-load 'autorevert (diminish 'auto-revert-mode))
+(diminish 'auto-revert-mode)
 
 ;; 光标闪动频率
 (setq blink-cursor-interval 0.8)
@@ -59,24 +65,17 @@
 (put 'narrow-to-page 'disabled nil)
 (put 'narrow-to-defun 'disabled nil)
 
-;; 配置 undo 树
-(use-package undo-tree
-  :ensure t
-  :diminish undo-tree-mode
-  :config
-  (global-undo-tree-mode)
-  )
+(require 'undo-tree)
+(global-undo-tree-mode t)
+(diminish 'undo-tree-mode)
 
-;; 设置 redo
-(use-package redo+
-  :ensure t
-  :init
-  (setq undo-no-redo t)
-  :bind ("C-?" . redo)
-  )
+(require 'redo+)
+(setq undo-no-redo t)
+(global-set-key (kbd "C-?") 'redo)
 
 ;; 成对插入符号
-(if (fboundp 'electric-pair-mode) (electric-pair-mode))
+(if (fboundp 'electric-pair-mode)
+    (electric-pair-mode))
 
 ;; 高亮匹配的括号
 (show-paren-mode 1)
@@ -89,11 +88,8 @@
 (transient-mark-mode t)
 
 ;; 高亮转义字符
-(use-package highlight-escape-sequences
-  :ensure t
-  :config
-  (hes-mode)
-  )
+(require 'highlight-escape-sequences)
+(hes-mode t)
 
 ;; 指示文件尾空行的横杠,t 表示打开，nil 表示关闭，可以通过 M-x toggle-indicate-empty-lines 关闭或者打开
 ;; 同 indicate-unused-lines
@@ -102,15 +98,12 @@
 (setq-default indicate-buffer-boundaries '((up . left) (down . left)))
 
 ;; 调整光标覆盖单词面积
-(use-package expand-region
-  :ensure t
-  :bind ("C-=" . er/expand-region)
-  )
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
 
 ;; 跳到你想要的位置
-(use-package avy
-  :bind ("C-;" . avy-goto-word-or-subword-1)
-  )
+(require 'avy)
+(global-set-key (kbd "C-;") 'avy-goto-word-or-subword-1)
 
 (defun editor/backward-up-sexp (arg)
   "跳到包围当前表达式、代码块或者字符串的前 ARG 层括号处.

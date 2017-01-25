@@ -2,10 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package markdown-mode
-  :ensure t
-  :mode ("\\.\\(markdown\\|md\\)\\'" . markdown-mode)
-  )
+(fetch-package 'markdown-mode)
+
+(add-to-list 'auto-mode-alist '("\\.\\(markdown\\|md\\)\\'" . markdown-mode))
+
+(require 'markdown-mode)
 
 (provide 'init-markdown)
 ;;;  init-markdown.el ends here

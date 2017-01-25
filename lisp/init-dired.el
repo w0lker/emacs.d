@@ -2,47 +2,32 @@
 ;;; Commentary:
 ;;; Code:
 
+(fetch-package 'dired+)
+(fetch-package 'dired-sort)
+(fetch-package 'diff-hl)
+
 ;; 如果gnu的 ls 可用就使用
 (let ((gls (executable-find "gls"))) (when gls (setq insert-directory-program gls)))
 
-(use-package dired
-  :demand t
-  :bind (:map dired-mode-map
-	      ([mouse-2] . dired-find-file))
-  :init
+(with-eval-after-load 'dired
+  (require 'dired+)
+  (require 'dired-sort)
+
+  (when (fboundp 'global-dired-hide-details-mode)
+    (global-dired-hide-details-mode -1))
+
   (setq dired-recursive-deletes 'top)
   (setq-default dired-dwim-target t)
-  :config
-  (use-package dired+
-    :ensure t
-    :demand t
-    :init
-    (setq-default diredp-hide-details-initially-flag nil)
-    :config
-    (global-dired-hide-details-mode -1)
-    )
+  (setq-default diredp-hide-details-initially-flag nil)
+  (define-key dired-mode-map [mouse-2] 'dired-find-file)
 
-  (use-package dired-sort
-    :ensure t
-    :demand t
-    )
+  (require 'diff-hl)
+  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
 
-  ;; 左侧提示 diff 内容
-  (use-package diff-hl
-    :ensure t
-    :config
-    (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
-    )
-
-  (use-package guide-key
-    :ensure t
-    :config
-    ;; 添加通过 % 快捷键显示帮助，？ 快捷键是 dired 使用的帮助快捷键
+  (with-eval-after-load 'guide-key
     (add-hook 'dired-mode-hook (lambda () (guide-key/add-local-guide-key-sequence "%"))))
 
-  (use-package evil
-    :ensure t
-    :config
+  (with-eval-after-load 'evil
     (evil-set-initial-state 'dired-mode 'normal))
   )
 

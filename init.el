@@ -17,6 +17,18 @@
 (setq-default package-user-dir (concat user-temp-dir "elpa"))
 (package-initialize)
 
+(defun fetch-package (package-name)
+  "下载指定 PACKAGE-NAME 包."
+  (condition-case err
+      (if (package-installed-p package-name)
+	  t
+	(progn
+	  (unless (assoc package-name package-archive-contents)
+	    (package-refresh-contents))
+	  (package-install package-name))
+	)
+    (error (message "Fetch package `%s': %S" package-name err) nil)))
+
 ;; 载入 lisp 配置目录
 (add-to-list 'load-path user-lisp-dir)
 
@@ -52,7 +64,6 @@
 (require 'init-python)
 (require 'init-cpp)
 (require 'init-web)
-(require 'init-vagrant)
 
 ;; 加载个性化配置
 (if (file-exists-p custom-file) (load custom-file))

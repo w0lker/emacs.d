@@ -2,20 +2,13 @@
 ;;; Commentary:
 ;;; Code:
 
+(fetch-package 'sql-indent)
+
+(add-to-list 'auto-mode-alist '("\\.hql\\'" . sql-mode))
+
 (defconst sql-input-ring-file-name (concat user-temp-dir ".sqli_history"))
 
-(use-package sql-indent :ensure t)
-
-(defun sql/pop-to-sqli-buffer ()
-  "Switch to the corresponding sqli buffer."
-  (interactive)
-  (if sql-buffer
-      (progn
-        (pop-to-buffer sql-buffer)
-        (goto-char (point-max)))
-    (sql-set-sqli-buffer)
-    (when sql-buffer
-      (sql/pop-to-sqli-buffer))))
+(require 'sql-indent)
 
 (provide 'init-sql)
 ;;;  init-sql.el ends here

@@ -2,13 +2,18 @@
 ;;; Commentary:
 ;;; Code:
 
+(fetch-package 'vagrant)
+(fetch-package 'vagrant-tramp)
+
+(defconst tramp-persistency-file-name (concat user-temp-dir "tramp"))
+
 ;; 指定默认使用的方法
 ;; 使用ssh会比scp快
 ;; 在使用的时候，可以临时指定其它的方法
 ;; C-x C-f /method:user@remotehost:filename
 (setq tramp-default-method "ssh")
 
-;; 优化大文件的网络传输如问题：tramp: Waiting for remote host to process data
+;; 优化大文件的网络传输，如问题：tramp: Waiting for remote host to process data
 (setq tramp-chunksize 500)
 
 (defun tramp-shell (&optional buffer)
@@ -21,6 +26,9 @@
                   (format "%s@" (tramp-file-name-user tramp-path)) ""))
           (new-buffer-name (format "*shell:%s%s*" user host)))
      (shell (if host new-buffer-name buffer))))
+
+(require 'vagrant)
+(require 'vagrant-tramp)
 
 (provide 'init-tramp)
 ;;; init-tramp.el ends here

@@ -2,14 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package flycheck
-  :ensure t
-  :diminish flycheck-mode
-  :init
-  (setq flycheck-display-errors-function 'flycheck-display-error-messages-unless-error-list)
-  :config
-  (add-hook 'after-init-hook 'global-flycheck-mode)
-  )
+(fetch-package 'flycheck)
+
+(require 'flycheck)
+(setq flycheck-display-errors-function 'flycheck-display-error-messages-unless-error-list)
+(add-hook 'after-init-hook 'global-flycheck-mode)
+(diminish 'flycheck-mode)
 
 (provide 'init-code-check)
 ;;;  init-code-check.el ends here
