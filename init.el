@@ -29,34 +29,27 @@
 	)
     (error (message "Fetch package `%s': %S" package-name err) nil)))
 
-;; 载入 lisp 配置目录
 (add-to-list 'load-path user-lisp-dir)
 
-;; 基本
-(require 'init-base)
+(require 'init-before)
+
 (require 'init-theme)
 (require 'init-frame)
 (require 'init-window)
+(require 'init-osx)
 
-;; 系统
-(require 'init-mac)
-
-;; 增强
-(require 'init-evil)
-(require 'init-buffer)
 (require 'init-dired)
+(require 'init-buffer)
 (require 'init-recentf)
 (require 'init-search)
 (require 'init-tramp)
-
-;; 开发
 (require 'init-editor)
-(require 'init-project)
+
 (require 'init-version-control)
 (require 'init-completion)
 (require 'init-code-check)
+(require 'init-project)
 
-;; 主模式
 (require 'init-org)
 (require 'init-shell)
 (require 'init-markdown)
@@ -65,11 +58,9 @@
 (require 'init-cpp)
 (require 'init-web)
 
-;; 加载个性化配置
 (if (file-exists-p custom-file) (load custom-file))
 
-;; 本地化(必须放在最后)
-(require 'init-locale)
+(require 'init-after)
 
 (provide 'init)
 ;;;  init.el ends here

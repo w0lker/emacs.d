@@ -25,4 +25,4 @@
 (add-hook 'css-mode-hook  'emmet-mode)
 
 (provide 'init-web)
-;;;  init-web.el ends here
+;;; init-web.el ends here

@@ -21,6 +21,9 @@
 			     yas-ido-prompt
 			     yas-completing-prompt))
 (add-to-list 'load-path completion/yas-snippet-dirs)
+(define-key yas-minor-mode-map (kbd "<tab>") nil)
+(define-key yas-minor-mode-map (kbd "TAB") nil)
+(define-key yas-minor-mode-map (kbd "C-c y") 'yas-expand)
 (yas-global-mode t)
 (diminish 'yas-minor-mode)
 
@@ -34,7 +37,7 @@
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 
-(setq company-idle-delay .5
+(setq company-idle-delay .3
       company-minimum-prefix-length 2)
 
 (with-eval-after-load 'company

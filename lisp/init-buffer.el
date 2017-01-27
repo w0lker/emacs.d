@@ -10,6 +10,13 @@
 (fetch-package 'crm-custom)
 (fetch-package 'smex)
 
+;; 同名 buffer 处理
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'reverse)
+(setq uniquify-separator " • ")
+(setq uniquify-after-kill-buffer-p t)
+(setq uniquify-ignore-buffers-re "^\\*")
+
 (require 'ibuffer)
 (setq-default ibuffer-show-empty-filter-groups nil)
 (setq-default ibuffer-filter-group-name-face 'font-lock-doc-face)
@@ -27,13 +34,6 @@
   (unless (eq ibuffer-sorting-mode 'filename/process)
     (ibuffer-do-sort-by-filename/process)))
 (add-hook 'ibuffer-hook 'buffer/sort-buffer)
-
-;; 同名 buffer 处理
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'reverse)
-(setq uniquify-separator " • ")
-(setq uniquify-after-kill-buffer-p t)
-(setq uniquify-ignore-buffers-re "^\\*")
 
 (require 'ibuffer-vc)
 (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root)
@@ -64,16 +64,16 @@
 (require 'ido-ubiquitous)
 (ido-ubiquitous-mode t)
 
+;; 支持 M-x 命令自动补全
+(require 'smex)
+(defconst smex-save-file (concat user-temp-dir "smex-items"))
+(global-set-key [remap execute-extended-command] 'smex)
+
 (require 'ido-yes-or-no)
 (ido-yes-or-no-mode t)
 
 (require 'crm-custom)
 (crm-custom-mode t)
-
-;; 支持 M-x 命令自动补全
-(require 'smex)
-(defconst smex-save-file (concat user-temp-dir "smex-items"))
-(global-set-key [remap execute-extended-command] 'smex)
 
 (provide 'init-buffer)
 ;;;  init-buffer.el ends here

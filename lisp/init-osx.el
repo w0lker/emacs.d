@@ -22,5 +22,5 @@
 	(add-to-list 'exec-path-from-shell-variables var))
       (exec-path-from-shell-initialize)))
 
-(provide 'init-mac)
-;;;  init-mac.el ends here
+(provide 'init-osx)
+;;;  init-osx.el ends here
