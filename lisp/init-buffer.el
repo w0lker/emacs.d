@@ -7,11 +7,6 @@
 (fetch-package 'diff-hl)
 (fetch-package 'ibuffer)
 (fetch-package 'ibuffer-vc)
-(fetch-package 'ido)
-(fetch-package 'ido-yes-or-no)
-(fetch-package 'ido-ubiquitous)
-(fetch-package 'crm-custom)
-(fetch-package 'smex)
 (fetch-package 'vagrant)
 (fetch-package 'vagrant-tramp)
 
@@ -93,32 +88,6 @@
     (fullframe ibuffer ibuffer-quit))
 
   (global-set-key (kbd "C-x C-b") 'ibuffer)
-  )
-
-(require 'ido)
-(with-eval-after-load 'ido
-  (ido-mode 1)
-  (ido-everywhere 1)
-
-  (defconst ido-save-directory-list-file (concat user-temp-dir "ido.last")) ;; 保存目录
-  (setq ido-enable-flex-matching t) ;; 非常开放的匹配方式 aa 可以匹配 alpha
-  (setq ido-enable-regexp t) ;; 支持正则表达式
-  (setq ido-use-filename-at-point nil)
-  (setq ido-auto-merge-work-directories-length -1)
-  (setq ido-use-virtual-buffers t)
-  (setq ido-default-buffer-method 'selected-window) ;; 允许一个 buffer 同时在不同的的 frame 中打开
-
-  ;; 支持 M-x 命令自动补全
-  (require 'smex)
-  (defconst smex-save-file (concat user-temp-dir "smex-items"))
-  (global-set-key [remap execute-extended-command] 'smex)
-
-  ;; 尽量让 ido 支持更多场景的补全
-  (require 'ido-ubiquitous)
-  (ido-ubiquitous-mode t)
-
-  (require 'ido-yes-or-no)
-  (ido-yes-or-no-mode t)
   )
 
 (with-eval-after-load 'tramp

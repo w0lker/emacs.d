@@ -3,17 +3,16 @@
 ;;; Code:
 
 (fetch-package 'windmove)
-(fetch-package 'switch-window)
+(fetch-package 'ido-select-window)
 (fetch-package 'winner)
 
 ;; 使用 shift+方向键 选择面板
 (require 'windmove)
 (windmove-default-keybindings)
 
-(require 'switch-window)
-(setq-default switch-window-shortcut-style 'alphabet)
-(setq-default switch-window-timeout nil)
-(global-set-key (kbd "C-x o") 'switch-window)
+(with-eval-after-load 'ido
+  (require 'ido-select-window)
+  (global-set-key (kbd "C-x o") 'ido-select-window))
 
 ;; 使用C-c <left> 和C-c <right>来对窗口配置进行 redo 或者 undo。这样在窗口乱了后可以恢复到原来不乱的状态
 (require 'winner)

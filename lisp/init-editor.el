@@ -13,6 +13,10 @@
 ;; 默认主模式为 text-mode
 (setq major-mode 'text-mode)
 
+;; 使用 C-x C-c C-v 进行复制粘贴
+(if window-system
+    (cua-mode t))
+
 ;; 优化翻页速度
 (setq jit-lock-defer-time 0.05)
 
