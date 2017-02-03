@@ -5,8 +5,10 @@
 (fetch-package 'undo-tree)
 (fetch-package 'redo+)
 (fetch-package 'highlight-escape-sequences)
+(fetch-package 'diff-hl)
 (fetch-package 'expand-region)
 (fetch-package 'avy)
+(fetch-package 'rainbow-delimiters)
 
 ;; 默认主模式为 text-mode
 (setq major-mode 'text-mode)
@@ -19,8 +21,9 @@
 (setq ring-bell-function 'ignore)
 
 ;; 不断监听当前 buffer 的变化，如果其它编辑器同时修改该文件，修改会同步过来
-(setq global-auto-revert-non-file-buffers t)
 (global-auto-revert-mode)
+(setq global-auto-revert-non-file-buffers t
+      auto-revert-verbose nil)
 (diminish 'auto-revert-mode)
 
 ;; 光标闪动频率
@@ -80,6 +83,10 @@
 ;; 高亮匹配的括号
 (show-paren-mode 1)
 
+;; 不同层括号颜色不同
+(require 'rainbow-delimiters)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
 ;; 配置行号显示样式
 (require 'linum)
 (setq linum-format "%4d ")
@@ -96,6 +103,11 @@
 (setq-default indicate-empty-lines nil)
 ;; 左侧添加文件指示的标示，在文件中间时间箭头，在头部和尾部显示一个 L 型标识
 (setq-default indicate-buffer-boundaries '((up . left) (down . left)))
+
+;; 左侧显示提示修改内容
+(require 'diff-hl)
+(add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
+(add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
 
 ;; 调整光标覆盖单词面积
 (require 'expand-region)

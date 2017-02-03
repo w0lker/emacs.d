@@ -39,8 +39,8 @@
 (set-default-font "Menlo 11")
 ;; 字体大小调整
 (require 'default-text-scale)
-(if window-system
-    (global-set-key (kbd "C-M-=") 'default-text-scale-increase)
+(when window-system
+  (global-set-key (kbd "C-M-=") 'default-text-scale-increase)
   (global-set-key (kbd "C-M--") 'default-text-scale-decrease))
 
 ;; 设置窗口标题格式

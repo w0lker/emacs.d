@@ -2,8 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-(fetch-package 'org)
-
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
 (require 'org)
@@ -40,6 +38,9 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c b") 'org-iswitchb)
+
+(with-eval-after-load 'ido
+  (setq-default org-completion-use-ido t))
 
 (provide 'init-org)
 ;;;  init-org.el ends here

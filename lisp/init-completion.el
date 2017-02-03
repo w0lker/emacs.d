@@ -3,27 +3,18 @@
 ;;; Code:
 
 (fetch-package 'yasnippet)
-(fetch-package 'dropdown-list)
 (fetch-package 'company)
 (fetch-package 'company-quickhelp)
 
-(setq tab-always-indent 'complete)
 (setq completion-cycle-threshold 5)
 (add-to-list 'completion-styles 'initials t)
 
 (diminish 'abbrev-mode)
 
 (require 'yasnippet)
-(require 'dropdown-list)
 (defconst completion/yas-snippet-dirs (expand-file-name ".snippets" user-emacs-directory))
-(setq yas-snippet-dirs completion/yas-snippet-dirs)
-(setq yas-prompt-functions '(yas-dropdown-prompt
-			     yas-ido-prompt
-			     yas-completing-prompt))
+(setq-default yas-snippet-dirs completion/yas-snippet-dirs)
 (add-to-list 'load-path completion/yas-snippet-dirs)
-(define-key yas-minor-mode-map (kbd "<tab>") nil)
-(define-key yas-minor-mode-map (kbd "TAB") nil)
-(define-key yas-minor-mode-map (kbd "C-c y") 'yas-expand)
 (yas-global-mode t)
 (diminish 'yas-minor-mode)
 
@@ -41,6 +32,7 @@
       company-minimum-prefix-length 2)
 
 (with-eval-after-load 'company
+  (setq tab-always-indent 'complete)
   (setq-default company-backends '((company-capf company-dabbrev-code) company-dabbrev company-files))
   (define-key company-mode-map (kbd "M-/") 'company-complete)
   (define-key company-active-map (kbd "M-/") 'company-select-next)
@@ -63,8 +55,7 @@
     (progn
       (setq company-quickhelp-delay nil)
       (company-quickhelp-mode t)
-      (define-key company-active-map (kbd "M-h") 'company-quickhelp-manual-begin))
-  )
+      (define-key company-active-map (kbd "M-h") 'company-quickhelp-manual-begin)))
 
 (defun completion/push-local-company-backend (backend)
   "添加 BACKEND 到 buffer 级别的 `company-backends'."

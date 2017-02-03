@@ -7,7 +7,7 @@
 (fetch-package 'company-c-headers)
 
 (add-to-list 'auto-mode-alist '("\\(/\\|\\`\\)[Mm]akefile" . makefile-gmake-mode))
-(add-to-list 'auto-mode-alist '("\\.h\\'" . cc-mode))
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 (require 'make-mode)
 (require 'cmake-mode)
@@ -42,8 +42,13 @@
       (flycheck-select-checker 'rtags)
       (setq-local flycheck-highlighting-mode nil)
       (setq-local flycheck-check-syntax-automatically nil))
-    (add-hook 'c-mode-common-hook 'cpp/add-rtags-to-flycheck))
-  )
+    (add-hook 'c-mode-common-hook 'cpp/add-rtags-to-flycheck)))
+
+(with-eval-after-load 'yasnippet
+  (defun cpp/add-yasnippet-to-company ()
+    "添加 yasnippet 补全到 company."
+    (completion/push-local-company-backend 'company-yasnippet))
+  (add-hook 'c-mode-common-hook 'cpp/add-yasnippet-to-company))
 
 (provide 'init-cpp)
 ;;;  init-cpp.el ends here

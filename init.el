@@ -4,10 +4,10 @@
 
 
 (defconst user-lisp-dir (concat user-emacs-directory (file-name-as-directory "lisp")) "存放lisp配置代码目录.")
-(defconst user-deps-dir (concat user-emacs-directory (file-name-as-directory "deps")) "依赖文件目录.")
 (defconst user-temp-dir (concat user-emacs-directory (file-name-as-directory "temp")) "运行时生产的数据的保存目录.")
-(defconst auto-save-list-file-prefix (concat user-temp-dir (file-name-as-directory "auto-save-list") "saves-"))
-(defconst custom-file (concat user-temp-dir "custom.el"))
+
+(defconst auto-save-list-file-prefix (concat user-temp-dir (file-name-as-directory "auto-save-list") "saves-") "自动保存文件前缀.")
+(defconst custom-file (concat user-temp-dir "custom.el") "个性化配置文件名称文件.")
 
 ;; 包管理器
 (require 'package)
@@ -36,19 +36,14 @@
 (require 'init-theme)
 (require 'init-frame)
 (require 'init-window)
-(require 'init-osx)
 
-(require 'init-dired)
-(require 'init-buffer)
-(require 'init-recentf)
-(require 'init-search)
-(require 'init-tramp)
 (require 'init-editor)
+(require 'init-buffer)
+(require 'init-search)
 
-(require 'init-version-control)
+(require 'init-project)
 (require 'init-completion)
 (require 'init-code-check)
-(require 'init-project)
 
 (require 'init-org)
 (require 'init-shell)
@@ -57,6 +52,8 @@
 (require 'init-python)
 (require 'init-cpp)
 (require 'init-web)
+
+(require 'init-osx)
 
 (if (file-exists-p custom-file) (load custom-file))
 
