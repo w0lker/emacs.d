@@ -3,14 +3,14 @@
 ;;; Code:
 
 (fetch-package 'exec-path-from-shell)
-
-;; 同步 emacs 环境变量 shell 环境变量
 (require 'exec-path-from-shell)
-(if (memq window-system '(mac ns))
-    (progn
-      (dolist (var '("TERM" "SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE"))
-	(add-to-list 'exec-path-from-shell-variables var))
-      (exec-path-from-shell-initialize)))
+(with-eval-after-load 'exec-path-from-shell
+  (if (memq window-system '(mac ns))
+      (progn
+	(dolist (var '("TERM" "SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "PATH"))
+	  (add-to-list 'exec-path-from-shell-variables var))
+	(exec-path-from-shell-initialize)))
+  )
 
 (if (file-exists-p custom-file) (load custom-file))
 

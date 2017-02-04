@@ -31,16 +31,13 @@
 
 (require 'init-before)
 
-(require 'init-theme)
-(require 'init-frame)
-(require 'init-buffer)
-(require 'init-window)
+(require 'init-core)
 (require 'init-editor)
-(require 'init-search)
 
 (require 'init-project)
 (require 'init-completion)
 (require 'init-code-check)
+(require 'init-search)
 
 (require 'init-org)
 (require 'init-tex)
