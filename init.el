@@ -32,7 +32,6 @@
 (require 'init-before)
 
 (require 'init-core)
-(require 'init-editor)
 
 (require 'init-project)
 (require 'init-completion)
