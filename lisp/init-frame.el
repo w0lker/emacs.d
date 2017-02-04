@@ -18,14 +18,14 @@
 ;; scratch默认不显示任何内容
 (setq initial-scratch-message nil)
 
-;; 不显示工具栏
-(if (functionp 'tool-bar-mode)
-    (tool-bar-mode -1))
-
 ;; 不显示菜单
 (if (and (functionp 'menu-bar-mode)
 	 (unless window-system))
     (menu-bar-mode -1))
+
+;; 不显示工具栏
+(if (functionp 'tool-bar-mode)
+    (tool-bar-mode -1))
 
 ;; 不显示滚动条
 (if (fboundp 'scroll-bar-mode)
@@ -55,6 +55,16 @@
 
 (require 'smooth-scrolling)
 (smooth-scrolling-mode t)
+
+;; mac 下配置
+(when (eq system-type 'darwin)
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier 'meta)
+
+  ;; 使用C-M-f触发全屏模式
+  (when (fboundp 'toggle-frame-fullscreen)
+    (global-set-key (kbd "C-M-f") 'toggle-frame-fullscreen))
+  )
 
 (defun frame/console-hide-menu-bar (frame)
   "如果不是窗口，隐藏当前 FRAME 菜单拦."

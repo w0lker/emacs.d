@@ -2,14 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
-
 (defconst user-lisp-dir (concat user-emacs-directory (file-name-as-directory "lisp")) "存放lisp配置代码目录.")
 (defconst user-temp-dir (concat user-emacs-directory (file-name-as-directory "temp")) "运行时生产的数据的保存目录.")
 
 (defconst auto-save-list-file-prefix (concat user-temp-dir (file-name-as-directory "auto-save-list") "saves-") "自动保存文件前缀.")
 (defconst custom-file (concat user-temp-dir "custom.el") "个性化配置文件名称文件.")
 
-;; 包管理器
 (require 'package)
 (setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
 			 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
@@ -35,10 +33,9 @@
 
 (require 'init-theme)
 (require 'init-frame)
-(require 'init-window)
-
-(require 'init-editor)
 (require 'init-buffer)
+(require 'init-window)
+(require 'init-editor)
 (require 'init-search)
 
 (require 'init-project)
@@ -46,16 +43,14 @@
 (require 'init-code-check)
 
 (require 'init-org)
-(require 'init-shell)
-(require 'init-markdown)
-(require 'init-sql)
+(require 'init-tex)
 (require 'init-python)
 (require 'init-cpp)
+(require 'init-golang)
 (require 'init-web)
-
-(require 'init-osx)
-
-(if (file-exists-p custom-file) (load custom-file))
+(require 'init-markdown)
+(require 'init-sql)
+(require 'init-shell)
 
 (require 'init-after)
 

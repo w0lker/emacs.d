@@ -25,9 +25,10 @@
  '(sml/vc-edited ((t :foreground "#203c04")))
  '(sml/minor-modes ((t :foreground "#99cc66"))))
 
-(require 'smart-mode-line-powerline-theme)
 (if window-system
-    (setq sml/theme 'powerline)
+    (progn
+      (require 'smart-mode-line-powerline-theme)
+      (setq sml/theme 'powerline))
   (setq sml/theme 'dark))
 
 (sml/setup)
