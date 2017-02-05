@@ -2,14 +2,17 @@
 ;;; Commentary:
 ;;; Code:
 
-(fetch-package 'exec-path-from-shell)
-(require 'exec-path-from-shell)
-(with-eval-after-load 'exec-path-from-shell
+(config-after-fetch-require 'exec-path-from-shell
   (if (memq window-system '(mac ns))
       (progn
-	(dolist (var '("TERM" "SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "PATH"))
+	(dolist (var '("TERM" "SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "PATH" "PYENV_ROOT" "GOPATH" "GOROOT"))
 	  (add-to-list 'exec-path-from-shell-variables var))
 	(exec-path-from-shell-initialize)))
+  )
+
+(config-after-fetch-require 'mmm-mode
+  (setq mmm-global-mode 'buffers-with-submode-classes)
+  (setq mmm-submode-decoration-level 2)
   )
 
 (if (file-exists-p custom-file) (load custom-file))
@@ -31,7 +34,8 @@
   (set-default-coding-systems 'utf-8)
   (set-terminal-coding-system 'utf-8)
   (set-selection-coding-system (if (eq system-type 'windows-nt) 'utf-16-le 'utf-8))
-  (prefer-coding-system 'utf-8))
+  (prefer-coding-system 'utf-8)
+  )
 
 (provide 'init-after)
 ;;;  init-after.el ends here
