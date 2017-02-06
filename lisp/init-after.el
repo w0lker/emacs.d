@@ -15,8 +15,6 @@
   (setq mmm-submode-decoration-level 2)
   )
 
-(if (file-exists-p custom-file) (load custom-file))
-
 (defun after/utf8-locale-p (v)
   "Return whether locale string V relates to a UTF-8 locale."
   (and v (string-match "UTF-8" v)))

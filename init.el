@@ -15,10 +15,24 @@
 
 (add-to-list 'load-path user-lisp-dir)
 
-(require 'init-before)
-
 (require 'init-core)
-(require 'init-project)
+(require 'init-theme)
+(require 'init-editor)
+(require 'init-frame)
+(require 'init-window)
+
+(require 'init-evil)
+(require 'init-dired)
+(require 'init-ido)
+(require 'init-ibuffer)
+(require 'init-recentf)
+(require 'init-tramp)
+
+(require 'init-projectile)
+(require 'init-magit)
+(require 'init-flycheck)
+(require 'init-company)
+(require 'init-yasnippet)
 (require 'init-search)
 
 (require 'init-org)
