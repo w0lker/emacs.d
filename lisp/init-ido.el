@@ -20,28 +20,6 @@
   (config-add-hook 'ido-setup-hook
     (define-key ido-completion-map [up] 'previous-history-element)
     )
-
-  (defun ido/sort-by-mtime ()
-    (setq ido-temp-list
-          (sort ido-temp-list
-                (lambda (a b)
-                  (time-less-p
-                   (sixth (file-attributes (concat ido-current-directory b)))
-                   (sixth (file-attributes (concat ido-current-directory a))))))
-	  )
-    (ido-to-end
-     (delq nil (mapcar
-                (lambda (x) (and (char-equal (string-to-char x) ?.) x))
-                ido-temp-list)))
-    )
-  
-  (config-add-hook 'ido-make-file-list-hook
-    (ido/sort-by-mtime)
-    )
-
-  (config-add-hook 'ido-make-dir-list-hook
-    (ido/sort-by-mtime)
-    )
   
   (config-after-fetch-require 'smex
     (setq-default smex-save-file (concat user-temp-dir "smex-items"))
