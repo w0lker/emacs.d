@@ -66,6 +66,18 @@
      )
   )
 
+(defmacro config-bind-map-key (map key &rest body)
+  "配置绑定 MAP 到按键 KEY 执行代码 BODY 内容会被封装到一个 lambda 表达式中."
+  (declare (indent 1) (debug t))
+  `(if ,map
+       (if (commandp (lambda (arg) ,@body))
+	   (define-key ,map ,key (lambda (arg) ,@body))
+	 (define-key ,map ,key (lambda () (interactive) ,@body))
+	 )
+     (message "Map for binding is nil")
+     )
+  )
+
 (setq use-file-dialog nil
       use-dialog-box nil
       inhibit-startup-screen t
