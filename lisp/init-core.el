@@ -78,6 +78,11 @@
   (eval-when-compile (require 'cl))
   )
 
+(config-after-fetch-require 'mmm-mode
+  (setq mmm-global-mode 'buffers-with-submode-classes)
+  (setq mmm-submode-decoration-level 2)
+  )
+
 (config-after-fetch-require 'guide-key
   (setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-x C-r" "C-x r"))
   (guide-key-mode t)

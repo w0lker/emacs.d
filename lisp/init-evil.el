@@ -3,8 +3,8 @@
 ;;; Code:
 
 (config-after-fetch-require 'evil
-  (setq evil-default-state 'normal)
   (evil-mode t)
+  (setq evil-default-state 'normal)
 
   (config-add-hook 'evil-emacs-state-entry-hook
     ;; 当使用 emacs 模式时光标转换为竖线

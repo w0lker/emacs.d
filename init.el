@@ -16,6 +16,7 @@
 (add-to-list 'load-path user-lisp-dir)
 
 (require 'init-core)
+
 (require 'init-theme)
 (require 'init-editor)
 (require 'init-frame)
@@ -45,7 +46,7 @@
 (require 'init-sql)
 (require 'init-shell)
 
-(require 'init-after)
+(require 'init-last)
 
 (provide 'init)
 ;;;  init.el ends here
