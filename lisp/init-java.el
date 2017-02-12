@@ -3,21 +3,21 @@
 ;;; Code:
 
 (config-after-fetch-require 'eclim
-  (config-after-require 'eclimd
-    (setq eclimd-autostart t)
+  (add-to-list 'auto-mode-alist '("\\.java\\'" . java-mode))
+  (setq eclimd-autostart t
+	eclimd-default-workspace "~/Default"
+	)
+
+  (config-add-hook 'java-mode-hook
+    (eclim-mode t)
     )
-  (global-eclim-mode)
 
   (config-add-hook 'eclim-mode-hook
-    (setq help-at-pt-display-when-idle t)
-    (setq help-at-pt-timer-delay 0.1)
-    (help-at-pt-set-timer)
-    )
-
-  (with-eval-after-load 'company
-    (config-after-fetch-require 'company-emacs-eclim
-      (setq company-emacs-eclim-ignore-case t)
-      (company-emacs-eclim-setup)
+    (with-eval-after-load 'company
+      (config-after-fetch-require 'company-emacs-eclim
+	(setq company-emacs-eclim-ignore-case t)
+	(company-emacs-eclim-setup)
+	)
       )
     )
   )

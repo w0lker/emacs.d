@@ -15,6 +15,8 @@
 
 (add-to-list 'load-path user-lisp-dir)
 
+(eval-when-compile (require 'init-macro))
+
 (require 'init-core)
 
 (require 'init-theme)

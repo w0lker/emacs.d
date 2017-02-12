@@ -2,6 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
+(if (file-exists-p custom-file)
+    ;; 载入 custom 文件
+    (load custom-file)
+  )
+
 (config-after-fetch-require 'exec-path-from-shell
   (if (memq window-system '(mac ns))
       (progn
@@ -11,11 +16,11 @@
   )
 
 (defun last/utf8-locale-p (v)
-  "Return whether locale string V relates to a UTF-8 locale."
+  "如果字符串V是UTF-8则返回非nil."
   (and v (string-match "UTF-8" v)))
 
 (defun last/locale-is-utf8-p ()
-  "Return t if the \"locale\" command or environment variables prefer UTF-8."
+  "如果\"locale\"命令或者环境变量是UTF-8则返回t."
   (or (last/utf8-locale-p (and (executable-find "locale") (shell-command-to-string "locale")))
       (last/utf8-locale-p (getenv "LC_ALL"))
       (last/utf8-locale-p (getenv "LC_CTYPE"))
