@@ -27,16 +27,20 @@
     )
 
   (config-after-fetch-require 'ido-ubiquitous
-    (ido-ubiquitous-mode 1))
+    (ido-ubiquitous-mode 1)
+    )
 
   (config-after-fetch-require 'ido-yes-or-no
-    (ido-yes-or-no-mode 1))
+    (ido-yes-or-no-mode 1)
+    )
 
   (config-after-fetch-require 'crm-custom
-    (crm-custom-mode 1))
+    (crm-custom-mode 1)
+    )
 
   (config-after-fetch-require 'ido-select-window
-    (global-set-key (kbd "C-x o") 'ido-select-window))
+    (global-set-key (kbd "C-x o") 'ido-select-window)
+    )
   )
 
 (provide 'init-ido)

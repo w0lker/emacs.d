@@ -47,6 +47,7 @@
 (require 'init-markdown)
 (require 'init-sql)
 (require 'init-shell)
+(require 'init-docker)
 
 (require 'init-last)
 

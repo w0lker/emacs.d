@@ -17,7 +17,7 @@
 ;; 不显示工具栏
 (tool-bar-mode -1)
 ;; 不显示滚动条
-(scroll-bar-mode nil)
+(scroll-bar-mode -1)
 
 (config-after-fetch-require 'cl-lib
   (eval-when-compile (require 'cl))

@@ -48,11 +48,10 @@
 
 (config-after-fetch-require 'default-text-scale
   ;; 字体大小调整
-  (set-default-font "Menlo 11")
+  (set-default-font "Menlo 13")
   (when window-system
     (global-set-key (kbd "C-M-=") 'default-text-scale-increase)
     (global-set-key (kbd "C-M--") 'default-text-scale-decrease)
-    
     (defun editor/maybe-adjust-visual-fill-column ()
       "自动适配列数."
       (if visual-fill-column-mode
