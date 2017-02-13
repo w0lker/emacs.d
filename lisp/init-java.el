@@ -2,17 +2,14 @@
 ;;; Commentary:
 ;;; Code:
 
-(config-after-fetch-require 'eclim
-  (add-to-list 'auto-mode-alist '("\\.java\\'" . java-mode))
-  (setq eclimd-autostart t
-	eclimd-default-workspace "~/Default"
-	)
+(add-to-list 'auto-mode-alist '("\\.java\\'" . java-mode))
 
-  (config-add-hook 'java-mode-hook
+(config-add-hook 'java-mode-hook
+  (config-after-fetch-require 'eclim
+    (setq eclimd-autostart nil
+	  eclim-executable "~/.local/bin/eclim"
+	  )
     (eclim-mode t)
-    )
-
-  (config-add-hook 'eclim-mode-hook
     (with-eval-after-load 'company
       (config-after-fetch-require 'company-emacs-eclim
 	(setq company-emacs-eclim-ignore-case t)

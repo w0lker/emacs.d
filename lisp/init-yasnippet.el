@@ -7,8 +7,7 @@
   (setq-default yas-snippet-dirs completion/yas-snippet-dirs)
   (add-to-list 'load-path completion/yas-snippet-dirs)
   (yas-global-mode t)
-
-  (config-after-fetch-require 'diminish
+  (with-eval-after-load 'diminish
     (diminish 'yas-minor-mode)
     )
   )

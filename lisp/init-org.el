@@ -16,23 +16,19 @@
   ;; 导出 html 格式时不显示验证信息
   (setq org-html-validation-link nil)
 
-  ;; 解决与 yasnippet <TAB> 键冲突
-  (defun org/yas-very-safe-expand ()
-    "安全扩展 yasnippet."
-    (let ((yas-fallback-behavior nil)) (yas/expand)))
-
-  (defun org/yas-fix-tab-conflict ()
-    "解决 yas 和 org 的冲突."
+  (config-add-hook 'org-mode-hook
+    ;; 解决 yas 和 org 的冲突.
+    (defun org/yas-very-safe-expand ()
+      "安全扩展 yasnippet."
+      (let ((yas-fallback-behavior nil)) (yas/expand))
+      )
     (make-variable-buffer-local 'yas/trigger-key)
     (setq yas/trigger-key [tab])
     (add-to-list 'org-tab-first-hook 'org/yas-very-safe-expand)
-    (define-key yas/keymap [tab] 'yas/next-field))
-  (add-hook 'org-mode-hook 'org/yas-fix-tab-conflict)
-
-  (defun org/add-yasnippet-to-company ()
-    "添加 yasnippet 补全到 company."
-    (completion/push-local-company-backend 'company-yasnippet))
-  (add-hook 'org-mode-hook 'org/add-yasnippet-to-company)
+    (define-key yas/keymap [tab] 'yas/next-field)
+    ;; 添加 yasnippet 补全到 company.
+    (company/push-local-backend 'company-yasnippet)
+    )
 
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c a") 'org-agenda)
@@ -40,7 +36,8 @@
   (global-set-key (kbd "C-c b") 'org-iswitchb)
 
   (with-eval-after-load 'ido
-    (setq-default org-completion-use-ido t))
+    (setq-default org-completion-use-ido t)
+    )
   )
 
 (provide 'init-org)

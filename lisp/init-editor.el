@@ -19,32 +19,20 @@
       select-active-regions nil ;; 不把当前选中的选区中的内容放入primary section
       select-enable-clipboard t ;; 剪切复制使用系统剪切板
       set-mark-command-repeat-pop t ;; 打标记时，每次 C-SPC 算不同的标记记录
-      help-window-select t ;; 使用帮助时，焦点在帮助 buffer 上
       )
 
 (setq-default indicate-empty-lines nil ;; 空行显示一个标识
-	      indicate-buffer-boundaries '((up . left) (down . left))
-	      )
+              indicate-buffer-boundaries '((up . left) (down . left))
+              )
 
-(if (fboundp 'linum-mode)
-    ;; 显示行号
-    (linum-mode 1)
-  )
-
-(if (fboundp 'transient-mark-mode)
-    ;; 选中 region 高亮
-    (transient-mark-mode t)
-  )
-
-(if (fboundp 'electric-pair-mode)
-    ;; 成对插入符号
-    (electric-pair-mode 1)
-  )
-
-(if (fboundp 'show-paren-mode)
-    ;; 高亮匹配的括号
-    (show-paren-mode 1)
-  )
+;; 显示行号
+(linum-mode 1)
+;; 选中 region 高亮
+(transient-mark-mode t)
+;; 成对插入符号
+(electric-pair-mode 1)
+;; 高亮匹配的括号
+(show-paren-mode 1)
 
 (config-after-fetch-require 'default-text-scale
   ;; 字体大小调整
@@ -55,8 +43,8 @@
     (defun editor/maybe-adjust-visual-fill-column ()
       "自动适配列数."
       (if visual-fill-column-mode
-	  (add-hook 'after-setting-font-hook 'visual-fill-column--adjust-window nil t)
-	(remove-hook 'after-setting-font-hook 'visual-fill-column--adjust-window t)))
+          (add-hook 'after-setting-font-hook 'visual-fill-column--adjust-window nil t)
+        (remove-hook 'after-setting-font-hook 'visual-fill-column--adjust-window t)))
     (add-hook 'visual-fill-column-mode-hook 'editor/maybe-adjust-visual-fill-column)
     )
   )
@@ -65,8 +53,8 @@
   ;; 不断监听当前 buffer 的变化，如果其它编辑器同时修改该文件，修改会同步过来
   (global-auto-revert-mode)
   (setq global-auto-revert-non-file-buffers t
-	auto-revert-verbose nil)
-  (config-after-fetch-require 'diminish
+        auto-revert-verbose nil)
+  (with-eval-after-load 'diminish
     (diminish 'auto-revert-mode)
     )
   )
@@ -90,8 +78,11 @@
 
 (config-after-fetch-require 'undo-tree
   (global-undo-tree-mode t)
-  (config-after-fetch-require 'diminish
+  (with-eval-after-load 'diminish
     (diminish 'undo-tree-mode)
+    )
+  (with-eval-after-load 'popwin
+    (push '(" *undo-tree*" :width 0.3 :position right) popwin:special-display-config)
     )
   )
 
@@ -146,6 +137,26 @@
     (kill-region (point) prev-pos))
   )
 
+(defun indent-buffer()
+  (interactive)
+  (indent-region (point-min) (point-max))
+  )
+
+(config-bind-global-key (kbd "C-M-\\")
+  ;; 选择区域或者全部buffer执行缩进
+  (save-excursion
+    (if (region-active-p)
+        (progn
+          (indent-region (region-beginning) (region-end))
+          (message "Indent region.")
+          )
+      (progn
+        (indent-buffer)
+        (message "Indent buffer.")
+        )
+      )
+    )
+  )
 
 (provide 'init-editor)
 ;;;  init-editor.el ends here

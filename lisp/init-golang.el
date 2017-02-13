@@ -3,25 +3,25 @@
 ;;; Code:
 
 (config-after-fetch-require 'go-mode
-  (defun go/config-base ()
-    "基本配置."
+  (config-add-hook 'go-mode-hook
+    ;; 基本配置.
     (add-hook 'before-save-hook 'gofmt-before-save)
     (local-set-key (kbd "M-.") 'godef-jump)
     (local-set-key (kbd "M-*") 'pop-tag-mark)
     (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
-    )
-  (add-hook 'go-mode-hook 'go/config-base)
 
-  (with-eval-after-load 'company
-    (config-after-fetch-require 'company-go
-      (add-hook 'go-mode-hook (lambda ()
-				(set (make-local-variable 'company-backends) '(company-go))))
+    (with-eval-after-load 'company
+      (config-after-fetch-require 'company-go
+	(company/push-local-backend 'company-go)
+	)
       )
-    )
 
-  (config-after-fetch-require 'go-eldoc
-    (add-hook 'go-mode-hook 'go-eldoc-setup)
-    (diminish 'eldoc-mode)
+    (config-after-fetch-require 'go-eldoc
+      (go-eldoc-setup)
+      (with-eval-after-load 'diminish
+	(diminish 'eldoc-mode)
+	)
+      )
     )
   )
 
