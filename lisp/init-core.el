@@ -35,5 +35,16 @@
     (diminish 'guide-key-mode))
   )
 
+(config-after-fetch-require 'exec-path-from-shell
+  (if (memq window-system '(mac ns x))
+      (progn
+	(dolist (var '("TERM" "SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "PATH" "PYENV_ROOT" "GOPATH" "GOROOT"))
+	  (add-to-list 'exec-path-from-shell-variables var)
+	  )
+	(exec-path-from-shell-initialize)
+	)
+    )
+  )
+
 (provide 'init-core)
 ;;;  init-core.el ends here

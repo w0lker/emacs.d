@@ -13,10 +13,6 @@
   (with-eval-after-load 'ido
     (setq org-completion-use-ido t)
     )
-
-  (with-eval-after-load 'evil
-    (config-after-fetch-require 'evil-org)
-    )
   
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c a") 'org-agenda)

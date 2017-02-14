@@ -26,10 +26,12 @@
               )
 
 ;; 显示行号
-(linum-mode 1)
-;; 选中 region 高亮
-(transient-mark-mode t)
-;; 成对插入符号
+(if (not (memq window-system '(mac ns)))
+    (config-add-hook 'linum-before-numbering-hook
+      (setq linum-format "%4d ")
+      )
+  )
+;; 成对插入括号
 (electric-pair-mode 1)
 ;; 高亮匹配的括号
 (show-paren-mode 1)
@@ -40,20 +42,22 @@
   (when window-system
     (global-set-key (kbd "C-M-=") 'default-text-scale-increase)
     (global-set-key (kbd "C-M--") 'default-text-scale-decrease)
-    (defun editor/maybe-adjust-visual-fill-column ()
-      "自动适配列数."
+    (config-add-hook 'visual-fill-column-mode-hook
+      ;; 自动适配列数
       (if visual-fill-column-mode
           (add-hook 'after-setting-font-hook 'visual-fill-column--adjust-window nil t)
-        (remove-hook 'after-setting-font-hook 'visual-fill-column--adjust-window t)))
-    (add-hook 'visual-fill-column-mode-hook 'editor/maybe-adjust-visual-fill-column)
+        (remove-hook 'after-setting-font-hook 'visual-fill-column--adjust-window t)
+	)
+      )
     )
   )
 
 (config-after-require 'autorevert
-  ;; 不断监听当前 buffer 的变化，如果其它编辑器同时修改该文件，修改会同步过来
-  (global-auto-revert-mode)
+  ;; 不断监听当前buffer变化，如果其它编辑器同时修改该文件，修改会同步过来
+  (global-auto-revert-mode t)
   (setq global-auto-revert-non-file-buffers t
-        auto-revert-verbose nil)
+        auto-revert-verbose nil
+	)
   (with-eval-after-load 'diminish
     (diminish 'auto-revert-mode)
     )
@@ -63,12 +67,6 @@
   ;; 左侧显示提示修改内容
   (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
   (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
-  )
-
-(config-after-fetch-require 'expand-region
-  ;; 一层层的调整光标覆盖单词面积
-  (global-set-key (kbd "C-=") 'er/expand-region)
-  (global-set-key (kbd "C--") 'er/contract-region)
   )
 
 (config-after-fetch-require 'smooth-scrolling
@@ -82,7 +80,7 @@
     (diminish 'undo-tree-mode)
     )
   (with-eval-after-load 'popwin
-    (push '(" *undo-tree*" :width 0.3 :position right) popwin:special-display-config)
+    (push '("*undo-tree*" :width 0.2 :position right) popwin:special-display-config)
     )
   )
 
@@ -102,8 +100,8 @@
   )
 
 (config-bind-global-key [remap backward-up-list]
-  ;; 跳到包围当前表达式、代码块或者字符串的前层括号处
-  ;; 解决 backwark-up-list 函数不能识别包围字符串的引号的问题
+  ;; 使用快捷键`C-M-u'跳到包围当前表达式、代码块或者字符串的前层括号处
+  ;; 解决`backwark-up-list'函数不能识别包围字符串的引号的问题
   (interactive "p")
   (let ((ppss (syntax-ppss)))
     (cond ((elt ppss 3)
@@ -127,7 +125,8 @@
 (config-bind-global-key (kbd "S-M-<return>")
   ;; 上方创建一个新行，光标移到行首
   (previous-line)
-  (editor/newline-at-end-of-line)
+  (move-end-of-line 1)
+  (newline-and-indent)
   )
 
 (config-bind-global-key (kbd "C-M-<backspace>")
@@ -137,23 +136,12 @@
     (kill-region (point) prev-pos))
   )
 
-(defun indent-buffer()
-  (interactive)
-  (indent-region (point-min) (point-max))
-  )
-
 (config-bind-global-key (kbd "C-M-\\")
-  ;; 选择区域或者全部buffer执行缩进
+  ;; 选择区域或者全部内容执行缩进
   (save-excursion
     (if (region-active-p)
-        (progn
-          (indent-region (region-beginning) (region-end))
-          (message "Indent region.")
-          )
-      (progn
-        (indent-buffer)
-        (message "Indent buffer.")
-        )
+	(indent-region (region-beginning) (region-end))
+      (indent-region (point-min) (point-max))
       )
     )
   )

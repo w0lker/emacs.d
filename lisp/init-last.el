@@ -7,14 +7,6 @@
     (load custom-file)
   )
 
-(config-after-fetch-require 'exec-path-from-shell
-  (if (memq window-system '(mac ns))
-      (progn
-	(dolist (var '("TERM" "SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "PATH" "PYENV_ROOT" "GOPATH" "GOROOT"))
-	  (add-to-list 'exec-path-from-shell-variables var))
-	(exec-path-from-shell-initialize)))
-  )
-
 (defun last/utf8-locale-p (v)
   "如果字符串V是UTF-8则返回非nil."
   (and v (string-match "UTF-8" v)))

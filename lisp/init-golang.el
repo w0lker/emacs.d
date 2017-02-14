@@ -3,6 +3,7 @@
 ;;; Code:
 
 (config-after-fetch-require 'go-mode
+
   (config-add-hook 'go-mode-hook
     ;; 基本配置.
     (add-hook 'before-save-hook 'gofmt-before-save)

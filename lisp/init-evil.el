@@ -12,8 +12,9 @@
     )
 
   (config-after-fetch-require 'evil-leader
-    (setq-default evil-leader/leader "\\")
-    (setq-default evil-leader/in-all-states t)
+    (setq-default evil-leader/leader "\\"
+		  evil-leader/in-all-states t
+		  )
     (evil-leader/set-key "q" 'kill-buffer)
     (evil-leader/set-key "w" 'save-buffer)
     (evil-leader/set-key "l" 'linum-mode)
