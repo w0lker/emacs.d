@@ -17,8 +17,11 @@
   (if *is-frame*
       ;; 设置默认字体
       (if (eq system-type 'darwin)
-  	  (add-to-list 'default-frame-alist '(font . "Menlo 13"))
-  	)
+	  (progn
+	    (add-to-list 'default-frame-alist '(font . "Menlo-12"))
+	    (set-fontset-font "fontset-default" 'han '("STHeiti"))
+	    )
+	)
     )
 
   (config-after-fetch-require 'default-text-scale
