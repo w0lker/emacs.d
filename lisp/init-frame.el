@@ -14,6 +14,28 @@
   ;; 设置窗口标题格式
   (setq frame-title-format '(:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name)) "%b")))
 
+  (if *is-frame*
+      ;; 设置默认字体
+      (if (eq system-type 'darwin)
+  	  (add-to-list 'default-frame-alist '(font . "Menlo 13"))
+  	)
+    )
+
+  (config-after-fetch-require 'default-text-scale
+    ;; 字体大小调整
+    (when window-system
+      (global-set-key (kbd "C-M-=") 'default-text-scale-increase)
+      (global-set-key (kbd "C-M--") 'default-text-scale-decrease)
+      (config-add-hook 'visual-fill-column-mode-hook
+	;; 自动适配列数
+	(if visual-fill-column-mode
+	    (add-hook 'after-setting-font-hook 'visual-fill-column--adjust-window nil t)
+	  (remove-hook 'after-setting-font-hook 'visual-fill-column--adjust-window t)
+	  )
+	)
+      )
+    )
+
   (config-add-hook 'after-make-console-frame-hooks
     ;; 控制台下 C-<方向键> 修复
     (let ((map (if (boundp 'input-decode-map) input-decode-map function-key-map)))

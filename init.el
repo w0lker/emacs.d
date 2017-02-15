@@ -20,9 +20,9 @@
 (require 'init-core)
 
 (require 'init-theme)
-(require 'init-editor)
 (require 'init-frame)
 (require 'init-window)
+(require 'init-editor)
 
 (require 'init-evil)
 (require 'init-dired)

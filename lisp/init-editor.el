@@ -31,26 +31,12 @@
       (setq linum-format "%4d ")
       )
   )
+
 ;; 成对插入括号
 (electric-pair-mode 1)
+
 ;; 高亮匹配的括号
 (show-paren-mode 1)
-
-(config-after-fetch-require 'default-text-scale
-  ;; 字体大小调整
-  (set-default-font "Menlo 13")
-  (when window-system
-    (global-set-key (kbd "C-M-=") 'default-text-scale-increase)
-    (global-set-key (kbd "C-M--") 'default-text-scale-decrease)
-    (config-add-hook 'visual-fill-column-mode-hook
-      ;; 自动适配列数
-      (if visual-fill-column-mode
-          (add-hook 'after-setting-font-hook 'visual-fill-column--adjust-window nil t)
-        (remove-hook 'after-setting-font-hook 'visual-fill-column--adjust-window t)
-	)
-      )
-    )
-  )
 
 (config-after-require 'autorevert
   ;; 不断监听当前buffer变化，如果其它编辑器同时修改该文件，修改会同步过来
