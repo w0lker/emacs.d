@@ -1,9 +1,9 @@
 # -*- mode: snippet -*-
-# name: main
-# key: main
+# name: for (...; ...; ...){ selected text } 
+# key: for
 # expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
 # contributor: w0lker.tg@gmail.com
 # --
-int main(int argc, char* argv[]) {
-  `yas-selected-text`$0
+for ($1; $2; $3) {
+    `yas-selected-text`$0
 }

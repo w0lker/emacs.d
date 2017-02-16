@@ -3,12 +3,15 @@
 ;;; Code:
 
 (config-after-fetch-require 'yasnippet
-  (defconst yasnippet/snippet-dirs (expand-file-name ".snippets" user-emacs-directory))
-  (setq-default yas-snippet-dirs yasnippet/snippet-dirs)
+  (defconst yasnippet/snippet-dirs (expand-file-name "snippets" user-conf-dir))
+  (add-to-list 'yas-snippet-dirs yasnippet/snippet-dirs)
   (add-to-list 'load-path yasnippet/snippet-dirs)
   (yas-global-mode t)
   (config-after-fetch-require 'dropdown-list
-    (setq yas-prompt-functions '(yas-dropdown-prompt yas-completing-prompt yas-maybe-ido-prompt yas-no-prompt)
+    (setq yas-prompt-functions '(yas-dropdown-prompt
+				 yas-completing-prompt
+				 yas-maybe-ido-prompt
+				 yas-no-prompt)
 	  )
     )
   (with-eval-after-load 'diminish

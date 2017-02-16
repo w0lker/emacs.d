@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: main args
-# key: maina
+# key: main
 # expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
 # contributor: w0lker.tg@gmail.com
 # --
