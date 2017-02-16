@@ -5,6 +5,7 @@
 (config-after-fetch-require 'yasnippet
   (defconst yasnippet/snippet-dirs (expand-file-name "snippets" user-conf-dir))
   (add-to-list 'yas-snippet-dirs yasnippet/snippet-dirs)
+  (setq yas-snippet-dirs (delete* (expand-file-name "snippets" user-emacs-directory) yas-snippet-dirs :test 'string=))
   (add-to-list 'load-path yasnippet/snippet-dirs)
   (yas-global-mode t)
   (config-after-fetch-require 'dropdown-list
