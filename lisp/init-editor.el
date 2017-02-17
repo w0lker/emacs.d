@@ -65,9 +65,6 @@
   (with-eval-after-load 'diminish
     (diminish 'undo-tree-mode)
     )
-  (with-eval-after-load 'popwin
-    (push '("*undo-tree*" :width 0.2 :position right) popwin:special-display-config)
-    )
   )
 
 (config-after-fetch-require 'redo+

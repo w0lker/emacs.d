@@ -32,10 +32,5 @@
   (set-window-buffer (next-window) (other-buffer))
   )
 
-(config-after-fetch-require 'popwin
-  ;; 自动将光标放到新创建的窗口, `C-g' 可以取消显示窗口
-  (popwin-mode 1)
-  )
-
 (provide 'init-window)
 ;;;  init-window.el ends here

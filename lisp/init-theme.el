@@ -19,5 +19,8 @@
 
 (set-face-attribute 'mode-line nil :box nil)
 
+;; 显示时间
+(display-time-mode 1)
+
 (provide 'init-theme)
 ;;;  init-theme.el ends here

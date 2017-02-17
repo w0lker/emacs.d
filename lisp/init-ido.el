@@ -33,9 +33,6 @@
   (config-after-fetch-require 'ido-select-window
     (global-set-key (kbd "C-x o") 'ido-select-window)
     )
-  (with-eval-after-load 'popwin
-    (push '("*Ido Completions*" :height 0.3 :position bottom) popwin:special-display-config)
-    )
   )
 
 (provide 'init-ido)

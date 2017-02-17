@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: main args
-# key: main
-# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
-# contributor: w0lker.tg@gmail.com
-# --
-int main(int argc, char* argv[]) {
-  `yas-selected-text`$0
-}
