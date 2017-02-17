@@ -8,6 +8,25 @@
 (config-after-fetch-require 'make-mode)
 (config-after-fetch-require 'cmake-mode)
 
+(defun cpp/current-modules-string()
+  "获得当前buffer对应的项目的模块名组成的以下划线分割的字符串."
+  (if (and (fboundp 'projectile-project-p) (projectile-project-p))
+      (let ((current-path (buffer-file-name))
+	    (project-path (projectile-project-root)))
+	(if (eq (string-match project-path current-path) 0)
+	    (let* ((start (string-width project-path))
+		   (project-sub-path (substring current-path start -1))
+		   (paths-chain (split-string (file-name-directory project-sub-path) "/" t))
+		   (project-modules (if (string= (car paths-chain) "src") (cdr paths-chain) paths-chain))
+		   (modules-string (string-join project-modules "_"))
+		   )
+	      (if modules-string (concat "_" modules-string) "")
+	      )
+	  )
+	)
+    )
+  )
+
 (config-add-hook 'c++-mode-hook
   (with-eval-after-load 'company
     (config-after-fetch-require 'company-c-headers
