@@ -3,7 +3,7 @@
 # key: ifndef
 # contributor: w0lker.tg@gmail.com
 # --
-#ifndef ${1:`(format "%s_%s" (if (fboundp 'projectile-project-p)(if (projectile-project-p)(projectile-project-name) ""))(file-name-base (buffer-file-name)))`_h_$(upcase yas-text)}
+#ifndef ${1:`(format "%s_%s" (if (fboundp 'cpp/current-modules-string)(cpp/current-modules-string))(file-name-base (buffer-file-name)))`_h_$(upcase yas-text)}
 #define $1
 
 $0
