@@ -15,7 +15,8 @@
 ## 注意
 1. 如果使用C++主模式，则需要安装rtags，否则无法通过代码补全功能。
 
-	# 安装
-	brew install rtags --HEAD
-	# 添加开机自启动
-	brew service start rtags
+		# 安装
+		brew install rtags --HEAD
+		# 添加开机自启动
+		brew service start rtags
+	
