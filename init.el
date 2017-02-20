@@ -4,7 +4,7 @@
 
 (defconst user-lisp-dir (concat user-emacs-directory (file-name-as-directory "lisp")) "存放lisp代码目录.")
 (defconst user-conf-dir (concat user-emacs-directory (file-name-as-directory "conf")) "存放非代码配置文件目录.")
-(defconst user-temp-dir (concat user-emacs-directory (file-name-as-directory "temp")) "运行时生产的数据的保存目录.")
+(defconst user-temp-dir (concat user-emacs-directory (file-name-as-directory "temp")) "运行时生产数据目录.")
 
 (require 'package)
 (setq package-enable-at-startup nil
