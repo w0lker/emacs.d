@@ -56,11 +56,12 @@
 
   (defun company/push-local-backend (backend)
     "添加buffer基本的BACKEND到`company-backends'."
-    (setq-local company-backends (let ((company/origin-backends (remq (assoc 'company-dabbrev-code company-backends) company-backends)))
-				   (push (cons 'company-dabbrev-code
-					       (delete-dups (push backend (cdr (assoc 'company-dabbrev-code company-backends)))))
-					 company/origin-backends)
-				   ))
+    (let* ((company/orig-company-backends company-backends)
+	   (company/company-backends (remq (assoc 'company-dabbrev-code company/orig-company-backends) company/orig-company-backends))
+	   (company/dabbrev-backends (cdr (assoc 'company-dabbrev-code company/orig-company-backends)))
+	   )
+      (setq-local company-backends (push (cons 'company-dabbrev-code (delete-dups (push backend company/dabbrev-backends))) company/company-backends))
+      )
     )
   )
 
