@@ -4,11 +4,9 @@
 
 (setq use-file-dialog nil
       use-dialog-box nil
-      inhibit-startup-screen t
-      inhibit-startup-echo-area-message t
+      inhibit-startup-screen t ;; 禁止启动屏幕
+      inhibit-startup-echo-area-message t ;; 不在scrach中显示信息
       completion-cycle-threshold 5 ;; 补全候选数目
-      custom-file (concat user-temp-dir "custom.el") ;; 个性化配置文件目录
-      auto-save-list-file-prefix (concat user-temp-dir (file-name-as-directory "auto-save-list") "saves-")
       initial-scratch-message nil ;; scratch默认不显示任何内容
       jit-lock-defer-time 0.05 ;; 优化翻页速度
       visible-bell t ;; 关闭出错蜂鸣声
@@ -28,20 +26,24 @@
       set-mark-command-repeat-pop t ;; 打标记时，每次 C-SPC 算不同的标记记录
       indicate-empty-lines nil ;; 空行显示一个标识
       indicate-buffer-boundaries '((up . left) (down . left))
+      custom-file (concat user-temp-dir "custom.el") ;; 个性化配置文件目录
+      auto-save-list-file-prefix (concat user-temp-dir (file-name-as-directory "auto-save-list") "saves-")
       )
 
 ;; 添加全局补全样式
 (add-to-list 'completion-styles 'initials t)
 
-;; 不显示菜单
-(menu-bar-mode -1)
 ;; 不显示工具栏
 (tool-bar-mode -1)
 ;; 不显示滚动条
 (scroll-bar-mode -1)
-
 ;; 显示时间
 (display-time-mode 1)
+;; 控制台不显示菜单
+(if (memq window-system '(ns x w32))
+    (menu-bar-mode 1)
+  (menu-bar-mode -1)
+  )
 
 (config-after-fetch-require 'molokai-theme
   (load-theme 'molokai t)
