@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: 文件默认编码
-# key: ecd
+# name: -*- coding: utf-8 -*-
+# key: header
 # expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
 # contributor: w0lker.tg@gmail.com
 # --

@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: define  
+# name: #define ...
 # key: def
 # expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
 # contributor: w0lker.tg@gmail.com

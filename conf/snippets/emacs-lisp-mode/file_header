@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: file comment 
-# key: fcmt
+# name: ;;; package -- ... ;;; Commentary:... ;;; Code:...
+# key: header
 # expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
 # contributor: w0lker.tg@gmail.com
 # --

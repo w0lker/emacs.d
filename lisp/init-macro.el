@@ -2,6 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
+(defconst *startup-benchmark* nil "是否启动性能评估.")
+
 (defun fetch-package (package-name)
   "下载指定 PACKAGE-NAME 包."
   (condition-case err

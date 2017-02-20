@@ -18,7 +18,7 @@
       ;; 设置默认字体
       (if (eq system-type 'darwin)
 	  (progn
-	    (add-to-list 'default-frame-alist '(font . "Menlo-12"))
+	    (add-to-list 'default-frame-alist '(font . "Menlo-13"))
 	    (set-fontset-font "fontset-default" 'han '("STHeiti"))
 	    )
 	)

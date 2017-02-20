@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: bash header
-# key: bhd
+# name: Bash file header
+# key: header
 # --
 #!/usr/bin/env bash
 $0

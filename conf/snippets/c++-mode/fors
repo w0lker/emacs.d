@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: for (...; ...; ...){ selected text } 
-# key: for
-# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
-# contributor: w0lker.tg@gmail.com
-# --
-for ($1; $2; $3) {
-    `yas-selected-text`$0
-}
