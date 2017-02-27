@@ -32,5 +32,6 @@ brew service start rtags
 
 ### Python模式
 使用自动补全，没有安装jedi这些自动补全工具，使用了最简单的ipython的自动补全
+
 1. 使用`C-c C-p` 打开ipython的shell;
 2. 导入当前代码`C-c C-c`, 这个时候就可以使用自动补全。
