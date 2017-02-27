@@ -15,7 +15,8 @@ git clone https://github.com/w0lker/emacs.d.git ~/.emacs.d
 ```
 
 ## 开发环境
-提供了对Go、C++和Python开发环境的支持。
+主要提供了对Go、C++和Python开发环境的支持。
+
 ### Markdown模式
 如果要支持导出功能，需要本地安装markdown这个工具。
 ```
