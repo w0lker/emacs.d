@@ -27,8 +27,6 @@ brew install markdown
 本地需要安装rtags服务，否则无法使用代码补全功能。
 ```
 brew install rtags --HEAD
-# 添加开机自启动
-brew service start rtags
 ```
 
 ### Python模式
