@@ -78,17 +78,6 @@
     (diminish 'guide-key-mode))
   )
 
-(config-after-fetch-require 'exec-path-from-shell
-  (if (memq window-system '(mac ns x))
-      (progn
-	(dolist (var '("TERM" "SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "PATH" "PYENV_ROOT" "GOPATH" "GOROOT"))
-	  (add-to-list 'exec-path-from-shell-variables var)
-	  )
-	(exec-path-from-shell-initialize)
-	)
-    )
-  )
-
 ;; 显示行号
 (if (not (memq window-system '(mac ns)))
     (config-add-hook 'linum-before-numbering-hook
@@ -194,6 +183,16 @@
       (indent-region (point-min) (point-max))
       )
     )
+  )
+
+(if (memq window-system '(mac ns x))
+    ;; 获得shell的环境变量
+    (config-after-fetch-require 'exec-path-from-shell
+      (dolist (var '("TERM" "SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "PATH" "PYENV_ROOT" "GOPATH" "GOROOT"))
+	(add-to-list 'exec-path-from-shell-variables var)
+	)
+      (add-hook 'after-init-hook 'exec-path-from-shell-initialize)
+      )
   )
 
 (provide 'init-editor)
