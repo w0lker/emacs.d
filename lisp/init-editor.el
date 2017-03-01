@@ -35,12 +35,15 @@
 
 ;; 不显示工具栏
 (tool-bar-mode -1)
+
 ;; 不显示滚动条
 (scroll-bar-mode -1)
+
 ;; 显示时间
 (display-time-mode 1)
+
 ;; 控制台不显示菜单
-(if (memq window-system '(ns x w32))
+(if (memq window-system '(ns x))
     (menu-bar-mode 1)
   (menu-bar-mode -1)
   )
@@ -79,7 +82,7 @@
   )
 
 ;; 显示行号
-(if (not (memq window-system '(mac ns)))
+(if (not (memq window-system '(ns x)))
     (config-add-hook 'linum-before-numbering-hook
       (setq-local my-linum-format-string
 		  (let ((w (length (number-to-string
@@ -185,13 +188,36 @@
     )
   )
 
-(if (memq window-system '(mac ns x))
+(config-after-require 'imenu
+  (setq imenu-auto-rescan t ;; 设置自动重新索引
+	imenu-auto-rescan-maxout 20000
+	)
+
+  (defun imenu-rescan ()
+    "手动重新索引当前buffer."
+    (interactive)
+    (imenu--menubar-select imenu--rescan-item)
+    )
+  
+  (defun imenu-try-index()
+    "尝试给支持imenu的主模式都添加imenu."
+    (condition-case nil (imenu-add-menubar-index) (error nil))
+    )
+
+  (add-hook 'font-lock-mode-hook 'imenu-try-index)
+
+  (config-after-fetch-require 'imenu-anywhere
+    (global-set-key (kbd "C-c .") 'imenu-anywhere)
+    )
+  )
+
+(if (memq window-system '(ns x))
     ;; 获得shell的环境变量
     (config-after-fetch-require 'exec-path-from-shell
-      (dolist (var '("TERM" "SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "PATH" "PYENV_ROOT" "GOPATH" "GOROOT"))
+      (dolist (var '("TERM" "SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "LC_ALL" "PATH" "PS1"))
 	(add-to-list 'exec-path-from-shell-variables var)
 	)
-      (add-hook 'after-init-hook 'exec-path-from-shell-initialize)
+      (exec-path-from-shell-initialize)
       )
   )
 

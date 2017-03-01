@@ -3,7 +3,7 @@
 ;;; Code:
 
 (with-eval-after-load 'frame
-  (defconst *is-frame* (memq window-system '(mac ns x)) "如果是桌面程序则为t.")
+  (defconst *is-frame* (memq window-system '(ns x)) "如果是桌面程序则为t.")
 
   ;; 无边框
   (let ((no-border '(internal-border-width . 0)))
@@ -26,7 +26,7 @@
 
   (config-after-fetch-require 'default-text-scale
     ;; 字体大小调整
-    (when window-system
+    (when (memq window-system '(ns x))
       (global-set-key (kbd "C-M-=") 'default-text-scale-increase)
       (global-set-key (kbd "C-M--") 'default-text-scale-decrease)
       (config-add-hook 'visual-fill-column-mode-hook

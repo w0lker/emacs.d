@@ -21,15 +21,19 @@
     (setq-default smex-save-file (concat user-temp-dir "smex-items"))
     (global-set-key [remap execute-extended-command] 'smex)
     )
+
   (config-after-fetch-require 'ido-ubiquitous
     (ido-ubiquitous-mode 1)
     )
+
   (config-after-fetch-require 'ido-yes-or-no
     (ido-yes-or-no-mode 1)
     )
+
   (config-after-fetch-require 'crm-custom
     (crm-custom-mode 1)
     )
+
   (config-after-fetch-require 'ido-select-window
     (global-set-key (kbd "C-x o") 'ido-select-window)
     )

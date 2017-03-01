@@ -1,4 +1,4 @@
-;;; package -- Org 配置
+;;; package -- Org模式配置
 ;;; Commentary:
 ;;; Code:
 
@@ -21,10 +21,7 @@
 
   (config-add-hook 'org-mode-hook
     (with-eval-after-load 'yasnippet
-      (with-eval-after-load 'company
-	;; 添加 yasnippet 补全到 company.
-	(company/push-local-backend 'company-yasnippet)
-	)
+      (yasnippet/add-buffer-local-company-backend)
       )
     )
   )

@@ -5,6 +5,10 @@
 (add-to-list 'auto-mode-alist '("SConstruct\\'" . python-mode))
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 
+(with-eval-after-load 'exec-path-from-shell
+  (exec-path-from-shell-copy-env "PYENV_ROOT")
+  )
+
 (defcustom pyenv-version nil
   "设置pyenv-version版本信息，默认为nil.
 该值绝大不分时候不用手动设置有函数自己确定版本.")
@@ -97,6 +101,10 @@
   (when (pyenv-install-p)
     (pyenv-activate (pyenv-current-version))
     (pyenv-mode-line-format-update)
+    )
+
+  (with-eval-after-load 'yasnippet
+    (yasnippet/add-buffer-local-company-backend)
     )
   )
 

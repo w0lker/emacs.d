@@ -27,7 +27,7 @@
 		    )
 
   (config-after-fetch-require 'company-quickhelp
-    (if window-system
+    (if (memq window-system '(ns x))
 	(progn
 	  (setq company-quickhelp-delay nil)
 	  (company-quickhelp-mode t)
@@ -46,6 +46,7 @@
     )
 
   (with-eval-after-load 'evil
+    ;; 解决evil会有和company的兼容性问题
     (evil-declare-change-repeat 'company-complete)
     )
 

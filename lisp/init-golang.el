@@ -3,9 +3,11 @@
 ;;; Code:
 
 (config-after-fetch-require 'go-mode
-  (config-add-hook 'go-mode-hook
-    (add-to-list 'exec-path-from-shell-variables "GOPATH")
+  (with-eval-after-load 'exec-path-from-shell
+    (exec-path-from-shell-copy-env "GOPATH")
+    )
 
+  (config-add-hook 'go-mode-hook
     ;; 基本配置.
     (add-hook 'before-save-hook 'gofmt-before-save)
     (local-set-key (kbd "M-.") 'godef-jump)
@@ -29,6 +31,10 @@
       (config-add-hook 'projectile-after-switch-project-hook
 	(go-set-project)
 	)
+      )
+
+    (with-eval-after-load 'yasnippet
+      (yasnippet/add-buffer-local-company-backend)
       )
     )
   )

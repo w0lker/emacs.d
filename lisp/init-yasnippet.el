@@ -17,6 +17,12 @@
 				 yas-no-prompt))
     )
 
+  (defun yasnippet/add-buffer-local-company-backend()
+    (with-eval-after-load 'company
+      (company/push-local-backend 'company-yasnippet)
+      )
+    )
+
   (with-eval-after-load 'diminish
     (diminish 'yas-minor-mode)
     )

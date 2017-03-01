@@ -34,6 +34,7 @@
   (config-after-require 'rtags
     (setq rtags-autostart-diagnostics t
 	  rtags-completions-enabled t)
+
     (rtags-start-process-unless-running)
 
     (with-eval-after-load 'company
@@ -53,11 +54,8 @@
       )
     )
 
-  (with-eval-after-load 'company
-    (with-eval-after-load 'yasnippet
-      ;; 添加yasnippet补全到company.
-      (company/push-local-backend 'company-yasnippet)
-      )
+  (with-eval-after-load 'yasnippet
+    (yasnippet/add-buffer-local-company-backend)
     )
   )
 
