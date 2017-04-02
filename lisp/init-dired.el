@@ -29,9 +29,6 @@
   (with-eval-after-load 'guide-key
     (add-hook 'dired-mode-hook (lambda () (guide-key/add-local-guide-key-sequence "%")))
     )
-
-  (with-eval-after-load 'evil
-    (evil-set-initial-state 'dired-mode 'normal))
   )
 
 (provide 'init-dired)

@@ -45,11 +45,6 @@
     (global-set-key (kbd "M-/") 'hippie-expand)
     )
 
-  (with-eval-after-load 'evil
-    ;; 解决evil会有和company的兼容性问题
-    (evil-declare-change-repeat 'company-complete)
-    )
-
   (with-eval-after-load 'diminish
     (diminish 'company-mode)
     (diminish 'abbrev-mode)
