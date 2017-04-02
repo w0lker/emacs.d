@@ -16,7 +16,7 @@
 
     (with-eval-after-load 'company
       (config-after-fetch-require 'company-go
-	(company/push-local-backend 'company-go)
+	(company/add-buffer-local-backend 'company-go)
 	)
       )
 

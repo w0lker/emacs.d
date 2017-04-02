@@ -55,23 +55,25 @@
     (diminish 'abbrev-mode)
     )
 
-  (defun company/push-local-backend (backend)
-    "添加 buffer 级别的 BACKEND 到`company-backends'."
+  (defun company/add-buffer-local-backend (backend &optional append)
+    "添加 buffer 级别的 BACKEND 到 `company-backends' ，如果 APPEND 是 non-nil 则添加到后面，否则添加为 company-dabbrev-code 的参数."
     (let* ((company/orig-company-backends company-backends)
 	   (company/company-backends (remq (assoc 'company-dabbrev-code company/orig-company-backends) company/orig-company-backends))
 	   (company/dabbrev-backends (cdr (assoc 'company-dabbrev-code company/orig-company-backends)))
 	   )
-      (setq-local company-backends (push (cons 'company-dabbrev-code (delete-dups (push backend company/dabbrev-backends))) company/company-backends))
+      (if append
+	  (setq-local company-backends (push (cons 'company-dabbrev-code (delete-dups (add-to-list 'company/dabbrev-backends backend t))) company/company-backends))
+	(setq-local company-backends (push (cons 'company-dabbrev-code (delete-dups (push backend company/dabbrev-backends))) company/company-backends))
+	)
       )
     )
 
-  (defun company/push-primary-backend (backend)
-    "添加 buffer 级别的优先 BACKEND 到`company-backends'."
-    (let* ((company/orig-company-backends company-backends))
-      (setq-local company-backends (push backend company/orig-company-backends))
+  (defun company/add-buffer-local-first-backend (backend)
+    "添加 buffer 级别的 BACKEND 到 `company-backends' 最前面"
+    (let ((company/orig-company-backends company-backends))
+      (setq-local company-backends (add-to-list 'company/orig-company-backends backend))
       )
     )
-
   )
 
 (provide 'init-company)

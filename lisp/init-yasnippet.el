@@ -19,7 +19,7 @@
 
   (defun yasnippet/add-buffer-local-company-backend()
     (with-eval-after-load 'company
-      (company/push-local-backend 'company-yasnippet)
+      (company/add-buffer-local-backend 'company-yasnippet t)
       )
     )
 

@@ -22,7 +22,7 @@
 (require 'init-frame)
 (require 'init-window)
 
-(require 'init-evil)
+;;(require 'init-evil)
 (require 'init-dired)
 (require 'init-ido)
 (require 'init-ibuffer)
@@ -41,6 +41,8 @@
 (require 'init-python)
 (require 'init-cpp)
 (require 'init-golang)
+(require 'init-scala)
+(require 'init-lua)
 (require 'init-web)
 (require 'init-markdown)
 (require 'init-sql)
