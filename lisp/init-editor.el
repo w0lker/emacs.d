@@ -28,8 +28,9 @@
       indicate-buffer-boundaries '((up . left) (down . left))
       custom-file (concat user-temp-dir "custom.el") ;; 个性化配置文件目录
       auto-save-list-file-prefix (concat user-temp-dir (file-name-as-directory "auto-save-list") "saves-")
-      cursor-type '(bar . 2)
       )
+
+(setq-default cursor-type '(bar . 2))
 
 ;; 添加全局补全样式
 (add-to-list 'completion-styles 'initials t)
