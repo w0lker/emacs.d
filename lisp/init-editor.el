@@ -155,6 +155,10 @@
     )
   )
 
+(config-after-fetch-require 'ace-jump-mode
+  (global-set-key (kbd "C-;") 'ace-jump-mode)
+  )
+
 (config-bind-global-key (kbd "RET")
   ;; 创建新行使用和前面文本同样的缩进
   (newline-and-indent)
