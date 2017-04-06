@@ -6,7 +6,7 @@
   (add-hook 'after-init-hook 'global-company-mode)
 
   (setq company-idle-delay .5 ;; 弹出延迟时间，单位秒
-	company-minimum-prefix-length 2 ;; 弹出前缀长度
+	company-minimum-prefix-length 3 ;; 弹出前缀长度
 	tab-always-indent 'complete ;; 首先尝试缩进，已经缩进的尝试补全
 	company-backends '(company-capf
 			   company-files

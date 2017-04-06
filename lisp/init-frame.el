@@ -14,13 +14,11 @@
   ;; 设置窗口标题格式
   (setq frame-title-format '(:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name)) "%b")))
 
-  (if *is-frame*
-      ;; 设置默认字体
-      (if (eq system-type 'darwin)
-	  (progn
-	    (add-to-list 'default-frame-alist '(font . "Menlo-11"))
-	    (set-fontset-font "fontset-default" 'han '("STHeiti"))
-	    )
+  ;; 设置默认字体
+  (if (and (eq system-type 'darwin) *is-frame*)
+      (progn
+	(add-to-list 'default-frame-alist '(font . "Menlo-11"))
+	(set-fontset-font "fontset-default" 'han '("STHeiti"))
 	)
     )
 
@@ -57,7 +55,7 @@
 	(mwheel-install)
       )
     )
-
+  
   (config-bind-global-key (kbd "C-M-f")
     ;; 使用C-M-f触发全屏模式
     (if (fboundp 'toggle-frame-fullscreen)
