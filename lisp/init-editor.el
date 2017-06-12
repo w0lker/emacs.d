@@ -26,9 +26,6 @@
       set-mark-command-repeat-pop t ;; 打标记时，每次 C-SPC 算不同的标记记录
       indicate-empty-lines nil ;; 空行显示一个标识
       indicate-buffer-boundaries '((up . left) (down . left))
-      custom-file (concat user-temp-dir "custom.el") ;; 个性化配置文件目录
-      auto-save-list-file-prefix (concat user-temp-dir (file-name-as-directory "auto-save-list") "saves-")
-      mouse-drag-copy-region t ;; 类似其它编辑器的鼠标复制
       )
 
 (setq-default cursor-type '(bar . 2))
@@ -139,6 +136,14 @@
     )
   )
 
+<<<<<<< HEAD
+=======
+(config-after-fetch-require 'redo+
+  (setq undo-no-redo t)
+  (global-set-key (kbd "C-?") 'redo)
+  )
+
+>>>>>>> fa06bb04e59210540c42c74dd47245ad5c1c80b5
 (config-after-fetch-require 'rainbow-delimiters
   ;; 不同层括号颜色不同
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
