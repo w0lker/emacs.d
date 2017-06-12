@@ -9,7 +9,8 @@
 (require 'package)
 (setq package-enable-at-startup nil
       package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-			 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/"))
+			 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+			 ("melpa-stable" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/"))
       package-user-dir (concat user-temp-dir "elpa")
       )
 (package-initialize)
