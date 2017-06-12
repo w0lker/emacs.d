@@ -28,6 +28,7 @@
       indicate-buffer-boundaries '((up . left) (down . left))
       custom-file (concat user-temp-dir "custom.el") ;; 个性化配置文件目录
       auto-save-list-file-prefix (concat user-temp-dir (file-name-as-directory "auto-save-list") "saves-")
+      mouse-drag-copy-region t ;; 类似其它编辑器的鼠标复制
       )
 
 (setq-default cursor-type '(bar . 2))
@@ -53,11 +54,9 @@
   (menu-bar-mode -1)
   )
 
-
 (config-after-fetch-require 'molokai-theme
   (load-theme 'molokai t)
   )
-
 
 (config-after-fetch-require 'smart-mode-line
   (setq sml/no-confirm-load-theme t
@@ -70,19 +69,17 @@
   (sml/setup)
   )
 
+;; 美化 mode-line 不显示边框
 (set-face-attribute 'mode-line nil :box nil)
-
 
 (config-after-fetch-require 'cl-lib
   (eval-when-compile (require 'cl))
   )
 
-
 (config-after-fetch-require 'mmm-mode
   (setq mmm-global-mode 'buffers-with-submode-classes)
   (setq mmm-submode-decoration-level 2)
   )
-
 
 (config-after-fetch-require 'guide-key
   (setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-x C-r" "C-x r"))
@@ -107,7 +104,6 @@
 ;; 高亮匹配的括号
 (show-paren-mode 1)
 
-
 (config-after-require 'autorevert
   ;; 不断监听当前buffer变化，如果其它编辑器同时修改该文件，修改会同步过来
   (global-auto-revert-mode t)
@@ -119,51 +115,39 @@
     )
   )
 
-
 (config-after-fetch-require 'diff-hl
   ;; 左侧显示提示修改内容
   (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
   (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
   )
 
-
 (config-after-fetch-require 'highlight-escape-sequences
   ;; 高亮转移部分
   (hes-mode)
   )
-
 
 (config-after-fetch-require 'smooth-scrolling
   ;; 平滑鼠标滚动
   (smooth-scrolling-mode t)
   )
 
-
 (config-after-fetch-require 'undo-tree
+  ;; 修改记录树
   (global-undo-tree-mode t)
   (with-eval-after-load 'diminish
     (diminish 'undo-tree-mode)
     )
   )
 
-
-(config-after-fetch-require 'redo+
-  (setq undo-no-redo t)
-  (global-set-key (kbd "C-?") 'redo)
-  )
-
-
 (config-after-fetch-require 'rainbow-delimiters
   ;; 不同层括号颜色不同
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
   )
 
-
 (config-after-fetch-require 'highlight-escape-sequences
   ;; 高亮转义字符
   (hes-mode t)
   )
-
 
 (config-after-fetch-require 'move-dup
   ;; 移动或者复制当前行
@@ -172,7 +156,6 @@
   (global-set-key (kbd "C-c d") 'md/duplicate-down)
   (global-set-key (kbd "C-c D") 'md/duplicate-up)
   )
-
 
 (config-after-fetch-require 'whole-line-or-region
   ;; 选中一行或者特定的选区
@@ -197,7 +180,6 @@
   (suspend-mode-during-cua-rect-selection 'whole-line-or-region-mode)
   )
 
-
 (config-bind-global-key [remap backward-up-list]
   ;; 使用快捷键`C-M-u'跳到包围当前表达式、代码块或者字符串的前层括号处
   ;; 解决`backwark-up-list'函数不能识别包围字符串的引号的问题
@@ -210,26 +192,22 @@
     )
   )
 
-
 (config-after-fetch-require 'ace-jump-mode
   ;; 便捷跳转
   (setq ace-jump-mode-case-fold nil)
   (global-set-key (kbd "C-;") 'ace-jump-mode)
   )
 
-
 (config-bind-global-key (kbd "RET")
   ;; 创建新行使用和前面文本同样的缩进
   (newline-and-indent)
   )
-
 
 (config-bind-global-key (kbd "S-<return>")
   ;; 下方创建一个新行，光标移到行首
   (move-end-of-line 1)
   (newline-and-indent)
   )
-
 
 (config-bind-global-key (kbd "S-M-<return>")
   ;; 上方创建一个新行，光标移到行首
@@ -238,14 +216,12 @@
   (newline-and-indent)
   )
 
-
 (config-bind-global-key (kbd "C-M-<backspace>")
   ;; 从当前位置删除到行首缩进位置
   (let ((prev-pos (point)))
     (back-to-indentation)
     (kill-region (point) prev-pos))
   )
-
 
 (config-bind-global-key (kbd "C-M-\\")
   ;; 选择区域或者全部内容执行缩进
@@ -256,7 +232,6 @@
       )
     )
   )
-
 
 (config-after-require 'imenu
   (setq imenu-auto-rescan t ;; 设置自动重新索引
