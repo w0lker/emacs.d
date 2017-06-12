@@ -17,7 +17,7 @@
   ;; 设置默认字体
   (if (and (eq system-type 'darwin) *is-frame*)
       (progn
-	(add-to-list 'default-frame-alist '(font . "Menlo-11"))
+	(add-to-list 'default-frame-alist '(font . "Menlo-12"))
 	(set-fontset-font "fontset-default" 'han '("STHeiti"))
 	)
     )
@@ -36,7 +36,7 @@
 	)
       )
     )
-
+  
   (config-add-hook 'after-make-console-frame-hooks
     ;; 控制台下 C-<方向键> 修复
     (let ((map (if (boundp 'input-decode-map) input-decode-map function-key-map)))
