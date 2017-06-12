@@ -10,8 +10,9 @@
 	(setq insert-directory-program gls)))
     )
 
-  (setq dired-recursive-deletes 'top)
-  (setq dired-dwim-target t)
+  (setq dired-recursive-deletes 'top
+	dired-dwim-target t
+	)
   (define-key dired-mode-map [mouse-2] 'dired-find-file)
 
   (config-after-fetch-require 'dired+
