@@ -15,7 +15,7 @@
   (define-key dired-mode-map [mouse-2] 'dired-find-file)
 
   (config-after-fetch-require 'dired+
-    ;; 使用 快捷键 ( 触发详情和关闭文件详情
+    ;; 使用快捷键 ( 触发详情和关闭文件详情
     (setq diredp-hide-details-initially-flag nil)
     (global-dired-hide-details-mode t)
     )
@@ -29,6 +29,9 @@
   (with-eval-after-load 'guide-key
     (add-hook 'dired-mode-hook (lambda () (guide-key/add-local-guide-key-sequence "%")))
     )
+
+  (with-eval-after-load 'evil
+    (evil-set-initial-state 'dired-mode 'emacs))
   )
 
 (provide 'init-dired)
