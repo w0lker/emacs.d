@@ -136,14 +136,6 @@
     )
   )
 
-<<<<<<< HEAD
-=======
-(config-after-fetch-require 'redo+
-  (setq undo-no-redo t)
-  (global-set-key (kbd "C-?") 'redo)
-  )
-
->>>>>>> fa06bb04e59210540c42c74dd47245ad5c1c80b5
 (config-after-fetch-require 'rainbow-delimiters
   ;; 不同层括号颜色不同
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
