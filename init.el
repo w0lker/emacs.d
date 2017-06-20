@@ -6,6 +6,8 @@
 (defconst user-conf-dir (concat user-emacs-directory (file-name-as-directory "conf")) "存放非代码配置文件目录.")
 (defconst user-temp-dir (concat user-emacs-directory (file-name-as-directory "temp")) "运行时生产数据目录.")
 
+(add-to-list 'load-path user-lisp-dir)
+
 (setq auto-save-list-file-prefix (concat user-temp-dir (file-name-as-directory "auto-save-list") "saves-")
       custom-file (concat user-temp-dir "custom.el") ;; 个性化配置文件目录
       )
@@ -14,18 +16,17 @@
 (setq package-enable-at-startup nil
       package-user-dir (concat user-temp-dir "elpa")
       package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-			 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+			 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/"))
+      )
 (package-initialize)
-
-(add-to-list 'load-path user-lisp-dir)
 
 (eval-when-compile (require 'init-macro))
 
+(require 'init-theme)
 (require 'init-editor)
 (require 'init-frame)
 (require 'init-window)
 
-(require 'init-evil)
 (require 'init-dired)
 (require 'init-ido)
 (require 'init-ibuffer)

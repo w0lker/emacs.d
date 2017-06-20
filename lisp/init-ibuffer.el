@@ -33,10 +33,12 @@
     )
 
   (config-after-fetch-require 'fullframe
-    (fullframe ibuffer ibuffer-quit))
+    (fullframe ibuffer ibuffer-quit)
+    )
 
   (with-eval-after-load 'evil
-    (evil-set-initial-state 'ibuffer-mode 'emacs))
+    (evil-set-initial-state 'ibuffer-mode 'emacs)
+    )
 
   (global-set-key (kbd "C-x C-b") 'ibuffer)
   )

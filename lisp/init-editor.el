@@ -28,46 +28,11 @@
       indicate-buffer-boundaries '((up . left) (down . left))
       )
 
-(setq-default cursor-type '(bar . 2))
-
 ;; 设置启动选区快捷键
 (global-set-key (kbd "C-.") 'set-mark-command)
 
 ;; 添加全局补全样式
 (add-to-list 'completion-styles 'initials t)
-
-;; 不显示工具栏
-(tool-bar-mode -1)
-
-;; 不显示滚动条
-(scroll-bar-mode -1)
-
-;; 显示时间
-(display-time-mode 1)
-
-;; 控制台不显示菜单
-(if (memq window-system '(ns x))
-    (menu-bar-mode 1)
-  (menu-bar-mode -1)
-  )
-
-(config-after-fetch-require 'molokai-theme
-  (load-theme 'molokai t)
-  )
-
-(config-after-fetch-require 'smart-mode-line
-  (setq sml/no-confirm-load-theme t
-	sml/shorten-directory t
-	sml/shorten-modes t
-	sml/hidden-modes nil
-	sml/vc-mode-show-backend nil
-	sml/theme 'dark
-	)
-  (sml/setup)
-  )
-
-;; 美化 mode-line 不显示边框
-(set-face-attribute 'mode-line nil :box nil)
 
 (config-after-fetch-require 'cl-lib
   (eval-when-compile (require 'cl))
@@ -85,17 +50,12 @@
     (diminish 'guide-key-mode))
   )
 
-;; 显示行号
-(if (not (memq window-system '(ns x)))
-    (config-add-hook 'linum-before-numbering-hook
-      (setq-local my-linum-format-string
-		  (let ((w (length (number-to-string
-				    (count-lines (point-min) (point-max))))))
-		    (concat " %" (number-to-string w) "d ")))
-      )
-  )
-
 ;; 成对插入括号
+(setq electric-pair-pairs '((?\" . ?\")
+			    (?\' . ?\')
+			    (?\{ . ?\})
+			    )
+      )
 (electric-pair-mode 1)
 
 ;; 高亮匹配的括号
@@ -193,6 +153,13 @@
   ;; 便捷跳转
   (setq ace-jump-mode-case-fold nil)
   (global-set-key (kbd "C-;") 'ace-jump-mode)
+  )
+
+(config-bind-global-key (kbd "M-j")
+  ;; 将下一行结果join到当前行
+  (next-line)
+  (join-line)
+  (delete-horizontal-space)
   )
 
 (config-bind-global-key (kbd "RET")
