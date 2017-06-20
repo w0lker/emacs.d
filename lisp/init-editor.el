@@ -157,6 +157,7 @@
 
 (config-bind-global-key (kbd "M-j")
   ;; 将下一行结果join到当前行
+  (interactive "p")
   (next-line)
   (join-line)
   (delete-horizontal-space)
