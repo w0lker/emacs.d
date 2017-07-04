@@ -8,10 +8,11 @@
   (setq company-idle-delay .5 ;; 弹出延迟时间，单位秒
 	company-minimum-prefix-length 3 ;; 弹出前缀长度
 	tab-always-indent 'complete ;; 首先尝试缩进，已经缩进的尝试补全
-	company-backends '(company-capf
+	company-backends '(
+			   (company-capf company-dabbrev-code company-keywords)
 			   company-files
-			   (company-dabbrev-code company-keywords)
-			   company-dabbrev)
+			   company-dabbrev
+			   )
 	)
 
   (define-key company-mode-map (kbd "M-/") 'company-complete)
@@ -53,20 +54,13 @@
   (defun company/add-buffer-local-backend (backend &optional append)
     "添加 buffer 级别的 BACKEND 到 `company-backends' ，如果 APPEND 是 non-nil 则添加到后面，否则添加为 company-dabbrev-code 的参数."
     (let* ((company/orig-company-backends company-backends)
-	   (company/company-backends (remq (assoc 'company-dabbrev-code company/orig-company-backends) company/orig-company-backends))
-	   (company/dabbrev-backends (cdr (assoc 'company-dabbrev-code company/orig-company-backends)))
+	   (company/company-backends (remq (assoc 'company-capf company/orig-company-backends) company/orig-company-backends))
+	   (company/dabbrev-backends (cdr (assoc 'company-capf company/orig-company-backends)))
 	   )
       (if append
-	  (setq-local company-backends (push (cons 'company-dabbrev-code (delete-dups (add-to-list 'company/dabbrev-backends backend t))) company/company-backends))
-	(setq-local company-backends (push (cons 'company-dabbrev-code (delete-dups (push backend company/dabbrev-backends))) company/company-backends))
+	  (setq-local company-backends (push (cons 'company-capf (delete-dups (add-to-list 'company/dabbrev-backends backend t))) company/company-backends))
+	(setq-local company-backends (push (cons 'company-capf (delete-dups (push backend company/dabbrev-backends))) company/company-backends))
 	)
-      )
-    )
-
-  (defun company/add-buffer-local-first-backend (backend)
-    "添加 buffer 级别的 BACKEND 到 `company-backends' 最前面"
-    (let ((company/orig-company-backends company-backends))
-      (setq-local company-backends (add-to-list 'company/orig-company-backends backend))
       )
     )
   )

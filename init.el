@@ -26,6 +26,7 @@
 (require 'init-editor)
 (require 'init-frame)
 (require 'init-window)
+(require 'init-evil)
 
 (require 'init-dired)
 (require 'init-ido)
