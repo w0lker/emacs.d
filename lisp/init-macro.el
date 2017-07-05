@@ -78,5 +78,21 @@
      )
   )
 
+(defmacro command-run (basedir command &rest args)
+  "运行指定 BASEDIR 的 COMMAND 及参数 ARGS, 如果BASEPATH为空或者nil则使用默认访问路径."
+  `(let* ((basedir-arg ,basedir)
+	  (command-arg ,command)
+	  (command-full-path (if (and basedir-arg (not (string= basedir-arg "")))
+				 (concat (file-name-as-directory basedir-arg) command-arg)
+			       command-arg
+			       ))
+	  )
+     (start-process (format "command:%s" command-full-path)
+		    (format "*command:%s*" command-arg)
+		    command-full-path
+		    ,@args)
+     )
+  )
+
 (provide 'init-macro)
 ;;;  init-macro.el ends here
