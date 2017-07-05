@@ -18,6 +18,7 @@
     )
 
   (defun yasnippet/add-buffer-local-company-backend()
+    "添加yasnippet的company后端."
     (with-eval-after-load 'company
       (company/add-buffer-local-backend 'company-yasnippet t)
       )
