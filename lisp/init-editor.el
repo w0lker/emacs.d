@@ -6,7 +6,6 @@
       use-dialog-box nil
       inhibit-startup-screen t ;; 禁止启动屏幕
       inhibit-startup-echo-area-message t ;; 不在scrach中显示信息
-      completion-cycle-threshold 5 ;; 补全候选数目
       initial-scratch-message nil ;; scratch默认不显示任何内容
       jit-lock-defer-time 0.05 ;; 优化翻页速度
       visible-bell t ;; 关闭出错蜂鸣声
@@ -19,7 +18,7 @@
       tab-width 4
       delete-selection-mode t ;; 可以像普通编辑器一样用delete删除
       kill-whole-line t ;; 同时删除末尾换行符
-      save-interprogram-paste-before-kill nil ;; 自动将其它程序加入系统剪切板的内容加入 kill-ring
+      save-interprogram-paste-before-kill t ;; 自动将其它程序加入系统剪切板的内容加入 kill-ring
       select-enable-primary nil ;; primary section中内容不放入系统剪切版
       select-active-regions nil ;; 不把当前选中的选区中的内容放入primary section
       select-enable-clipboard t ;; 剪切复制使用系统剪切板
@@ -27,12 +26,6 @@
       indicate-empty-lines nil ;; 空行显示一个标识
       indicate-buffer-boundaries '((up . left) (down . left))
       )
-
-;; 设置启动选区快捷键
-(global-set-key (kbd "C-.") 'set-mark-command)
-
-;; 添加全局补全样式
-(add-to-list 'completion-styles 'initials t)
 
 (config-after-fetch-require 'cl-lib
   (eval-when-compile (require 'cl))
@@ -48,6 +41,16 @@
   (guide-key-mode t)
   (config-after-fetch-require 'diminish
     (diminish 'guide-key-mode))
+  )
+
+(if (memq window-system '(ns x))
+    ;; 获得shell的环境变量
+    (config-after-fetch-require 'exec-path-from-shell
+      (dolist (var '("TERM" "SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "LC_ALL" "PATH" "PS1"))
+	(add-to-list 'exec-path-from-shell-variables var)
+	)
+      (exec-path-from-shell-initialize)
+      )
   )
 
 ;; 成对插入括号
@@ -109,8 +112,6 @@
   ;; 移动或者复制当前行
   (global-set-key [M-S-up] 'md/move-lines-up)
   (global-set-key [M-S-down] 'md/move-lines-down)
-  (global-set-key (kbd "C-c d") 'md/duplicate-down)
-  (global-set-key (kbd "C-c D") 'md/duplicate-up)
   )
 
 (config-after-fetch-require 'whole-line-or-region
@@ -150,16 +151,8 @@
 
 (config-after-fetch-require 'ace-jump-mode
   ;; 便捷跳转
-  (setq ace-jump-mode-case-fold nil)
-  (global-set-key (kbd "C-;") 'ace-jump-mode)
-  )
-
-(config-bind-global-key (kbd "M-j")
-  ;; 将下一行结果join到当前行
-  (interactive "p")
-  (next-line)
-  (join-line)
-  (delete-horizontal-space)
+  (setq ace-jump-mode-case-fold t)
+  (global-set-key (kbd "C-x j") 'ace-jump-mode)
   )
 
 (config-bind-global-key (kbd "RET")
@@ -190,9 +183,12 @@
 (config-bind-global-key (kbd "C-M-\\")
   ;; 选择区域或者全部内容执行缩进
   (save-excursion
-    (if (region-active-p)
-	(indent-region (region-beginning) (region-end))
-      (indent-region (point-min) (point-max))
+    (if (not (string= major-mode "python-mode"))
+	(if (region-active-p)
+	    (indent-region (region-beginning) (region-end))
+	  (indent-region (point-min) (point-max) nil)
+	  )
+      (message "不支持python-mode")
       )
     )
   )
@@ -216,18 +212,108 @@
   (add-hook 'font-lock-mode-hook 'imenu-try-index)
 
   (config-after-fetch-require 'imenu-anywhere
-    (global-set-key (kbd "C-c .") 'imenu-anywhere)
+    (global-set-key (kbd "C-x .") 'imenu-anywhere)
     )
   )
 
-(if (memq window-system '(ns x))
-    ;; 获得shell的环境变量
-    (config-after-fetch-require 'exec-path-from-shell
-      (dolist (var '("TERM" "SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "LC_ALL" "PATH" "PS1"))
-	(add-to-list 'exec-path-from-shell-variables var)
+(setq completion-cycle-threshold 5)
+;; 添加全局补全样式
+(add-to-list 'completion-styles 'initials t)
+
+(config-after-fetch-require 'company
+  (add-hook 'after-init-hook 'global-company-mode)
+
+  (setq company-idle-delay .5 ;; 弹出延迟时间，单位秒
+	company-minimum-prefix-length 3 ;; 输出指定前缀长度后触发自动补全
+	tab-always-indent 'complete ;; 首先尝试缩进，已经缩进的尝试补全
+	company-backends '((company-capf company-dabbrev-code company-keywords)
+			   company-files
+			   company-dabbrev)
 	)
-      (exec-path-from-shell-initialize)
+
+  (define-key company-mode-map (kbd "M-/") 'company-complete)
+  (define-key company-active-map (kbd "M-/") 'company-select-next)
+
+  (custom-set-faces '(company-tooltip ((t :background "#403d3d"))) ;; 弹窗背景
+		    '(company-tooltip-selection ((t :foreground "#f62d6e" :background "#525151"))) ;; 选中选项颜色
+		    '(company-tooltip-common ((t :foreground "#f62d6e"))) ;; 前缀部分
+		    '(company-tooltip-common-selection ((t :foreground "#f62d6e"))) ;; 前缀选中部分
+		    '(company-tooltip-annotation ((t :foreground "#92e56d"))) ;; 注解部分
+		    '(company-scrollbar-bg ((t :background "#403d3d")))
+		    '(company-scrollbar-fg ((t :background "#f8f7f1")))
+		    )
+
+  (if (memq window-system '(ns x))
+      (config-after-fetch-require 'company-quickhelp
+	  (setq company-quickhelp-delay nil)
+	  (company-quickhelp-mode t)
+	  (define-key company-active-map (kbd "M-h") 'company-quickhelp-manual-begin)
+	)
+    )
+
+  (config-after-require 'hippie-exp
+    (setq hippie-expand-try-functions-list '(try-complete-file-name-partially
+					     try-complete-file-name
+					     try-expand-dabbrev
+					     try-expand-dabbrev-all-buffers
+					     try-expand-dabbrev-from-kill))
+    (global-set-key (kbd "M-/") 'hippie-expand)
+    )
+
+  (with-eval-after-load 'diminish
+    (diminish 'company-mode)
+    (diminish 'abbrev-mode)
+    )
+
+  (defun company/add-buffer-local-backend (backend)
+    "添加 buffer 级别的 BACKEND 到 `company-backends'."
+    (with-eval-after-load 'company
+      (let* ((company/default-company-backends company-backends)
+	     (company/company-backends (remq (assoc 'company-capf company/default-company-backends)
+					     company/default-company-backends))
+	     (company/capf-backends (cdr (assoc 'company-capf company/default-company-backends)))
+	     )
+	(setq-local company-backends (push (cons 'company-capf
+						 (delete-dups (push backend company/capf-backends)))
+					   company/company-backends))
+	)
       )
+    )
+  )
+
+(config-after-fetch-require 'yasnippet
+  (defconst yasnippet/snippet-dirs (expand-file-name "snippets" user-conf-dir))
+  (add-to-list 'yas-snippet-dirs yasnippet/snippet-dirs)
+  (setq yas-snippet-dirs (delete* (expand-file-name "snippets" user-emacs-directory) yas-snippet-dirs :test 'string=))
+  (add-to-list 'load-path yasnippet/snippet-dirs)
+
+  (yas-global-mode t)
+
+  (config-after-fetch-require 'dropdown-list
+    (setq yas-prompt-functions '(yas-dropdown-prompt
+				 yas-completing-prompt
+				 yas-maybe-ido-prompt
+				 yas-no-prompt))
+    )
+
+  (defun yasnippet/add-buffer-local-company-backend()
+    "添加yasnippet的company后端."
+    (with-eval-after-load 'yasnippet
+      (company/add-buffer-local-backend 'company-yasnippet)
+      )
+    )
+
+  (with-eval-after-load 'diminish
+    (diminish 'yas-minor-mode)
+    )
+  )
+
+(config-after-fetch-require 'flycheck
+  (add-hook 'after-init-hook 'global-flycheck-mode)
+  (setq flycheck-display-errors-function 'flycheck-display-error-messages-unless-error-list)
+  (with-eval-after-load 'diminish
+    (diminish 'flycheck-mode)
+    )
   )
 
 (provide 'init-editor)

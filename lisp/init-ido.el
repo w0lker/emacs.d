@@ -2,6 +2,14 @@
 ;;; Commentary:
 ;;; Code:
 
+;; 阻止字节编译时的警告信息
+(defvar ido-cur-item               nil)
+(defvar ido-default-item           nil)
+(defvar predicate                  nil)
+(defvar inherit-input-method       nil)
+(defvar ido-cur-list               nil)
+(defvar ido-context-switch-command nil)
+
 (config-after-fetch-require 'ido
   (setq-default ido-save-directory-list-file (concat user-temp-dir "ido.last")) ;; 保存目录
   (setq ido-enable-flex-matching t ;; 非常开放的匹配方式 aa 可以匹配 alpha
@@ -22,7 +30,7 @@
     (global-set-key [remap execute-extended-command] 'smex)
     )
 
-  (config-after-fetch-require 'ido-ubiquitous
+  (config-after-fetch-require 'ido-completing-read+
     (ido-ubiquitous-mode 1)
     )
 

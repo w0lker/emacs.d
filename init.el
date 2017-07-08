@@ -36,9 +36,6 @@
 
 (require 'init-projectile)
 (require 'init-magit)
-(require 'init-flycheck)
-(require 'init-company)
-(require 'init-yasnippet)
 (require 'init-search)
 
 (require 'init-org)

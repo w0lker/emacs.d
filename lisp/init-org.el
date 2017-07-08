@@ -20,9 +20,7 @@
   (global-set-key (kbd "C-c b") 'org-iswitchb)
 
   (config-add-hook 'org-mode-hook
-    (with-eval-after-load 'yasnippet
-      (yasnippet/add-buffer-local-company-backend)
-      )
+    (yasnippet/add-buffer-local-company-backend)
     )
   )
 

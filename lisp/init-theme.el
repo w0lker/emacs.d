@@ -29,6 +29,9 @@
 ;; 显示时间
 (display-time-mode 1)
 
+;; 显示列
+(column-number-mode 1)
+
 ;; 控制台不显示菜单
 (if (memq window-system '(ns x))
     (menu-bar-mode 1)

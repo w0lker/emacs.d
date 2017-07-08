@@ -5,6 +5,10 @@
 (add-to-list 'auto-mode-alist '("SConstruct\\'" . python-mode))
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 
+(with-eval-after-load 'exec-path-from-shell
+  (exec-path-from-shell-copy-env "PYENV_ROOT")
+  )
+
 (defun ipython-config ()
   "设置ipython配置."
   (setq-local python-shell-interpreter "ipython")
@@ -14,10 +18,6 @@
 						 "IPY_TEST_SIMPLE_PROMPT=1"))
   (setq-local python-shell-completion-native-enable nil)
   (setq-local python-shell-prompt-regexp "In \\[[0-9]+\\]: ")
-  )
-
-(with-eval-after-load 'exec-path-from-shell
-  (exec-path-from-shell-copy-env "PYENV_ROOT")
   )
 
 (defvaralias 'pyenv-shell-virtualenv-root
@@ -78,6 +78,12 @@
   )
 
 (config-add-hook 'python-mode-hook
+  (setq indent-tabs-mode t
+	      tab-width 4
+	      py-indent-tabs-mode t
+	      )
+  (add-to-list 'write-file-functions 'delete-trailing-whitespace)
+
   (if (executable-find "pyenv")
       (pyenv-activate (pyenv-current-version))
     (progn
@@ -88,9 +94,7 @@
       )
     )
 
-  (with-eval-after-load 'yasnippet
-    (yasnippet/add-buffer-local-company-backend)
-    )
+  (yasnippet/add-buffer-local-company-backend)
   )
 
 (provide 'init-python)

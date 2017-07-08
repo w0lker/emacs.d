@@ -2,10 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
+(with-eval-after-load 'exec-path-from-shell
+  (exec-path-from-shell-copy-env "GOPATH")
+  )
+
 (config-after-fetch-require 'go-mode
-  (with-eval-after-load 'exec-path-from-shell
-    (exec-path-from-shell-copy-env "GOPATH")
-    )
 
   (config-add-hook 'go-mode-hook
     ;; 基本配置.
@@ -14,10 +15,8 @@
     (local-set-key (kbd "M-*") 'pop-tag-mark)
     (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
 
-    (with-eval-after-load 'company
-      (config-after-fetch-require 'company-go
-	(company/add-buffer-local-backend 'company-go)
-	)
+    (config-after-fetch-require 'company-go
+      (company/add-buffer-local-backend 'company-go)
       )
 
     (config-after-fetch-require 'go-eldoc
@@ -33,9 +32,7 @@
 	)
       )
 
-    (with-eval-after-load 'yasnippet
-      (yasnippet/add-buffer-local-company-backend)
-      )
+    (yasnippet/add-buffer-local-company-backend)
     )
   )
 

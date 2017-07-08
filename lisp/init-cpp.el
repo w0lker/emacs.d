@@ -37,11 +37,9 @@
 
     (rtags-start-process-unless-running)
 
-    (with-eval-after-load 'company
-      (config-after-require 'company-rtags
-	;; 添加rtags补全到company.
-	(company/add-buffer-local-first-backend 'company-rtags)
-	)
+    (config-after-require 'company-rtags
+      ;; 添加rtags补全到company.
+      (company/add-buffer-local-backend 'company-rtags)
       )
 
     (with-eval-after-load 'flycheck
