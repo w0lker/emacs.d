@@ -53,6 +53,11 @@
       )
   )
 
+(config-after-fetch-require 'unkillable-scratch
+  ;; 不允许删除*scratch*缓冲区
+  (unkillable-scratch 1)
+  )
+
 ;; 成对插入括号
 (setq electric-pair-pairs '((?\" . ?\")
 			    (?\{ . ?\})
@@ -245,9 +250,9 @@
 
   (if (memq window-system '(ns x))
       (config-after-fetch-require 'company-quickhelp
-	  (setq company-quickhelp-delay nil)
-	  (company-quickhelp-mode t)
-	  (define-key company-active-map (kbd "M-h") 'company-quickhelp-manual-begin)
+	(setq company-quickhelp-delay nil)
+	(company-quickhelp-mode t)
+	(define-key company-active-map (kbd "M-h") 'company-quickhelp-manual-begin)
 	)
     )
 
