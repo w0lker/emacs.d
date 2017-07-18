@@ -1,5 +1,5 @@
 ;;; package -- 编辑器配置
-;;; Commentary:
+;;; Commentary: 
 ;;; Code:
 
 (setq use-file-dialog nil
@@ -54,49 +54,50 @@
   )
 
 (config-after-fetch-require 'unkillable-scratch
-  ;; 不允许删除*scratch*缓冲区
+  "不允许删除*scratch*缓冲区."
   (unkillable-scratch 1)
+  )
+
+(config-after-fetch-require 'browse-kill-ring
+  "查看历史剪切内容."
+  (global-set-key (kbd "C-x y") 'browse-kill-ring)
   )
 
 ;; 成对插入括号
 (setq electric-pair-pairs '((?\" . ?\")
-			    (?\{ . ?\})
-			    )
-      )
+			    (?\{ . ?\})))
 (electric-pair-mode 1)
 
 ;; 高亮匹配的括号
 (show-paren-mode 1)
 
 (config-after-require 'autorevert
-  ;; 不断监听当前buffer变化，如果其它编辑器同时修改该文件，修改会同步过来
+  "不断监听当前buffer变化，如果其它编辑器同时修改该文件，修改会同步过来."
   (global-auto-revert-mode t)
   (setq global-auto-revert-non-file-buffers t
-        auto-revert-verbose nil
-	)
+        auto-revert-verbose nil)
   (with-eval-after-load 'diminish
-    (diminish 'auto-revert-mode)
-    )
+    (diminish 'auto-revert-mode))
   )
 
 (config-after-fetch-require 'diff-hl
-  ;; 左侧显示提示修改内容
+  "左侧显示提示修改内容."
   (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
   (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
   )
 
 (config-after-fetch-require 'highlight-escape-sequences
-  ;; 高亮转移部分
+  "高亮转移部分."
   (hes-mode)
   )
 
 (config-after-fetch-require 'smooth-scrolling
-  ;; 平滑鼠标滚动
+  "平滑鼠标滚动."
   (smooth-scrolling-mode t)
   )
 
 (config-after-fetch-require 'undo-tree
-  ;; 修改记录树
+  "修改记录树."
   (global-undo-tree-mode t)
   (with-eval-after-load 'diminish
     (diminish 'undo-tree-mode)
@@ -104,23 +105,23 @@
   )
 
 (config-after-fetch-require 'rainbow-delimiters
-  ;; 不同层括号颜色不同
+  "不同层括号颜色不同."
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
   )
 
 (config-after-fetch-require 'highlight-escape-sequences
-  ;; 高亮转义字符
+  "高亮转义字符."
   (hes-mode t)
   )
 
 (config-after-fetch-require 'move-dup
-  ;; 移动或者复制当前行
+  "移动或者复制当前行."
   (global-set-key [M-S-up] 'md/move-lines-up)
   (global-set-key [M-S-down] 'md/move-lines-down)
   )
 
 (config-after-fetch-require 'whole-line-or-region
-  ;; 选中一行或者特定的选区
+  "选中一行或者特定的选区."
   (whole-line-or-region-mode t)
   (diminish 'whole-line-or-region-mode)
   (make-variable-buffer-local 'whole-line-or-region-mode)
@@ -143,8 +144,8 @@
   )
 
 (config-bind-global-key [remap backward-up-list]
-  ;; 使用快捷键`C-M-u'跳到包围当前表达式、代码块或者字符串的前层括号处
-  ;; 解决`backwark-up-list'函数不能识别包围字符串的引号的问题
+  "使用快捷键`C-M-u'跳到包围当前表达式、代码块或者字符串的前层括号处,
+ 解决`backwark-up-list'函数不能识别包围字符串的引号的问题."
   (interactive "p")
   (let ((ppss (syntax-ppss)))
     (cond ((elt ppss 3)
@@ -155,38 +156,38 @@
   )
 
 (config-after-fetch-require 'ace-jump-mode
-  ;; 便捷跳转
+  "便捷跳转."
   (setq ace-jump-mode-case-fold t)
   (global-set-key (kbd "C-x j") 'ace-jump-mode)
   )
 
 (config-bind-global-key (kbd "RET")
-  ;; 创建新行使用和前面文本同样的缩进
+  "创建新行使用和前面文本同样的缩进."
   (newline-and-indent)
   )
 
 (config-bind-global-key (kbd "S-<return>")
-  ;; 下方创建一个新行，光标移到行首
+  "下方创建一个新行，光标移到行首."
   (move-end-of-line 1)
   (newline-and-indent)
   )
 
 (config-bind-global-key (kbd "S-M-<return>")
-  ;; 上方创建一个新行，光标移到行首
+  "上方创建一个新行，光标移到行首."
   (previous-line)
   (move-end-of-line 1)
   (newline-and-indent)
   )
 
 (config-bind-global-key (kbd "C-M-<backspace>")
-  ;; 从当前位置删除到行首缩进位置
+  "从当前位置删除到行首缩进位置."
   (let ((prev-pos (point)))
     (back-to-indentation)
     (kill-region (point) prev-pos))
   )
 
 (config-bind-global-key (kbd "C-M-\\")
-  ;; 选择区域或者全部内容执行缩进
+  "选择区域或者全部内容执行缩进."
   (save-excursion
     (if (not (string= major-mode "python-mode"))
 	(if (region-active-p)
@@ -289,7 +290,10 @@
 (config-after-fetch-require 'yasnippet
   (defconst yasnippet/snippet-dirs (expand-file-name "snippets" user-conf-dir))
   (add-to-list 'yas-snippet-dirs yasnippet/snippet-dirs)
-  (setq yas-snippet-dirs (delete* (expand-file-name "snippets" user-emacs-directory) yas-snippet-dirs :test 'string=))
+  (setq yas-snippet-dirs (delete*
+			  (expand-file-name "snippets" user-emacs-directory)
+			  yas-snippet-dirs
+			  :test 'string=))
   (add-to-list 'load-path yasnippet/snippet-dirs)
 
   (yas-global-mode t)
@@ -322,4 +326,9 @@
   )
 
 (provide 'init-editor)
-;;;  init-editor.el ends here
+
+;; Local Variables:
+;; coding: utf-8
+;; End:
+
+;;; init-editor.el ends here

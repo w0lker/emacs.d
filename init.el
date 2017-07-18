@@ -15,7 +15,8 @@
 (require 'package)
 (setq package-enable-at-startup nil
       package-user-dir (concat user-temp-dir "elpa")
-      package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+      package-archives '(("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+			 ("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
 			 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/"))
       )
 (package-initialize)
@@ -35,7 +36,6 @@
 (require 'init-tramp)
 
 (require 'init-projectile)
-(require 'init-magit)
 (require 'init-search)
 
 (require 'init-org)

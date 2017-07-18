@@ -13,8 +13,7 @@
     )
 
   (setq dired-recursive-deletes 'top
-	dired-dwim-target t
-	)
+	dired-dwim-target t)
   (define-key dired-mode-map [mouse-2] 'dired-find-file)
 
   (config-after-fetch-require 'dired+

@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: ;;; package -- ... ;;; Commentary:... ;;; Code:... ;; End:... ;;; ...
+# key: fcmt
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# contributor: w0lker.tg@gmail.com
+# --
+;;; package -- $1
+;;; Commentary: $2
+;;; Code:
+
+$0
+
+(provide '${3:`(file-name-sans-extension (file-name-nondirectory (buffer-file-name)))`})
+
+;; Local Variables:
+;; coding: utf-8
+;; End:
+
+;;; ${4:`(file-name-nondirectory (buffer-file-name))`} ends here
