@@ -23,8 +23,8 @@
 
 (eval-when-compile (require 'init-macro))
 
-(require 'init-theme)
 (require 'init-editor)
+(require 'init-theme)
 (require 'init-frame)
 (require 'init-window)
 (require 'init-evil)

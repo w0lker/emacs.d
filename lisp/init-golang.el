@@ -2,17 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
-(with-eval-after-load 'exec-path-from-shell
-  (exec-path-from-shell-copy-env "GOPATH")
-  )
-
 (config-after-fetch-require 'go-mode
 
   (config-add-hook 'go-mode-hook
-    ;; 基本配置.
     (add-hook 'before-save-hook 'gofmt-before-save)
-    (local-set-key (kbd "M-.") 'godef-jump)
-    (local-set-key (kbd "M-*") 'pop-tag-mark)
+    (local-set-key (kbd "C-c C-.") 'godef-jump)
+    (local-set-key (kbd "C-c C-*") 'pop-tag-mark)
     (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
 
     (config-after-fetch-require 'company-go
@@ -37,4 +32,9 @@
   )
 
 (provide 'init-golang)
-;;;  init-golang.el ends here
+
+;; Local Variables:
+;; coding: utf-8
+;; End:
+
+;;; init-golang.el ends here

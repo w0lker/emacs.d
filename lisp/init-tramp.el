@@ -31,4 +31,9 @@
   )
 
 (provide 'init-tramp)
-;;;  init-tramp.el ends here
+
+;; Local Variables:
+;; coding: utf-8
+;; End:
+
+;;; init-tramp.el ends here

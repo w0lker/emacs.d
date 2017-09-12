@@ -1,8 +1,8 @@
 ;;; package -- 编辑器配置
-;;; Commentary: 
+;;; Commentary:
 ;;; Code:
 
-(setq use-file-dialog nil
+(setq-default use-file-dialog nil
       use-dialog-box nil
       inhibit-startup-screen t ;; 禁止启动屏幕
       inhibit-startup-echo-area-message t ;; 不在scrach中显示信息

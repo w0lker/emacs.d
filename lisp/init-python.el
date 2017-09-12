@@ -78,10 +78,6 @@
   )
 
 (config-add-hook 'python-mode-hook
-  (setq indent-tabs-mode t
-	      tab-width 4
-	      py-indent-tabs-mode t
-	      )
   (add-to-list 'write-file-functions 'delete-trailing-whitespace)
 
   (if (executable-find "pyenv")
