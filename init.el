@@ -10,6 +10,7 @@
 
 (setq auto-save-list-file-prefix (concat user-temp-dir (file-name-as-directory "auto-save-list") "saves-")
       custom-file (concat user-temp-dir "custom.el") ;; 个性化配置文件目录
+      make-backup-files nil ;; 不启用文件备份，不会有已"~"结尾的文件产生
       )
 
 (require 'package)
@@ -40,12 +41,12 @@
 
 (require 'init-org)
 (require 'init-tex)
+(require 'init-web)
 (require 'init-python)
 (require 'init-cpp)
 (require 'init-golang)
 (require 'init-scala)
 (require 'init-lua)
-(require 'init-web)
 (require 'init-markdown)
 (require 'init-sql)
 (require 'init-shell)

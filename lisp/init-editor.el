@@ -3,29 +3,29 @@
 ;;; Code:
 
 (setq-default use-file-dialog nil
-      use-dialog-box nil
-      inhibit-startup-screen t ;; 禁止启动屏幕
-      inhibit-startup-echo-area-message t ;; 不在scrach中显示信息
-      initial-scratch-message nil ;; scratch默认不显示任何内容
-      jit-lock-defer-time 0.05 ;; 优化翻页速度
-      visible-bell t ;; 关闭出错蜂鸣声
-      ring-bell-function 'ignore
-      blink-cursor-interval 0.8 ;; 光标闪动频率
-      truncate-lines nil ;; 取消不管多少个空行只显示一行
-      truncate-partial-width-windows nil
-      show-trailing-whitespace t ;; 默认不显示空格信息
-      indent-tabs-mode nil ;; 使用空格代替 TAB 键
-      tab-width 4
-      delete-selection-mode t ;; 可以像普通编辑器一样用delete删除
-      kill-whole-line t ;; 同时删除末尾换行符
-      save-interprogram-paste-before-kill t ;; 自动将其它程序加入系统剪切板的内容加入 kill-ring
-      select-enable-primary nil ;; primary section中内容不放入系统剪切版
-      select-active-regions nil ;; 不把当前选中的选区中的内容放入primary section
-      select-enable-clipboard t ;; 剪切复制使用系统剪切板
-      set-mark-command-repeat-pop t ;; 打标记时，每次 C-SPC 算不同的标记记录
-      indicate-empty-lines nil ;; 空行显示一个标识
-      indicate-buffer-boundaries '((up . left) (down . left))
-      )
+              use-dialog-box nil
+              inhibit-startup-screen t ;; 禁止启动屏幕
+              inhibit-startup-echo-area-message t ;; 不在scrach中显示信息
+              initial-scratch-message nil ;; scratch默认不显示任何内容
+              jit-lock-defer-time 0.05 ;; 优化翻页速度
+              visible-bell t ;; 关闭出错蜂鸣声
+              ring-bell-function 'ignore
+              blink-cursor-interval 0.8 ;; 光标闪动频率
+              truncate-lines nil ;; 取消不管多少个空行只显示一行
+              truncate-partial-width-windows nil
+              show-trailing-whitespace t ;; 默认不显示空格信息
+              indent-tabs-mode nil ;; 使用空格代替 TAB 键
+              tab-width 4
+              delete-selection-mode t ;; 可以像普通编辑器一样用delete删除
+              kill-whole-line t ;; 同时删除末尾换行符
+              save-interprogram-paste-before-kill t ;; 自动将其它程序加入系统剪切板的内容加入 kill-ring
+              select-enable-primary nil ;; primary section中内容不放入系统剪切版
+              select-active-regions nil ;; 不把当前选中的选区中的内容放入primary section
+              select-enable-clipboard t ;; 剪切复制使用系统剪切板
+              set-mark-command-repeat-pop t ;; 打标记时，每次 C-SPC 算不同的标记记录
+              indicate-empty-lines nil ;; 空行显示一个标识
+              indicate-buffer-boundaries '((up . left) (down . left))
+              )
 
 (config-after-fetch-require 'cl-lib
   (eval-when-compile (require 'cl))
@@ -47,8 +47,8 @@
     ;; 获得shell的环境变量
     (config-after-fetch-require 'exec-path-from-shell
       (dolist (var '("TERM" "SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "LC_ALL" "PATH" "PS1"))
-	(add-to-list 'exec-path-from-shell-variables var)
-	)
+        (add-to-list 'exec-path-from-shell-variables var)
+        )
       (exec-path-from-shell-initialize)
       )
   )
@@ -65,7 +65,7 @@
 
 ;; 成对插入括号
 (setq electric-pair-pairs '((?\" . ?\")
-			    (?\{ . ?\})))
+                            (?\{ . ?\})))
 (electric-pair-mode 1)
 
 ;; 高亮匹配的括号
@@ -128,18 +128,18 @@
 
   (defun suspend-mode-during-cua-rect-selection (mode-name)
     (let ((flagvar (intern (format "%s-was-active-before-cua-rectangle" mode-name)))
-	  (advice-name (intern (format "suspend-%s" mode-name))))
+          (advice-name (intern (format "suspend-%s" mode-name))))
       (eval-after-load 'cua-rect
-	`(progn
-	   (defvar ,flagvar nil)
-	   (make-variable-buffer-local ',flagvar)
-	   (defadvice cua--activate-rectangle (after ,advice-name activate)
-	     (setq ,flagvar (and (boundp ',mode-name) ,mode-name))
-	     (when ,flagvar
-	       (,mode-name 0)))
-	   (defadvice cua--deactivate-rectangle (after ,advice-name activate)
-	     (when ,flagvar
-	       (,mode-name 1)))))))
+        `(progn
+           (defvar ,flagvar nil)
+           (make-variable-buffer-local ',flagvar)
+           (defadvice cua--activate-rectangle (after ,advice-name activate)
+             (setq ,flagvar (and (boundp ',mode-name) ,mode-name))
+             (when ,flagvar
+               (,mode-name 0)))
+           (defadvice cua--deactivate-rectangle (after ,advice-name activate)
+             (when ,flagvar
+               (,mode-name 1)))))))
   (suspend-mode-during-cua-rect-selection 'whole-line-or-region-mode)
   )
 
@@ -190,10 +190,10 @@
   "选择区域或者全部内容执行缩进."
   (save-excursion
     (if (not (string= major-mode "python-mode"))
-	(if (region-active-p)
-	    (indent-region (region-beginning) (region-end))
-	  (indent-region (point-min) (point-max) nil)
-	  )
+        (if (region-active-p)
+            (indent-region (region-beginning) (region-end))
+          (indent-region (point-min) (point-max) nil)
+          )
       (message "不支持python-mode")
       )
     )
@@ -201,8 +201,8 @@
 
 (config-after-require 'imenu
   (setq imenu-auto-rescan t ;; 设置自动重新索引
-	imenu-auto-rescan-maxout 20000
-	)
+        imenu-auto-rescan-maxout 20000
+        )
 
   (defun imenu-rescan ()
     "手动重新索引当前buffer."
@@ -230,39 +230,39 @@
   (add-hook 'after-init-hook 'global-company-mode)
 
   (setq company-idle-delay .5 ;; 弹出延迟时间，单位秒
-	company-minimum-prefix-length 3 ;; 输出指定前缀长度后触发自动补全
-	tab-always-indent 'complete ;; 首先尝试缩进，已经缩进的尝试补全
-	company-backends '((company-capf company-dabbrev-code company-keywords)
-			   company-files
-			   company-dabbrev)
-	)
+        company-minimum-prefix-length 3 ;; 输出指定前缀长度后触发自动补全
+        tab-always-indent 'complete ;; 首先尝试缩进，已经缩进的尝试补全
+        company-backends '((company-capf company-dabbrev-code company-keywords)
+                           company-files
+                           company-dabbrev)
+        )
 
   (define-key company-mode-map (kbd "M-/") 'company-complete)
   (define-key company-active-map (kbd "M-/") 'company-select-next)
 
   (custom-set-faces '(company-tooltip ((t :background "#403d3d"))) ;; 弹窗背景
-		    '(company-tooltip-selection ((t :foreground "#f62d6e" :background "#525151"))) ;; 选中选项颜色
-		    '(company-tooltip-common ((t :foreground "#f62d6e"))) ;; 前缀部分
-		    '(company-tooltip-common-selection ((t :foreground "#f62d6e"))) ;; 前缀选中部分
-		    '(company-tooltip-annotation ((t :foreground "#92e56d"))) ;; 注解部分
-		    '(company-scrollbar-bg ((t :background "#403d3d")))
-		    '(company-scrollbar-fg ((t :background "#f8f7f1")))
-		    )
+                    '(company-tooltip-selection ((t :foreground "#f62d6e" :background "#525151"))) ;; 选中选项颜色
+                    '(company-tooltip-common ((t :foreground "#f62d6e"))) ;; 前缀部分
+                    '(company-tooltip-common-selection ((t :foreground "#f62d6e"))) ;; 前缀选中部分
+                    '(company-tooltip-annotation ((t :foreground "#92e56d"))) ;; 注解部分
+                    '(company-scrollbar-bg ((t :background "#403d3d")))
+                    '(company-scrollbar-fg ((t :background "#f8f7f1")))
+                    )
 
   (if (memq window-system '(ns x))
       (config-after-fetch-require 'company-quickhelp
-	(setq company-quickhelp-delay nil)
-	(company-quickhelp-mode t)
-	(define-key company-active-map (kbd "M-h") 'company-quickhelp-manual-begin)
-	)
+        (setq company-quickhelp-delay nil)
+        (company-quickhelp-mode t)
+        (define-key company-active-map (kbd "M-h") 'company-quickhelp-manual-begin)
+        )
     )
 
   (config-after-require 'hippie-exp
     (setq hippie-expand-try-functions-list '(try-complete-file-name-partially
-					     try-complete-file-name
-					     try-expand-dabbrev
-					     try-expand-dabbrev-all-buffers
-					     try-expand-dabbrev-from-kill))
+                                             try-complete-file-name
+                                             try-expand-dabbrev
+                                             try-expand-dabbrev-all-buffers
+                                             try-expand-dabbrev-from-kill))
     (global-set-key (kbd "M-/") 'hippie-expand)
     )
 
@@ -275,14 +275,14 @@
     "添加 buffer 级别的 BACKEND 到 `company-backends'."
     (with-eval-after-load 'company
       (let* ((company/default-company-backends company-backends)
-	     (company/company-backends (remq (assoc 'company-capf company/default-company-backends)
-					     company/default-company-backends))
-	     (company/capf-backends (cdr (assoc 'company-capf company/default-company-backends)))
-	     )
-	(setq-local company-backends (push (cons 'company-capf
-						 (delete-dups (push backend company/capf-backends)))
-					   company/company-backends))
-	)
+             (company/company-backends (remq (assoc 'company-capf company/default-company-backends)
+                                             company/default-company-backends))
+             (company/capf-backends (cdr (assoc 'company-capf company/default-company-backends)))
+             )
+        (setq-local company-backends (push (cons 'company-capf
+                                                 (delete-dups (push backend company/capf-backends)))
+                                           company/company-backends))
+        )
       )
     )
   )
@@ -291,18 +291,18 @@
   (defconst yasnippet/snippet-dirs (expand-file-name "snippets" user-conf-dir))
   (add-to-list 'yas-snippet-dirs yasnippet/snippet-dirs)
   (setq yas-snippet-dirs (delete*
-			  (expand-file-name "snippets" user-emacs-directory)
-			  yas-snippet-dirs
-			  :test 'string=))
+                          (expand-file-name "snippets" user-emacs-directory)
+                          yas-snippet-dirs
+                          :test 'string=))
   (add-to-list 'load-path yasnippet/snippet-dirs)
 
   (yas-global-mode t)
 
   (config-after-fetch-require 'dropdown-list
     (setq yas-prompt-functions '(yas-dropdown-prompt
-				 yas-completing-prompt
-				 yas-maybe-ido-prompt
-				 yas-no-prompt))
+                                 yas-completing-prompt
+                                 yas-maybe-ido-prompt
+                                 yas-no-prompt))
     )
 
   (defun yasnippet/add-buffer-local-company-backend()
