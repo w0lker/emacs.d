@@ -4,12 +4,12 @@
 
 (config-after-require 'org
   (setq org-log-done 'time ;; 启动日志记录类型
-	org-catch-invisible-edits 'show ;; 防止编辑不可见字符造成的困惑
-	org-export-coding-system 'utf-8 ;; 导出为 UTF-8
-	org-html-validation-link nil ;; 导出 html 格式时不显示验证信息
-	org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
-				"xelatex -interaction nonstopmode %f") ;; 解决输出中文pdf问题
-	)
+        org-catch-invisible-edits 'show ;; 防止编辑不可见字符造成的困惑
+        org-export-coding-system 'utf-8 ;; 导出为 UTF-8
+        org-html-validation-link nil ;; 导出 html 格式时不显示验证信息
+        org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
+                                "xelatex -interaction nonstopmode %f") ;; 解决输出中文pdf问题
+        )
 
   ;; 支持markdown
   (config-after-require 'ox-md)
@@ -24,7 +24,10 @@
   (global-set-key (kbd "C-c b") 'org-iswitchb)
 
   (config-add-hook 'org-mode-hook
-    (yasnippet/add-buffer-local-company-backend)
+    (with-eval-after-load 'yasnippet
+      (yas-minor-mode 1)
+      (yasnippet/add-buffer-local-company-backend)
+      )
     )
   )
 

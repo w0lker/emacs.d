@@ -17,17 +17,19 @@
     (config-after-fetch-require 'go-eldoc
       (go-eldoc-setup)
       (with-eval-after-load 'diminish
-	(diminish 'eldoc-mode)
-	)
+        (diminish 'eldoc-mode)
+        )
       )
 
     (with-eval-after-load 'projectile
       (config-add-hook 'projectile-after-switch-project-hook
-	(go-set-project)
-	)
+        (go-set-project)
+        )
       )
 
-    (yasnippet/add-buffer-local-company-backend)
+    (with-eval-after-load 'yasnippet
+      (yasnippet/add-buffer-local-company-backend)
+      )
     )
   )
 

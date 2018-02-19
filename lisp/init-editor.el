@@ -296,14 +296,7 @@
                           :test 'string=))
   (add-to-list 'load-path yasnippet/snippet-dirs)
 
-  (yas-global-mode t)
-
-  (config-after-fetch-require 'dropdown-list
-    (setq yas-prompt-functions '(yas-dropdown-prompt
-                                 yas-completing-prompt
-                                 yas-maybe-ido-prompt
-                                 yas-no-prompt))
-    )
+  (yas-global-mode 1)
 
   (defun yasnippet/add-buffer-local-company-backend()
     "添加yasnippet的company后端."
