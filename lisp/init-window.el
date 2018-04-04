@@ -10,7 +10,7 @@
     (config-after-fetch-require 'ido-select-window
       (global-set-key (kbd "C-x o") 'ido-select-window))
     )
-  
+
   (config-bind-global-key (kbd "C-x 1")
     ;; 删除其它面板，如果没有其它面板就恢复前一个面板布局
     (if (and winner-mode (equal (selected-window) (next-window)))

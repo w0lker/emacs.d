@@ -22,7 +22,7 @@
 	(add-to-list 'default-frame-alist '(font . "Menlo-13"))
 	(set-fontset-font "fontset-default" 'han '("STHeiti"))
 	))
-  
+
   (config-add-hook 'after-make-console-frame-hooks
     ;; 控制台下 C-<方向键> 修复
     (let ((map (if (boundp 'input-decode-map)
@@ -43,7 +43,7 @@
 	(mwheel-install)
       )
     )
-  
+
   (if (and (eq system-type 'darwin) *is-frame*)
       (config-bind-global-key (kbd "C-M-f")
 	;; 使用C-M-f触发全屏模式
@@ -51,7 +51,7 @@
 	    (toggle-frame-fullscreen)
 	  )
 	))
-  
+
   (config-bind-global-key (kbd "C-z")
     ;; 控制台下使用`C-z`暂停程序
     (unless window-system (suspend-frame))
