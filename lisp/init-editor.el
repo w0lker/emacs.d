@@ -288,6 +288,8 @@
   )
 
 (config-after-fetch-require 'yasnippet
+  (config-after-fetch-require 'yasnippet-snippets)
+
   (defconst yasnippet/snippet-dirs (expand-file-name "snippets" user-conf-dir))
   (add-to-list 'yas-snippet-dirs yasnippet/snippet-dirs)
   (setq yas-snippet-dirs (delete*

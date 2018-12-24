@@ -16,9 +16,9 @@
 (require 'package)
 (setq package-enable-at-startup nil
       package-user-dir (concat user-temp-dir "elpa")
-      package-archives '(("org" . "http://elpa.emacs-china.org/org/")
-			 ("gnu" . "http://elpa.emacs-china.org/gnu/")
-			 ("melpa" . "http://elpa.emacs-china.org/melpa/")))
+      package-archives '(("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+			 ("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+			 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 (package-initialize)
 
 (eval-when-compile (require 'init-macro))
