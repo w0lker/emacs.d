@@ -8,12 +8,12 @@
 
 (config-after-fetch-require 'smart-mode-line
   (setq sml/no-confirm-load-theme t
-	sml/shorten-directory t
-	sml/shorten-modes t
-	sml/hidden-modes nil
-	sml/vc-mode-show-backend nil
-	sml/theme 'dark
-	)
+    sml/shorten-directory t
+    sml/shorten-modes t
+    sml/hidden-modes nil
+    sml/vc-mode-show-backend nil
+    sml/theme 'dark
+    )
   (sml/setup)
   )
 
@@ -21,10 +21,7 @@
 (set-face-attribute 'mode-line nil :box nil)
 
 ;; 不显示工具栏
-(tool-bar-mode -1)
-
-;; 不显示滚动条
-(scroll-bar-mode -1)
+(tool-bar-mode nil)
 
 ;; 显示时间
 (display-time-mode 1)
